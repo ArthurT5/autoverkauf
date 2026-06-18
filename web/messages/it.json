@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "howItWorks": "Come funziona",
+    "forDealers": "Per i concessionari",
+    "earlyAccess": "Accesso anticipato",
+    "findMyCar": "Trova la mia auto",
+    "login": "Accedi"
+  },
+  "hero": {
+    "badge": "In arrivo in Svizzera",
+    "headline1": "Smetti di cercare.",
+    "headline2": "I concessionari vengono da te.",
+    "subtitle": "Descrivi una volta cosa stai cercando. I concessionari svizzeri verificati esaminano la tua richiesta e ti inviano offerte corrispondenti.",
+    "cta": "Trova la mia auto — è gratuito",
+    "ctaSecondary": "Come funziona",
+    "pillar1": "Sempre gratuito per gli acquirenti",
+    "pillar2": "Solo concessionari verificati",
+    "pillar3": "I tuoi dati restano privati"
+  },
+  "wizard": {
+    "newRequest": "Nuova richiesta veicolo",
+    "stepOf": "Passo {current} di {total}",
+    "back": "Indietro",
+    "continue": "Continua",
+    "sendRequest": "Invia richiesta",
+    "budget": {
+      "title": "Qual è il tuo budget?",
+      "subtitle": "I concessionari inviano solo offerte entro questo intervallo.",
+      "from": "Da",
+      "to": "A",
+      "quickRange": "Selezione rapida"
+    },
+    "vehicle": {
+      "title": "Cosa stai cercando?",
+      "subtitle": "Sii specifico o aperto quanto vuoi — più ampio significa più offerte.",
+      "bodyType": "Tipo di carrozzeria",
+      "brands": "Marche preferite",
+      "brandsOptional": "opzionale",
+      "brandsPlaceholder": "Cerca marche…",
+      "yearRange": "Intervallo anni"
+    },
+    "specs": {
+      "title": "Preferenze tecniche",
+      "subtitle": "Scegli \"Qualsiasi\" per ricevere la più ampia gamma di offerte.",
+      "fuelType": "Tipo di carburante",
+      "transmission": "Trasmissione",
+      "maxMileage": "Chilometraggio massimo"
+    },
+    "features": {
+      "title": "Quali optional contano?",
+      "subtitle": "Tocca una volta per indispensabile, di nuovo per gradito, ancora per rimuovere.",
+      "mustHave": "Indispensabile",
+      "niceToHave": "Gradito",
+      "skip": "Puoi saltare questo passaggio — i concessionari invieranno offerte per qualsiasi configurazione."
+    },
+    "details": {
+      "title": "Quasi fatto",
+      "subtitle": "Alcuni ultimi dettagli per aiutare i concessionari a trovare il veicolo giusto.",
+      "location": "Il tuo cantone o città",
+      "locationPlaceholder": "es. Zurigo, Berna, Ginevra…",
+      "locationHint": "I concessionari vicino a te saranno prioritari.",
+      "notes": "Cos'altro dovrebbero sapere i concessionari?",
+      "notesOptional": "opzionale",
+      "notesPlaceholder": "es. Ho bisogno dell'auto entro fine marzo. Preferisco blu o nero. Aperto all'importazione.",
+      "whatNext": "Cosa succede dopo?",
+      "whatNextBody": "La tua richiesta viene condivisa con concessionari svizzeri verificati. La esaminano e rispondono direttamente nella tua dashboard. Nessuno spam, nessuna chiamata a freddo."
+    },
+    "success": {
+      "title": "Richiesta inviata",
+      "body": "I concessionari svizzeri verificati stanno esaminando la tua richiesta. Le offerte appariranno nella tua dashboard.",
+      "cta": "Vai alla dashboard"
+    },
+    "summary": {
+      "title": "La tua richiesta",
+      "budget": "Budget",
+      "vehicle": "Veicolo",
+      "specs": "Specifiche",
+      "features": "Optional"
+    }
+  },
+  "steps": {
+    "budget": "Budget",
+    "vehicle": "Veicolo",
+    "specs": "Specifiche",
+    "features": "Optional",
+    "details": "Dettagli"
+  },
+  "vehicleTypes": {
+    "any": "Qualsiasi",
+    "suv": "SUV",
+    "sedan": "Berlina",
+    "estate": "Station wagon",
+    "coupe": "Coupé",
+    "convertible": "Cabrio",
+    "van": "Monovolume",
+    "pickup": "Pickup"
+  },
+  "fuelTypes": {
+    "any": "Qualsiasi",
+    "petrol": "Benzina",
+    "diesel": "Diesel",
+    "electric": "Elettrico",
+    "hybrid": "Ibrido",
+    "phev": "Ibrido plug-in"
+  },
+  "transmissions": {
+    "any": "Qualsiasi",
+    "automatic": "Automatico",
+    "manual": "Manuale"
+  },
+  "dashboard": {
+    "buyer": {
+      "title": "La mia dashboard",
+      "activeRequests": "Richieste attive",
+      "newOffers": "Nuove offerte",
+      "unread": "Messaggi non letti",
+      "saved": "Offerte salvate",
+      "newRequest": "Nuova richiesta",
+      "viewOffers": "Vedi offerte",
+      "offers": "offerte"
+    }
+  },
+  "footer": {
+    "tagline": "Il modo migliore per comprare un'auto in Svizzera.",
+    "forBuyers": "Per gli acquirenti",
+    "forDealers": "Per i concessionari",
+    "company": "Azienda",
+    "howItWorks": "Come funziona",
+    "findYourCar": "Trova la tua auto",
+    "registerDealer": "Registrati come concessionario",
+    "dealerLogin": "Accesso concessionario",
+    "about": "Chi siamo",
+    "privacy": "Privacy",
+    "terms": "Termini",
+    "contact": "Contatto",
+    "rights": "Tutti i diritti riservati."
+  }
+}

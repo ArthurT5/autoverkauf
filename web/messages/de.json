@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "howItWorks": "So funktioniert's",
+    "forDealers": "Für Händler",
+    "earlyAccess": "Früher Zugang",
+    "findMyCar": "Auto finden",
+    "login": "Anmelden"
+  },
+  "hero": {
+    "badge": "Bald verfügbar in der Schweiz",
+    "headline1": "Nicht mehr suchen.",
+    "headline2": "Händler kommen zu dir.",
+    "subtitle": "Beschreibe einmal, was du suchst. Geprüfte Schweizer Autohändler prüfen deine Anfrage und schicken dir passende Angebote.",
+    "cta": "Auto finden — kostenlos",
+    "ctaSecondary": "So funktioniert's",
+    "pillar1": "Für Käufer immer kostenlos",
+    "pillar2": "Nur geprüfte Händler",
+    "pillar3": "Deine Kontaktdaten bleiben privat"
+  },
+  "wizard": {
+    "newRequest": "Neue Fahrzeuganfrage",
+    "stepOf": "Schritt {current} von {total}",
+    "back": "Zurück",
+    "continue": "Weiter",
+    "sendRequest": "Anfrage senden",
+    "budget": {
+      "title": "Was ist dein Budget?",
+      "subtitle": "Händler senden nur Angebote innerhalb dieses Bereichs.",
+      "from": "Von",
+      "to": "Bis",
+      "quickRange": "Schnellauswahl"
+    },
+    "vehicle": {
+      "title": "Was suchst du?",
+      "subtitle": "Sei so spezifisch oder offen wie du möchtest — breiter bedeutet mehr Angebote.",
+      "bodyType": "Karosserietyp",
+      "brands": "Bevorzugte Marken",
+      "brandsOptional": "optional",
+      "brandsPlaceholder": "Marken suchen…",
+      "yearRange": "Jahresbereich"
+    },
+    "specs": {
+      "title": "Technische Präferenzen",
+      "subtitle": "Wähle \"Egal\" für die breiteste Angebotsauswahl.",
+      "fuelType": "Kraftstoffart",
+      "transmission": "Getriebe",
+      "maxMileage": "Maximale Kilometerleistung"
+    },
+    "features": {
+      "title": "Welche Ausstattung ist wichtig?",
+      "subtitle": "Einmal tippen = Muss, nochmals = Wäre schön, nochmals = Entfernen.",
+      "mustHave": "Muss haben",
+      "niceToHave": "Wäre schön",
+      "skip": "Du kannst diesen Schritt überspringen — Händler senden auch Angebote ohne Ausstattungswunsch."
+    },
+    "details": {
+      "title": "Fast geschafft",
+      "subtitle": "Noch ein paar Details, damit Händler das richtige Fahrzeug für dich finden.",
+      "location": "Dein Kanton oder deine Stadt",
+      "locationPlaceholder": "z.B. Zürich, Bern, Genf…",
+      "locationHint": "Händler in deiner Nähe werden bevorzugt.",
+      "notes": "Was sollen Händler sonst noch wissen?",
+      "notesOptional": "optional",
+      "notesPlaceholder": "z.B. Ich brauche das Auto bis Ende März. Bevorzuge Blau oder Schwarz. Offen für Import aus Deutschland.",
+      "whatNext": "Was passiert als nächstes?",
+      "whatNextBody": "Deine Anfrage wird mit geprüften Schweizer Autohändlern geteilt. Diese prüfen sie und antworten direkt in deinem Dashboard. Kein Spam, keine Kaltanrufe — deine Kontaktdaten bleiben privat."
+    },
+    "success": {
+      "title": "Anfrage gesendet",
+      "body": "Geprüfte Schweizer Händler prüfen deine Anfrage. Angebote erscheinen in deinem Dashboard.",
+      "cta": "Zum Dashboard"
+    },
+    "summary": {
+      "title": "Deine Anfrage",
+      "budget": "Budget",
+      "vehicle": "Fahrzeug",
+      "specs": "Technik",
+      "features": "Ausstattung"
+    }
+  },
+  "steps": {
+    "budget": "Budget",
+    "vehicle": "Fahrzeug",
+    "specs": "Technik",
+    "features": "Ausstattung",
+    "details": "Details"
+  },
+  "vehicleTypes": {
+    "any": "Egal",
+    "suv": "SUV",
+    "sedan": "Limousine",
+    "estate": "Kombi",
+    "coupe": "Coupé",
+    "convertible": "Cabrio",
+    "van": "Van",
+    "pickup": "Pickup"
+  },
+  "fuelTypes": {
+    "any": "Egal",
+    "petrol": "Benzin",
+    "diesel": "Diesel",
+    "electric": "Elektro",
+    "hybrid": "Hybrid",
+    "phev": "Plug-in-Hybrid"
+  },
+  "transmissions": {
+    "any": "Egal",
+    "automatic": "Automatik",
+    "manual": "Schaltgetriebe"
+  },
+  "dashboard": {
+    "buyer": {
+      "title": "Mein Dashboard",
+      "activeRequests": "Aktive Anfragen",
+      "newOffers": "Neue Angebote",
+      "unread": "Ungelesene Nachrichten",
+      "saved": "Gespeicherte Angebote",
+      "newRequest": "Neue Anfrage",
+      "viewOffers": "Angebote anzeigen",
+      "offers": "Angebote"
+    }
+  },
+  "footer": {
+    "tagline": "Der bessere Weg, ein Auto in der Schweiz zu kaufen.",
+    "forBuyers": "Für Käufer",
+    "forDealers": "Für Händler",
+    "company": "Unternehmen",
+    "howItWorks": "So funktioniert's",
+    "findYourCar": "Auto finden",
+    "registerDealer": "Als Händler registrieren",
+    "dealerLogin": "Händler-Login",
+    "about": "Über uns",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "contact": "Kontakt",
+    "rights": "Alle Rechte vorbehalten."
+  }
+}

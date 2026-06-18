@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "howItWorks": "How it works",
+    "forDealers": "For dealers",
+    "earlyAccess": "Early access",
+    "findMyCar": "Find my car",
+    "login": "Log in"
+  },
+  "hero": {
+    "badge": "Launching in Switzerland",
+    "headline1": "Stop searching.",
+    "headline2": "Dealers come to you.",
+    "subtitle": "Describe the car you want once. Verified Swiss dealerships review your request and compete by sending you matching offers.",
+    "cta": "Find my car — it's free",
+    "ctaSecondary": "See how it works",
+    "pillar1": "Free for buyers — always",
+    "pillar2": "Verified dealerships only",
+    "pillar3": "Your contact details stay private"
+  },
+  "wizard": {
+    "newRequest": "New vehicle request",
+    "stepOf": "Step {current} of {total}",
+    "back": "Back",
+    "continue": "Continue",
+    "sendRequest": "Send request",
+    "budget": {
+      "title": "What's your budget?",
+      "subtitle": "Dealers only send offers within your range.",
+      "from": "From",
+      "to": "To",
+      "quickRange": "Quick range"
+    },
+    "vehicle": {
+      "title": "What are you looking for?",
+      "subtitle": "Be as specific or open as you like — broader means more offers.",
+      "bodyType": "Body type",
+      "brands": "Preferred brands",
+      "brandsOptional": "optional",
+      "brandsPlaceholder": "Search brands…",
+      "yearRange": "Year range"
+    },
+    "specs": {
+      "title": "Technical preferences",
+      "subtitle": "Choose \"Any\" to receive the broadest range of offers.",
+      "fuelType": "Fuel type",
+      "transmission": "Transmission",
+      "maxMileage": "Maximum mileage"
+    },
+    "features": {
+      "title": "Which features matter?",
+      "subtitle": "Tap once for must-have, again for nice-to-have, once more to clear.",
+      "mustHave": "Must have",
+      "niceToHave": "Nice to have",
+      "skip": "You can skip this step — dealers will send offers for any configuration."
+    },
+    "details": {
+      "title": "Almost there",
+      "subtitle": "A few last details to help dealers find you the right match.",
+      "location": "Your canton or city",
+      "locationPlaceholder": "e.g. Zurich, Bern, Geneva…",
+      "locationHint": "Dealers near you will be prioritised.",
+      "notes": "Anything else dealers should know",
+      "notesOptional": "optional",
+      "notesPlaceholder": "e.g. I need the car by end of March. Prefer blue or black. Open to German import.",
+      "whatNext": "What happens next",
+      "whatNextBody": "Your request is shared with verified Swiss dealerships. They review it and respond directly in your dashboard. No spam, no cold calls — your contact details stay private until you decide to share them."
+    },
+    "success": {
+      "title": "Request sent",
+      "body": "Verified Swiss dealerships are reviewing your request. Offers will appear in your dashboard.",
+      "cta": "Go to dashboard"
+    },
+    "summary": {
+      "title": "Your request",
+      "budget": "Budget",
+      "vehicle": "Vehicle",
+      "specs": "Specs",
+      "features": "Features"
+    }
+  },
+  "steps": {
+    "budget": "Budget",
+    "vehicle": "Vehicle",
+    "specs": "Specs",
+    "features": "Features",
+    "details": "Details"
+  },
+  "vehicleTypes": {
+    "any": "Any",
+    "suv": "SUV",
+    "sedan": "Sedan",
+    "estate": "Estate",
+    "coupe": "Coupé",
+    "convertible": "Convertible",
+    "van": "Van",
+    "pickup": "Pickup"
+  },
+  "fuelTypes": {
+    "any": "Any",
+    "petrol": "Petrol",
+    "diesel": "Diesel",
+    "electric": "Electric",
+    "hybrid": "Hybrid",
+    "phev": "Plug-in Hybrid"
+  },
+  "transmissions": {
+    "any": "Any",
+    "automatic": "Automatic",
+    "manual": "Manual"
+  },
+  "dashboard": {
+    "buyer": {
+      "title": "My Dashboard",
+      "activeRequests": "Active requests",
+      "newOffers": "New offers",
+      "unread": "Unread messages",
+      "saved": "Saved offers",
+      "newRequest": "New request",
+      "viewOffers": "View offers",
+      "offers": "offers"
+    }
+  },
+  "footer": {
+    "tagline": "The smarter way to buy a car in Switzerland.",
+    "forBuyers": "For buyers",
+    "forDealers": "For dealers",
+    "company": "Company",
+    "howItWorks": "How it works",
+    "findYourCar": "Find your car",
+    "registerDealer": "Register as dealer",
+    "dealerLogin": "Dealer login",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  }
+}
