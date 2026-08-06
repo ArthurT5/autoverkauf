@@ -1,7 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useWizardStore } from "@/store/request-wizard";
+import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { useWizardStore, type WizardData } from "@/store/request-wizard";
 import { StepBudget } from "./step-budget";
 import { StepVehicle } from "./step-vehicle";
 import { StepSpecs } from "./step-specs";
@@ -11,13 +13,34 @@ import { WizardSummary } from "./wizard-summary";
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, Check } from "lucide-react";
 
-const STEPS = [
-  { label: "Budget", desc: "Price range" },
-  { label: "Vehicle", desc: "Type & brand" },
-  { label: "Specs", desc: "Fuel & mileage" },
-  { label: "Features", desc: "Equipment" },
-  { label: "Details", desc: "Location & notes" },
-];
+/** map wizard fields to the /api/requests payload shape */
+function toPayload(data: WizardData) {
+  return {
+    budgetMin: data.budgetMin,
+    budgetMax: data.budgetMax,
+    bodyTypes: data.vehicleType === "any" ? [] : [data.vehicleType],
+    brands: data.brands,
+    yearMin: data.yearFrom,
+    yearMax: data.yearTo,
+    fuelTypes: data.fuelType === "any" ? [] : [data.fuelType],
+    transmissions: data.transmission === "any" ? [] : [data.transmission],
+    mileageMax: data.maxMileage,
+    mustHave: data.requiredFeatures,
+    niceToHave: data.niceFeatures,
+    canton: data.location || null,
+    notes: data.notes || null,
+  };
+}
+
+async function postRequest(data: WizardData): Promise<Response> {
+  return fetch("/api/requests", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(toPayload(data)),
+  });
+}
+
+const STEP_KEYS = ["budget", "vehicle", "specs", "features", "details"] as const;
 
 const STEP_COMPONENTS = [StepBudget, StepVehicle, StepSpecs, StepFeatures, StepDetails];
 
@@ -36,6 +59,7 @@ function Logo() {
 }
 
 function SuccessState() {
+  const t = useTranslations("wizard.success");
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 text-center">
       <motion.div
@@ -52,16 +76,16 @@ function SuccessState() {
         transition={{ delay: 0.15, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
       >
         <h2 className="text-[1.75rem] font-semibold tracking-tight text-[oklch(0.112_0.012_27.0)] mb-2">
-          Request sent
+          {t("title")}
         </h2>
         <p className="text-[oklch(0.468_0.012_27.0)] text-[15px] max-w-sm leading-relaxed mb-8">
-          Verified Swiss dealerships are reviewing your request. Offers will appear in your dashboard.
+          {t("body")}
         </p>
         <button
           onClick={() => (window.location.href = "/buyer/dashboard")}
           className="inline-flex items-center gap-2 px-6 py-3 bg-[oklch(0.448_0.228_27.3)] text-white text-[14px] font-medium rounded-lg hover:bg-[oklch(0.400_0.218_27.3)] transition-colors duration-150 cursor-pointer"
         >
-          Go to dashboard
+          {t("cta")}
           <ArrowRight className="w-4 h-4" />
         </button>
       </motion.div>
@@ -69,16 +93,169 @@ function SuccessState() {
   );
 }
 
+const AUTH_FIELD =
+  "w-full rounded-xl border border-[oklch(0.920_0.006_27.0)] bg-white px-4 py-3 text-[14px] text-[oklch(0.112_0.012_27.0)] outline-none transition focus:border-[oklch(0.448_0.228_27.3)] focus:ring-2 focus:ring-[oklch(0.448_0.228_27.3)]/20";
+
+/** Shown when the request POST returns 401: create an account (or sign in)
+ *  without leaving the wizard, then the request is retried automatically. */
+function AuthPanel({ onDone }: { onDone: () => Promise<void> }) {
+  const t = useTranslations("wizard.auth");
+  const [mode, setMode] = useState<"signup" | "signin">("signup");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleAuth(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      if (mode === "signup") {
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, name, role: "BUYER" }),
+        });
+        if (res.status === 409) {
+          setMode("signin");
+          setError(t("emailTaken"));
+          setLoading(false);
+          return;
+        }
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error ?? t("createFailed"));
+        }
+      }
+      const signRes = await signIn("credentials", { email, password, redirect: false });
+      if (signRes?.error) throw new Error(t("invalid"));
+      await onDone();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t("generic"));
+      setLoading(false);
+    }
+  }
+
+  return (
+    <motion.div
+      initial={{ y: 12, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <h2 className="text-[1.4rem] font-semibold tracking-tight text-[oklch(0.112_0.012_27.0)]">
+        {mode === "signup" ? t("title") : t("signinTitle")}
+      </h2>
+      <p className="mt-1.5 text-[14px] leading-relaxed text-[oklch(0.468_0.012_27.0)]">
+        {mode === "signup" ? t("subtitle") : t("signinSubtitle")}
+      </p>
+
+      <form onSubmit={handleAuth} className="mt-6 space-y-4">
+        {mode === "signup" && (
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            autoComplete="name"
+            placeholder={t("namePh")}
+            className={AUTH_FIELD}
+          />
+        )}
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          autoComplete="email"
+          placeholder={t("emailPh")}
+          className={AUTH_FIELD}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={8}
+          autoComplete={mode === "signup" ? "new-password" : "current-password"}
+          placeholder={mode === "signup" ? t("passwordNewPh") : t("passwordPh")}
+          className={AUTH_FIELD}
+        />
+
+        {error && (
+          <p className="rounded-lg bg-red-50 px-4 py-3 text-[13px] text-red-700">{error}</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.448_0.228_27.3)] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-150 hover:bg-[oklch(0.400_0.218_27.3)] disabled:opacity-60 cursor-pointer"
+        >
+          {loading ? t("sending") : mode === "signup" ? t("submitSignup") : t("submitSignin")}
+          {!loading && <ArrowRight className="h-4 w-4" />}
+        </button>
+      </form>
+
+      <button
+        type="button"
+        onClick={() => { setMode(mode === "signup" ? "signin" : "signup"); setError(""); }}
+        className="mt-5 text-[13.5px] text-[oklch(0.468_0.012_27.0)] hover:text-[oklch(0.112_0.012_27.0)] transition-colors cursor-pointer"
+      >
+        {mode === "signup" ? t("toSignin") : t("toSignup")}
+      </button>
+    </motion.div>
+  );
+}
+
 export function RequestWizard() {
+  const t = useTranslations("wizard");
+  const tSteps = useTranslations("steps");
+  const tDesc = useTranslations("stepsDesc");
   const { step, nextStep, prevStep, data } = useWizardStore();
   const [direction, setDirection] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [needsAuth, setNeedsAuth] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const StepComponent = STEP_COMPONENTS[step - 1];
 
   const handleNext = () => { setDirection(1); nextStep(); };
   const handlePrev = () => { setDirection(-1); prevStep(); };
+
+  const sendRequest = async () => {
+    const res = await postRequest(data);
+    if (res.status === 401) {
+      setNeedsAuth(true);
+      return;
+    }
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error ?? t("auth.sendFailed"));
+    }
+    setSubmitted(true);
+  };
+
   const handleSubmit = async () => {
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      await sendRequest();
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : t("auth.generic"));
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // called by AuthPanel after successful sign-in; errors surface in the panel
+  const retryAfterAuth = async () => {
+    const res = await postRequest(data);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error ?? t("auth.sendFailed"));
+    }
     setSubmitted(true);
   };
 
@@ -97,12 +274,12 @@ export function RequestWizard() {
         <aside className="hidden lg:flex flex-col w-[260px] shrink-0 border-r border-[oklch(0.920_0.006_27.0)] bg-white px-6 pt-10 pb-8 gap-8">
           {/* Step list */}
           <nav className="space-y-1">
-            {STEPS.map((s, i) => {
+            {STEP_KEYS.map((key, i) => {
               const num = i + 1;
               const done = num < step;
               const active = num === step;
               return (
-                <div key={s.label} className="flex items-center gap-3 py-2">
+                <div key={key} className="flex items-center gap-3 py-2">
                   <div
                     className={[
                       "w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-semibold shrink-0 transition-all duration-200",
@@ -126,9 +303,9 @@ export function RequestWizard() {
                           : "text-[oklch(0.700_0.008_27.0)]",
                       ].join(" ")}
                     >
-                      {s.label}
+                      {tSteps(key)}
                     </div>
-                    <div className="text-[11px] text-[oklch(0.700_0.008_27.0)] mt-0.5">{s.desc}</div>
+                    <div className="text-[11px] text-[oklch(0.700_0.008_27.0)] mt-0.5">{tDesc(key)}</div>
                   </div>
                 </div>
               );
@@ -142,7 +319,7 @@ export function RequestWizard() {
 
           {/* Privacy note */}
           <div className="text-[11px] text-[oklch(0.700_0.008_27.0)] leading-relaxed border-t border-[oklch(0.920_0.006_27.0)] pt-4">
-            Your contact details are never shared with dealers without your consent.
+            {t("privacyNote")}
           </div>
         </aside>
 
@@ -151,7 +328,7 @@ export function RequestWizard() {
           {/* Mobile stepper */}
           <div className="lg:hidden px-4 py-4 border-b border-[oklch(0.920_0.006_27.0)] bg-white">
             <div className="flex items-center gap-2">
-              {STEPS.map((_, i) => {
+              {STEP_KEYS.map((_, i) => {
                 const num = i + 1;
                 const done = num < step;
                 const active = num === step;
@@ -170,10 +347,10 @@ export function RequestWizard() {
             </div>
             <div className="flex items-center justify-between mt-2">
               <span className="text-[12px] font-medium text-[oklch(0.448_0.228_27.3)]">
-                {STEPS[step - 1].label}
+                {tSteps(STEP_KEYS[step - 1])}
               </span>
               <span className="text-[12px] text-[oklch(0.700_0.008_27.0)]">
-                {step} of {STEPS.length}
+                {t("stepOf", { current: step, total: STEP_KEYS.length })}
               </span>
             </div>
           </div>
@@ -182,56 +359,70 @@ export function RequestWizard() {
           <div className="flex-1 flex flex-col items-center px-6 pt-10 pb-6 lg:px-12 lg:pt-14">
             <div className="w-full max-w-[560px]">
               <div className="min-h-[440px] relative">
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={step}
-                    custom={direction}
-                    initial={{ x: direction > 0 ? 28 : -28, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: direction > 0 ? -28 : 28, opacity: 0 }}
-                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <StepComponent />
-                  </motion.div>
-                </AnimatePresence>
+                {needsAuth ? (
+                  <AuthPanel onDone={retryAfterAuth} />
+                ) : (
+                  <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                      key={step}
+                      custom={direction}
+                      initial={{ x: direction > 0 ? 28 : -28, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: direction > 0 ? -28 : 28, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <StepComponent />
+                    </motion.div>
+                  </AnimatePresence>
+                )}
               </div>
 
               {/* Navigation */}
               <div className="flex items-center justify-between pt-8 mt-8 border-t border-[oklch(0.920_0.006_27.0)]">
                 <button
-                  onClick={handlePrev}
-                  disabled={step === 1}
+                  onClick={needsAuth ? () => setNeedsAuth(false) : handlePrev}
+                  disabled={!needsAuth && step === 1}
                   className="inline-flex items-center gap-2 text-[13px] font-medium text-[oklch(0.468_0.012_27.0)] hover:text-[oklch(0.112_0.012_27.0)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-150 cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
-                  Back
+                  {t("back")}
                 </button>
 
                 <div className="flex items-center gap-3">
                   {/* Step counter */}
-                  <span className="text-[12px] text-[oklch(0.700_0.008_27.0)] hidden sm:block">
-                    Step {step} of {STEPS.length}
-                  </span>
+                  {!needsAuth && (
+                    <span className="text-[12px] text-[oklch(0.700_0.008_27.0)] hidden sm:block">
+                      {t("stepOf", { current: step, total: STEP_KEYS.length })}
+                    </span>
+                  )}
 
-                  {step < 5 ? (
+                  {!needsAuth && step < 5 && (
                     <button
                       onClick={handleNext}
                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-[oklch(0.112_0.012_27.0)] text-white text-[13px] font-medium rounded-lg hover:bg-[oklch(0.200_0.012_27.0)] active:scale-[0.98] transition-all duration-150 cursor-pointer"
                     >
-                      Continue
+                      {t("continue")}
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
-                  ) : (
+                  )}
+                  {!needsAuth && step === 5 && (
                     <button
                       onClick={handleSubmit}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[oklch(0.448_0.228_27.3)] text-white text-[13px] font-medium rounded-lg hover:bg-[oklch(0.400_0.218_27.3)] active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                      disabled={submitting}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[oklch(0.448_0.228_27.3)] text-white text-[13px] font-medium rounded-lg hover:bg-[oklch(0.400_0.218_27.3)] active:scale-[0.98] transition-all duration-150 disabled:opacity-60 cursor-pointer"
                     >
-                      Send request
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      {submitting ? t("auth.sending") : t("sendRequest")}
+                      {!submitting && <ArrowRight className="w-3.5 h-3.5" />}
                     </button>
                   )}
                 </div>
               </div>
+
+              {submitError && !needsAuth && (
+                <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-[13px] text-red-700">
+                  {submitError}
+                </p>
+              )}
             </div>
           </div>
         </div>

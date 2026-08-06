@@ -7,15 +7,113 @@
     "login": "Log in"
   },
   "hero": {
-    "badge": "Launching in Switzerland",
-    "headline1": "Stop searching.",
-    "headline2": "Dealers come to you.",
+    "badge": "Built for Switzerland",
+    "headline1": "Your next car,",
+    "headline2": "brought to you.",
     "subtitle": "Describe the car you want once. Verified Swiss dealerships review your request and compete by sending you matching offers.",
     "cta": "Find my car — it's free",
     "ctaSecondary": "See how it works",
     "pillar1": "Free for buyers — always",
     "pillar2": "Verified dealerships only",
     "pillar3": "Your contact details stay private"
+  },
+  "how": {
+    "heading": "From request to offer.",
+    "sub": "Four steps. Scroll to watch your next car find you.",
+    "scrollHint": "Scroll",
+    "scenes": {
+      "request": {
+        "step": "01",
+        "title": "Describe your car",
+        "body": "Budget, brand, fuel, features — tell the platform what you want, once."
+      },
+      "takeover": {
+        "step": "02",
+        "title": "The platform takes over",
+        "body": "Your request enters the system. Now it works for you."
+      },
+      "respond": {
+        "step": "03",
+        "title": "Verified dealers respond",
+        "body": "The right Swiss dealerships are matched — only the ones that fit."
+      },
+      "arrive": {
+        "step": "04",
+        "title": "Offers come to you",
+        "body": "Matching vehicles arrive in your dashboard. You did nothing but ask."
+      },
+      "compare": {
+        "step": "05",
+        "title": "Compare in one place",
+        "body": "Every offer lines up — price, mileage, match — side by side."
+      },
+      "decide": {
+        "step": "06",
+        "title": "Choose with confidence",
+        "body": "Pick the best offer and connect with the dealer."
+      }
+    },
+    "ui": {
+      "formTitle": "New request",
+      "budget": "Budget",
+      "brand": "Brand",
+      "fuel": "Fuel",
+      "year": "Year",
+      "submit": "Send to verified dealers",
+      "sent": "Request sent",
+      "notifying": "Notifying matched dealers",
+      "newRequest": "New request",
+      "match": "match",
+      "viewOffer": "View offer",
+      "bestMatch": "Best match",
+      "choose": "Choose offer",
+      "accepted": "Offer accepted",
+      "formQ": "What are you looking for?",
+      "matching": "Matching across all 26 cantons…",
+      "yourRequest": "Your request",
+      "vehicle": "Hybrid SUV",
+      "yourOffers": "Your offers",
+      "newCount": "3 new",
+      "accept": "Accept this offer",
+      "lBudget": "Budget",
+      "vBudget": "CHF 35–50k",
+      "lBody": "Body type",
+      "vBody": "SUV",
+      "lFuel": "Fuel",
+      "vFuel": "Hybrid",
+      "lTrans": "Transmission",
+      "vTrans": "Automatic",
+      "lMileage": "Mileage",
+      "vMileage": "< 60,000 km",
+      "lLocation": "Location",
+      "vLocation": "Zürich"
+    },
+    "eyebrow": "How It Works"
+  },
+  "cta": {
+    "heading": "Ready to find your next car?",
+    "body": "Describe what you want once. Verified Swiss dealerships send you their best offers — you choose.",
+    "primary": "Find my car — it's free",
+    "secondary": "Register as a dealer",
+    "trust": "Free for buyers · No spam · Your details stay private"
+  },
+  "stats": {
+    "heading1": "What you can count on.",
+    "heading2": "",
+    "lead": "Verified dealers across all <c></c> cantons, available in <l></l> languages.",
+    "free": {
+      "title": "Free for buyers",
+      "body": "No fees and no commission — ever. You only pay the dealer, for the car you choose."
+    },
+    "verified": {
+      "title": "Verified dealerships only",
+      "body": "Every dealer is manually reviewed and approved before they can reach buyers."
+    },
+    "control": {
+      "title": "You stay in control",
+      "body": "No calls or emails outside the platform until you choose to share your details."
+    },
+    "eyebrow": "The Platform"
   },
   "wizard": {
     "newRequest": "New vehicle request",
@@ -51,7 +149,8 @@
       "subtitle": "Tap once for must-have, again for nice-to-have, once more to clear.",
       "mustHave": "Must have",
       "niceToHave": "Nice to have",
-      "skip": "You can skip this step — dealers will send offers for any configuration."
+      "skip": "You can skip this step — dealers will send offers for any configuration.",
+      "selected": "{count} selected"
     },
     "details": {
       "title": "Almost there",
@@ -76,6 +175,27 @@
       "vehicle": "Vehicle",
       "specs": "Specs",
       "features": "Features"
+    },
+    "privacyNote": "Your contact details are never shared with dealers without your consent.",
+    "auth": {
+      "title": "One last step",
+      "subtitle": "Create a free account so dealers can send offers to your dashboard. Your contact details stay private.",
+      "signinTitle": "Welcome back",
+      "signinSubtitle": "Sign in to send your request.",
+      "namePh": "Your name",
+      "emailPh": "you@example.com",
+      "passwordNewPh": "Password (min. 8 characters)",
+      "passwordPh": "Password",
+      "submitSignup": "Create account & send request",
+      "submitSignin": "Sign in & send request",
+      "sending": "Sending request…",
+      "emailTaken": "This email is already registered — sign in instead.",
+      "createFailed": "Could not create your account.",
+      "invalid": "Invalid email or password.",
+      "generic": "Something went wrong.",
+      "toSignin": "Already have an account? Sign in",
+      "toSignup": "New here? Create a free account",
+      "sendFailed": "Your request could not be sent. Please try again."
     }
   },
   "steps": {
@@ -134,5 +254,313 @@
     "terms": "Terms",
     "contact": "Contact",
     "rights": "All rights reserved."
+  },
+  "forDealers": {
+    "eyebrow": "For dealerships",
+    "heading": "Reach buyers who already want your car.",
+    "body": "Instead of paying for ads and chasing leads, you receive direct requests from buyers who have already decided what they want and what they can spend. Just send your best offer.",
+    "apply": "Apply as a dealer",
+    "demo": "View demo dashboard",
+    "b1t": "Pre-qualified buyers",
+    "b1b": "Every buyer has already set their budget and requirements. No tyre-kickers.",
+    "b2t": "Compete on quality",
+    "b2b": "Your vehicle, price and service win the deal — not your ad spend.",
+    "b3t": "Performance analytics",
+    "b3b": "Track acceptance rates, response times and revenue from your dealer dashboard.",
+    "b4t": "Verified network",
+    "b4b": "Only licensed Swiss dealerships are approved. Your reputation stays protected."
+  },
+  "next": {
+    "eyebrow": "Transparency",
+    "heading": "What happens after you submit?",
+    "s1title": "Your request enters the system",
+    "s1body": "Describe the car you want, once. Your contact details stay completely private — dealers only see your vehicle preferences.",
+    "s2title": "Verified dealers are notified",
+    "s2body": "Licensed Swiss dealers in your region are automatically matched to your request — only those who can genuinely help.",
+    "s3title": "Offers come directly to you",
+    "s3body": "Compare all offers side by side in your dashboard. No spam, no cold calls. You decide who you contact."
+  },
+  "coverage": {
+    "eyebrow": "Switzerland-wide coverage",
+    "heading": "All 26 cantons.",
+    "sub": "Verified dealers in every region — from Geneva to St. Gallen, from Basel to Lugano.",
+    "cantons": "Cantons",
+    "languages": "Languages",
+    "free": "Free for buyers",
+    "dealers": "dealers in the region"
+  },
+  "faq": {
+    "heading": "Common questions.",
+    "contactPre": "Can't find what you're looking for? ",
+    "contactLink": "Contact us.",
+    "items": [
+      {
+        "q": "Is AutoVerkauf free for buyers?",
+        "a": "Yes, completely. Buyers never pay anything. We earn from dealership subscriptions, not from you."
+      },
+      {
+        "q": "How do I know dealers are trustworthy?",
+        "a": "Every dealer is manually verified. We check business registration and dealer licences before approving any dealership, and you can see each dealer's profile before you respond."
+      },
+      {
+        "q": "What happens if I don't like any offers?",
+        "a": "Nothing. You have zero obligation to accept any offer. Your request simply expires after 30 days, and you can create a new one anytime."
+      },
+      {
+        "q": "Can dealers contact me by phone?",
+        "a": "No. All communication stays inside AutoVerkauf until you choose to share your contact details with a specific dealer."
+      },
+      {
+        "q": "How many offers will I get?",
+        "a": "It depends on how specific your request is and how many dealers carry a match. Offers land in your dashboard as dealers respond — and you're never obligated to accept any of them."
+      },
+      {
+        "q": "What information do dealers see about me?",
+        "a": "Only your vehicle requirements and your canton. Your name, email and phone number are never shared until you choose to contact a specific dealer."
+      },
+      {
+        "q": "Can I submit a request for more than one car?",
+        "a": "Yes. You can have up to three active requests at the same time."
+      },
+      {
+        "q": "How do I become a verified dealer?",
+        "a": "Apply as a dealer and complete the verification form. We review every application before approving it."
+      }
+    ],
+    "eyebrow": "FAQ"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to your AutoVerkauf account.",
+    "email": "Email",
+    "emailPh": "you@example.com",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "invalid": "Invalid email or password.",
+    "newTo": "New to AutoVerkauf?",
+    "findCar": "Find your car for free",
+    "areDealer": "Are you a dealer?",
+    "apply": "Apply here"
+  },
+  "dealerSignup": {
+    "eyebrow": "For dealerships",
+    "title": "Apply as a verified dealer",
+    "sub": "We review every application before granting access. Expect a response within 2 business days.",
+    "name": "Your name",
+    "namePh": "Max Müller",
+    "company": "Company name",
+    "companyPh": "AutoCenter AG",
+    "email": "Business email",
+    "emailPh": "info@example.ch",
+    "password": "Password",
+    "passwordPh": "Min. 8 characters",
+    "canton": "Canton",
+    "select": "Select…",
+    "website": "Website",
+    "optional": "optional",
+    "submit": "Send application",
+    "submitting": "Submitting…",
+    "already": "Already approved?",
+    "signIn": "Sign in",
+    "successTitle": "Application received",
+    "successBody": "We'll review your dealership profile within 2 business days and send a decision to {email}.",
+    "back": "Back to AutoVerkauf",
+    "generic": "Something went wrong"
+  },
+  "about": {
+    "eyebrow": "Our mission",
+    "title": "Buying a car in Switzerland should work the other way around.",
+    "p1": "The traditional way to buy a car means spending hours on listing sites, driving across cantons for test drives, and negotiating with dealers who hold all the information. AutoVerkauf flips that model.",
+    "p2": "You describe what you want once — budget, body type, fuel, features, canton. Verified Swiss dealerships review your request and send you their best matching offer. <s>You choose who to contact, if anyone.</s> Your name, email, and phone number stay private until you decide to share them.",
+    "p3": "We're a small team based in Switzerland. We built AutoVerkauf because we believe buyers deserve a process that works for them — not for the dealer with the biggest ad budget.",
+    "p4": "AutoVerkauf is always free for buyers. We earn through dealership subscriptions. That alignment matters: our incentive is to bring you quality offers, not clicks."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch.",
+    "sub": "We aim to reply within one business day.",
+    "topics": [
+      {
+        "heading": "Questions as a buyer",
+        "body": "How it works, your requests, offers, or your account.",
+        "email": "support@autoverkauf.ch"
+      },
+      {
+        "heading": "Dealer partnerships",
+        "body": "Applying to join, your application status, or your dealer account.",
+        "email": "dealers@autoverkauf.ch"
+      },
+      {
+        "heading": "Press & media",
+        "body": "Interviews, press kit, or partnership enquiries.",
+        "email": "press@autoverkauf.ch"
+      }
+    ]
+  },
+  "legal": {
+    "eyebrow": "Legal",
+    "updated": "Last updated: June 2026",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Use",
+    "privacy": [
+      {
+        "h": "What we collect",
+        "b": "When you create a request: your vehicle preferences, budget range, and canton. When you create an account: your email address and a hashed password. We never collect or store your phone number, physical address, or payment details."
+      },
+      {
+        "h": "How we use it",
+        "b": "Your vehicle preferences are shared with verified dealerships so they can send you relevant offers. Your contact details (name, email) are never shared with dealers unless you initiate contact with a specific dealer yourself."
+      },
+      {
+        "h": "Data storage",
+        "b": "Data is stored on Supabase infrastructure hosted in the EU. We retain your request data for 30 days after a request expires. Account data is retained until you delete your account."
+      },
+      {
+        "h": "Cookies",
+        "b": "We use a single session cookie for authentication and a locale cookie to remember your language preference. We do not use advertising or tracking cookies."
+      },
+      {
+        "h": "Your rights",
+        "b": "Under Swiss nDSG and EU GDPR you have the right to access, correct, export, or delete your personal data. Email us at privacy@autoverkauf.ch to exercise these rights."
+      },
+      {
+        "h": "Contact",
+        "b": "For privacy questions: privacy@autoverkauf.ch"
+      }
+    ],
+    "terms": [
+      {
+        "h": "The service",
+        "b": "AutoVerkauf is a marketplace that connects car buyers with verified Swiss dealerships. Buyers submit vehicle requests; dealers respond with offers. AutoVerkauf does not sell cars and is not party to any transaction between buyer and dealer."
+      },
+      {
+        "h": "For buyers",
+        "b": "The service is free for buyers. You may submit up to three active requests at a time. Requests expire after 30 days. You have no obligation to accept any offer. You must be at least 18 years old and a resident of Switzerland to use the service."
+      },
+      {
+        "h": "For dealers",
+        "b": "Dealers must be licensed Swiss motor vehicle dealers. Access requires a paid subscription and manual verification. Offers submitted must be genuine and accurate. Dealers may not contact buyers outside the platform before the buyer shares their contact details."
+      },
+      {
+        "h": "Prohibited conduct",
+        "b": "You may not use AutoVerkauf to submit false or misleading requests or offers, to spam other users, to reverse-engineer the platform, or for any unlawful purpose."
+      },
+      {
+        "h": "Limitation of liability",
+        "b": "AutoVerkauf is provided as-is. We are not liable for the accuracy of dealer offers, the outcome of any transaction, or any indirect damages arising from use of the platform."
+      },
+      {
+        "h": "Governing law",
+        "b": "These terms are governed by Swiss law. The courts of Switzerland have exclusive jurisdiction over any dispute."
+      },
+      {
+        "h": "Contact",
+        "b": "Questions about these terms: legal@autoverkauf.ch"
+      }
+    ]
+  },
+  "dash": {
+    "signOut": "Sign out",
+    "wrong": "Something went wrong",
+    "buyer": {
+      "section": "My dashboard",
+      "welcome": "Welcome back",
+      "welcomeName": "Welcome back, {name}",
+      "loadingIntro": "Loading your requests…",
+      "introEmpty": "Create a request and verified dealers will send you offers.",
+      "introReviewing": "Dealers are reviewing your requests — offers appear here.",
+      "introOffers": "You have {count, plural, one {# offer} other {# offers}} across your requests.",
+      "newRequest": "New request",
+      "activeRequests": "Active requests",
+      "offersReceived": "Offers received",
+      "myRequests": "My requests",
+      "createNew": "Create new request",
+      "active": "Active",
+      "offersCount": "{count, plural, one {# offer} other {# offers}}",
+      "noRequestsTitle": "No requests yet",
+      "noRequestsBody": "Describe the car you want once — verified Swiss dealers respond with their best offers.",
+      "offersTitle": "Offers",
+      "noOffersTitle": "No offers yet",
+      "noOffersBody": "Verified dealers are reviewing this request. You'll see their offers here as they arrive.",
+      "offersFailed": "Could not load offers",
+      "anyVehicle": "Any vehicle",
+      "anyFuel": "Any fuel",
+      "verifiedDealer": "Verified dealer",
+      "isNew": "NEW"
+    },
+    "dealer": {
+      "section": "Dealer portal",
+      "pendingTitle": "Application under review",
+      "pendingBody": "{company} is being verified. You'll get access to buyer requests as soon as your application is approved — usually within 2 business days.",
+      "introEmpty": "No open buyer requests right now — new ones appear here.",
+      "introCount": "{count, plural, one {# open request} other {# open requests}} from Swiss buyers.",
+      "openRequests": "Open requests",
+      "offersSent": "Offers sent",
+      "buyerRequests": "Buyer requests",
+      "noRequestsTitle": "No open requests",
+      "noRequestsBody": "When buyers submit requests matching the Swiss market, they show up here for you to answer.",
+      "answered": "Answered",
+      "sendOffer": "Send offer",
+      "yourOffer": "Your offer",
+      "makePh": "Make (e.g. BMW)",
+      "modelPh": "Model (e.g. 320d)",
+      "yearPh": "Year",
+      "mileagePh": "Mileage (km)",
+      "pricePh": "Price (CHF)",
+      "fuelPh": "Fuel (e.g. Diesel)",
+      "transmissionPh": "Transmission",
+      "descriptionPh": "Short description (optional)",
+      "sending": "Sending…",
+      "offerFailed": "Offer could not be sent.",
+      "maxKm": "max {km} km",
+      "anyVehicle": "Any vehicle",
+      "anyFuel": "Any fuel"
+    },
+    "admin": {
+      "section": "Admin",
+      "title": "Platform overview",
+      "buyers": "Buyers",
+      "verifiedDealers": "Verified dealers",
+      "activeRequests": "Active requests",
+      "offersSent": "Offers sent",
+      "pendingTitle": "Pending dealer verifications",
+      "pendingCount": "{count} pending",
+      "queueEmptyTitle": "Queue is empty",
+      "queueEmptyBody": "New dealer applications appear here for review.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "website": "Website ↗",
+      "canton": "Canton {canton}"
+    }
+  },
+  "features": {
+    "panoramaRoof": "Panorama roof",
+    "heatedSeats": "Heated seats",
+    "navigation": "Navigation",
+    "parkingSensors": "Parking sensors",
+    "rearCamera": "Rear camera",
+    "camera360": "360° camera",
+    "adaptiveCruise": "Adaptive cruise control",
+    "laneAssist": "Lane assist",
+    "blindSpot": "Blind spot monitoring",
+    "carplay": "Apple CarPlay / Android Auto",
+    "wirelessCharging": "Wireless charging",
+    "keyless": "Keyless entry",
+    "electricTailgate": "Electric tailgate",
+    "towHitch": "Tow hitch",
+    "leatherSeats": "Leather seats",
+    "headUpDisplay": "Head-up display",
+    "ambientLighting": "Ambient lighting",
+    "awd": "4WD / AWD",
+    "sportPackage": "Sport package",
+    "winterTyres": "Winter tyres included"
+  },
+  "stepsDesc": {
+    "budget": "Price range",
+    "vehicle": "Type & brand",
+    "specs": "Fuel & mileage",
+    "features": "Equipment",
+    "details": "Location & notes"
   }
 }

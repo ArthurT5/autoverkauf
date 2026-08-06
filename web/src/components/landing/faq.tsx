@@ -1,131 +1,86 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, MotionConfig } from "framer-motion";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { HalftoneCanvas } from "@/components/motion/halftone-canvas";
+import { Eyebrow } from "@/components/motion/eyebrow";
 
-const FAQS = [
-  {
-    q: "Is AutoVerkauf free for buyers?",
-    a: "Yes, completely. Buyers never pay anything on AutoVerkauf. We earn from dealership subscriptions, not from you.",
-  },
-  {
-    q: "How do I know dealers are trustworthy?",
-    a: "Every dealer on AutoVerkauf is manually verified. We check business registration, dealer licences, and customer reviews before approving any dealership. You can see each dealer's profile and rating.",
-  },
-  {
-    q: "What happens if I don't like any offers?",
-    a: "Nothing. You have zero obligation to accept any offer. Your request simply expires after 30 days. You can create a new request anytime.",
-  },
-  {
-    q: "Can dealers contact me by phone?",
-    a: "No. All communication stays within the AutoVerkauf platform until you choose to share your contact details directly with a specific dealer.",
-  },
-  {
-    q: "How many offers can I expect?",
-    a: "This depends on how specific your request is. Most buyers receive 3–12 offers within 48 hours. Requests for popular models like BMW 3 Series or VW Golf often receive 10+ offers within hours.",
-  },
-  {
-    q: "What information do dealers see about me?",
-    a: "Dealers only see your vehicle requirements and location canton. Your name, email, and phone number are never shared until you choose to contact a specific dealer.",
-  },
-  {
-    q: "Can I submit a request for more than one car?",
-    a: "Yes. You can have up to 3 active requests at the same time.",
-  },
-  {
-    q: "How do I become a verified dealer?",
-    a: "Click 'Apply as a dealer' and complete our verification form. We review applications within 2 business days.",
-  },
-];
+type FAQItem = { q: string; a: string };
 
-function FAQItem({ item, index }: { item: typeof FAQS[0]; index: number }) {
+function FAQRow({ item }: { item: FAQItem }) {
   const [open, setOpen] = useState(false);
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay: index * 0.04 }}
-      className="border-b border-[oklch(0.920_0.006_27.0)] last:border-0"
-    >
+    <div className="border-b border-[var(--hairline)] last:border-0">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-5 text-left cursor-pointer group"
+        className="group flex w-full cursor-pointer items-center justify-between gap-6 py-5 text-left"
+        aria-expanded={open}
       >
-        <span className="text-[15px] font-medium text-[oklch(0.150_0.012_27.0)] pr-8 group-hover:text-[oklch(0.448_0.228_27.3)] transition-colors">
+        <span className="text-[15px] font-medium text-[var(--ink-900)] transition-colors group-hover:text-[var(--red)]">
           {item.q}
         </span>
         <ChevronDown
-          className={[
-            "w-4 h-4 text-[oklch(0.600_0.010_27.0)] shrink-0 transition-transform duration-200",
-            open ? "rotate-180" : "",
-          ].join(" ")}
+          className={`h-4 w-4 shrink-0 text-[var(--ink-400)] transition-transform duration-300 ${open ? "rotate-180 text-[var(--red)]" : ""}`}
         />
       </button>
-
-      <motion.div
-        initial={false}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="overflow-hidden"
-      >
-        <p className="pb-5 text-[14px] text-[oklch(0.450_0.010_27.0)] leading-relaxed">
-          {item.a}
-        </p>
-      </motion.div>
-    </motion.div>
+      <MotionConfig reducedMotion="user">
+        <motion.div
+          initial={false}
+          animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="overflow-hidden"
+        >
+          <p className="max-w-prose pb-5 text-[14px] leading-relaxed text-[var(--ink-500)]">{item.a}</p>
+        </motion.div>
+      </MotionConfig>
+    </div>
   );
 }
 
 export function FAQ() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const t = useTranslations("faq");
+  const items = t.raw("items") as FAQItem[];
 
   return (
-    <section id="faq" className="bg-[oklch(0.977_0.005_27.0)] py-28 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-24">
-          {/* Left */}
-          <div ref={ref}>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              className="text-[oklch(0.448_0.228_27.3)] text-[13px] font-semibold tracking-widest uppercase mb-4"
-            >
-              FAQ
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.05 }}
-              className="text-[clamp(2rem,3.5vw,3rem)] font-bold tracking-[-0.025em] text-[oklch(0.112_0.012_27.0)] leading-[1.15]"
-            >
-              Common
-              <br />
-              questions.
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 }}
-              className="mt-5 text-[1.05rem] text-[oklch(0.450_0.010_27.0)] leading-relaxed"
-            >
-              Can't find what you're looking for?{" "}
-              <a href="/contact" className="text-[oklch(0.448_0.228_27.3)] hover:underline">
-                Contact us.
-              </a>
-            </motion.p>
-          </div>
+    <section
+      data-theme="dark"
+      data-nav-theme="dark"
+      id="faq"
+      className="grain-dark relative overflow-hidden bg-[oklch(0.068_0.008_27)] py-28 lg:py-40"
+    >
+      <HalftoneCanvas inkAlpha={0.4} farBase={0.78} nearBase={0.92} phase={5.3} />
 
-          {/* Right */}
-          <div className="bg-white rounded-3xl p-8 border border-[oklch(0.920_0.006_27.0)]">
-            {FAQS.map((item, i) => (
-              <FAQItem key={i} item={item} index={i} />
-            ))}
-          </div>
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 lg:grid-cols-[1fr_1.5fr] lg:gap-24 lg:px-8">
+        <div>
+          <Eyebrow className="text-white/40">{t("eyebrow")}</Eyebrow>
+          <RevealHeading
+            className="text-[clamp(2.1rem,3.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink-900)]"
+            style={{ textWrap: "balance" }}
+          >
+            {t("heading")}
+          </RevealHeading>
+          <Reveal delay={0.12}>
+            <p className="mt-6 text-[1.05rem] leading-relaxed text-[var(--ink-500)]">
+              {t("contactPre")}
+              <a href="/contact" className="font-medium text-[var(--red)] hover:underline">
+                {t("contactLink")}
+              </a>
+            </p>
+          </Reveal>
         </div>
+
+        <Reveal
+          y={28}
+          className="rounded-3xl border border-white/[0.07] bg-[var(--card-bg)] p-4 sm:p-8"
+        >
+          {items.map((item, i) => (
+            <FAQRow key={i} item={item} />
+          ))}
+        </Reveal>
       </div>
     </section>
   );

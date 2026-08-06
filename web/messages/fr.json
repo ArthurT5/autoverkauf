@@ -7,15 +7,113 @@
     "login": "Se connecter"
   },
   "hero": {
-    "badge": "Bientôt disponible en Suisse",
-    "headline1": "Arrêtez de chercher.",
-    "headline2": "Les concessionnaires viennent à vous.",
+    "badge": "Conçu pour la Suisse",
+    "headline1": "Votre prochaine voiture,",
+    "headline2": "amenée à vous.",
     "subtitle": "Décrivez une fois ce que vous cherchez. Des concessionnaires suisses vérifiés examinent votre demande et vous envoient des offres correspondantes.",
     "cta": "Trouver ma voiture — c'est gratuit",
     "ctaSecondary": "Comment ça marche",
     "pillar1": "Toujours gratuit pour les acheteurs",
     "pillar2": "Uniquement des concessionnaires vérifiés",
     "pillar3": "Vos coordonnées restent privées"
+  },
+  "how": {
+    "heading": "De la demande à l'offre.",
+    "sub": "Quatre étapes. Faites défiler et regardez votre prochaine voiture vous trouver.",
+    "scrollHint": "Défiler",
+    "scenes": {
+      "request": {
+        "step": "01",
+        "title": "Décrivez votre voiture",
+        "body": "Budget, marque, carburant, options — dites une fois ce que vous voulez."
+      },
+      "takeover": {
+        "step": "02",
+        "title": "La plateforme prend le relais",
+        "body": "Votre demande entre dans le système. Elle travaille pour vous."
+      },
+      "respond": {
+        "step": "03",
+        "title": "Les concessionnaires répondent",
+        "body": "Les bons concessionnaires suisses sont sélectionnés — seulement ceux qui correspondent."
+      },
+      "arrive": {
+        "step": "04",
+        "title": "Les offres viennent à vous",
+        "body": "Des véhicules correspondants arrivent dans votre tableau de bord."
+      },
+      "compare": {
+        "step": "05",
+        "title": "Comparez au même endroit",
+        "body": "Chaque offre alignée — prix, kilométrage, correspondance."
+      },
+      "decide": {
+        "step": "06",
+        "title": "Choisissez en confiance",
+        "body": "Choisissez la meilleure offre et contactez le concessionnaire."
+      }
+    },
+    "ui": {
+      "formTitle": "Nouvelle demande",
+      "budget": "Budget",
+      "brand": "Marque",
+      "fuel": "Carburant",
+      "year": "Année",
+      "submit": "Envoyer aux concessionnaires vérifiés",
+      "sent": "Demande envoyée",
+      "notifying": "Notification des concessionnaires associés",
+      "newRequest": "Nouvelle demande",
+      "match": "correspondance",
+      "viewOffer": "Voir l'offre",
+      "bestMatch": "Meilleure offre",
+      "choose": "Choisir l'offre",
+      "accepted": "Offre acceptée",
+      "formQ": "Que cherchez-vous ?",
+      "matching": "Recherche dans les 26 cantons…",
+      "yourRequest": "Votre demande",
+      "vehicle": "SUV hybride",
+      "yourOffers": "Vos offres",
+      "newCount": "3 nouvelles",
+      "accept": "Accepter l'offre",
+      "lBudget": "Budget",
+      "vBudget": "CHF 35–50k",
+      "lBody": "Carrosserie",
+      "vBody": "SUV",
+      "lFuel": "Carburant",
+      "vFuel": "Hybride",
+      "lTrans": "Transmission",
+      "vTrans": "Automatique",
+      "lMileage": "Kilométrage",
+      "vMileage": "< 60 000 km",
+      "lLocation": "Lieu",
+      "vLocation": "Zurich"
+    },
+    "eyebrow": "Comment ça marche"
+  },
+  "cta": {
+    "heading": "Prêt à trouver votre prochaine voiture ?",
+    "body": "Décrivez une fois ce que vous voulez. Les concessionnaires suisses vérifiés vous envoient leurs meilleures offres — vous choisissez.",
+    "primary": "Trouver ma voiture — gratuit",
+    "secondary": "S'inscrire comme concessionnaire",
+    "trust": "Gratuit pour les acheteurs · Sans spam · Vos données restent privées"
+  },
+  "stats": {
+    "heading1": "Ce sur quoi vous pouvez compter.",
+    "heading2": "",
+    "lead": "Concessionnaires vérifiés dans les <c></c> cantons, disponibles en <l></l> langues.",
+    "free": {
+      "title": "Gratuit pour les acheteurs",
+      "body": "Aucun frais, aucune commission — jamais. Vous payez seulement le concessionnaire, pour la voiture choisie."
+    },
+    "verified": {
+      "title": "Uniquement des concessionnaires vérifiés",
+      "body": "Chaque concessionnaire est vérifié et approuvé manuellement avant de pouvoir contacter les acheteurs."
+    },
+    "control": {
+      "title": "Vous gardez le contrôle",
+      "body": "Aucun appel ni e-mail hors de la plateforme tant que vous ne partagez pas vos coordonnées."
+    },
+    "eyebrow": "La Plateforme"
   },
   "wizard": {
     "newRequest": "Nouvelle demande de véhicule",
@@ -51,7 +149,8 @@
       "subtitle": "Appuyez une fois pour indispensable, encore pour agréable, encore pour supprimer.",
       "mustHave": "Indispensable",
       "niceToHave": "Agréable à avoir",
-      "skip": "Vous pouvez passer cette étape — les concessionnaires enverront des offres pour toute configuration."
+      "skip": "Vous pouvez passer cette étape — les concessionnaires enverront des offres pour toute configuration.",
+      "selected": "{count} sélectionnés"
     },
     "details": {
       "title": "Presque terminé",
@@ -76,6 +175,27 @@
       "vehicle": "Véhicule",
       "specs": "Caractéristiques",
       "features": "Options"
+    },
+    "privacyNote": "Vos coordonnées ne sont jamais transmises aux concessionnaires sans votre accord.",
+    "auth": {
+      "title": "Une dernière étape",
+      "subtitle": "Créez un compte gratuit pour que les concessionnaires puissent envoyer leurs offres dans votre tableau de bord. Vos coordonnées restent privées.",
+      "signinTitle": "Bon retour",
+      "signinSubtitle": "Connectez-vous pour envoyer votre demande.",
+      "namePh": "Votre nom",
+      "emailPh": "vous@exemple.ch",
+      "passwordNewPh": "Mot de passe (min. 8 caractères)",
+      "passwordPh": "Mot de passe",
+      "submitSignup": "Créer le compte & envoyer la demande",
+      "submitSignin": "Se connecter & envoyer la demande",
+      "sending": "Envoi de la demande…",
+      "emailTaken": "Cet e-mail est déjà enregistré — connectez-vous plutôt.",
+      "createFailed": "Votre compte n'a pas pu être créé.",
+      "invalid": "E-mail ou mot de passe invalide.",
+      "generic": "Une erreur s'est produite.",
+      "toSignin": "Déjà un compte ? Se connecter",
+      "toSignup": "Nouveau ici ? Créer un compte gratuit",
+      "sendFailed": "Votre demande n'a pas pu être envoyée. Veuillez réessayer."
     }
   },
   "steps": {
@@ -134,5 +254,313 @@
     "terms": "Conditions",
     "contact": "Contact",
     "rights": "Tous droits réservés."
+  },
+  "forDealers": {
+    "eyebrow": "Pour les concessionnaires",
+    "heading": "Atteignez des acheteurs qui veulent déjà votre voiture.",
+    "body": "Au lieu de payer pour de la publicité et de courir après des prospects, vous recevez des demandes directes d'acheteurs qui ont déjà décidé ce qu'ils veulent et leur budget. Envoyez simplement votre meilleure offre.",
+    "apply": "Devenir concessionnaire",
+    "demo": "Voir le tableau de bord démo",
+    "b1t": "Acheteurs pré-qualifiés",
+    "b1b": "Chaque acheteur a déjà défini son budget et ses exigences. Pas de curieux.",
+    "b2t": "Gagnez sur la qualité",
+    "b2b": "Votre véhicule, prix et service remportent l'affaire — pas votre budget pub.",
+    "b3t": "Analyses de performance",
+    "b3b": "Suivez les taux d'acceptation, les temps de réponse et le revenu depuis votre tableau de bord.",
+    "b4t": "Réseau vérifié",
+    "b4b": "Seuls les concessionnaires suisses agréés sont approuvés. Votre réputation est protégée."
+  },
+  "next": {
+    "eyebrow": "Transparence",
+    "heading": "Que se passe-t-il après votre demande ?",
+    "s1title": "Votre demande entre dans le système",
+    "s1body": "Décrivez une fois ce que vous cherchez. Vos coordonnées restent privées — les concessionnaires ne voient que vos préférences de véhicule.",
+    "s2title": "Les concessionnaires vérifiés sont notifiés",
+    "s2body": "Les concessionnaires suisses agréés de votre région sont automatiquement sélectionnés — uniquement ceux qui correspondent vraiment.",
+    "s3title": "Les offres arrivent directement chez vous",
+    "s3body": "Comparez toutes les offres dans votre tableau de bord. Pas de spam, pas d'appels. Vous décidez qui contacter."
+  },
+  "coverage": {
+    "eyebrow": "Couverture nationale",
+    "heading": "Dans les 26 cantons.",
+    "sub": "Des concessionnaires vérifiés dans chaque région — de Genève à Saint-Gall, de Bâle à Lugano.",
+    "cantons": "Cantons",
+    "languages": "Langues",
+    "free": "Gratuit pour les acheteurs",
+    "dealers": "concessionnaires dans la région"
+  },
+  "faq": {
+    "heading": "Questions fréquentes.",
+    "contactPre": "Vous ne trouvez pas ? ",
+    "contactLink": "Contactez-nous.",
+    "items": [
+      {
+        "q": "AutoVerkauf est-il gratuit pour les acheteurs ?",
+        "a": "Oui, totalement. Les acheteurs ne paient jamais rien. Nous gagnons grâce aux abonnements des concessionnaires, pas grâce à vous."
+      },
+      {
+        "q": "Comment savoir si les concessionnaires sont fiables ?",
+        "a": "Chaque concessionnaire est vérifié manuellement. Nous contrôlons l'enregistrement et les licences avant d'approuver un concessionnaire, et vous voyez chaque profil avant de répondre."
+      },
+      {
+        "q": "Que se passe-t-il si aucune offre ne me plaît ?",
+        "a": "Rien. Vous n'avez aucune obligation d'accepter une offre. Votre demande expire après 30 jours et vous pouvez en créer une nouvelle à tout moment."
+      },
+      {
+        "q": "Les concessionnaires peuvent-ils m'appeler ?",
+        "a": "Non. Toute la communication reste dans AutoVerkauf jusqu'à ce que vous choisissiez de partager vos coordonnées avec un concessionnaire précis."
+      },
+      {
+        "q": "Combien d'offres vais-je recevoir ?",
+        "a": "Cela dépend de la précision de votre demande et du nombre de concessionnaires correspondants. Les offres arrivent dans votre tableau de bord et vous n'êtes jamais obligé d'en accepter une."
+      },
+      {
+        "q": "Quelles informations les concessionnaires voient-ils ?",
+        "a": "Uniquement vos critères de véhicule et votre canton. Vos nom, e-mail et téléphone ne sont jamais partagés tant que vous ne contactez pas un concessionnaire précis."
+      },
+      {
+        "q": "Puis-je faire une demande pour plusieurs voitures ?",
+        "a": "Oui. Vous pouvez avoir jusqu'à trois demandes actives en même temps."
+      },
+      {
+        "q": "Comment devenir concessionnaire vérifié ?",
+        "a": "Postulez comme concessionnaire et remplissez le formulaire de vérification. Nous examinons chaque candidature avant approbation."
+      }
+    ],
+    "eyebrow": "FAQ"
+  },
+  "login": {
+    "title": "Bon retour",
+    "subtitle": "Connectez-vous à votre compte AutoVerkauf.",
+    "email": "E-mail",
+    "emailPh": "vous@exemple.ch",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "invalid": "E-mail ou mot de passe invalide.",
+    "newTo": "Nouveau sur AutoVerkauf ?",
+    "findCar": "Trouvez votre voiture gratuitement",
+    "areDealer": "Vous êtes concessionnaire ?",
+    "apply": "Postulez ici"
+  },
+  "dealerSignup": {
+    "eyebrow": "Pour les concessionnaires",
+    "title": "Postuler comme concessionnaire vérifié",
+    "sub": "Nous examinons chaque candidature avant d'accorder l'accès. Réponse sous 2 jours ouvrables.",
+    "name": "Votre nom",
+    "namePh": "Max Müller",
+    "company": "Nom de l'entreprise",
+    "companyPh": "AutoCenter SA",
+    "email": "E-mail professionnel",
+    "emailPh": "info@exemple.ch",
+    "password": "Mot de passe",
+    "passwordPh": "Min. 8 caractères",
+    "canton": "Canton",
+    "select": "Sélectionner…",
+    "website": "Site web",
+    "optional": "facultatif",
+    "submit": "Envoyer la candidature",
+    "submitting": "Envoi…",
+    "already": "Déjà approuvé ?",
+    "signIn": "Se connecter",
+    "successTitle": "Candidature reçue",
+    "successBody": "Nous examinerons votre profil sous 2 jours ouvrables et enverrons la décision à {email}.",
+    "back": "Retour à AutoVerkauf",
+    "generic": "Une erreur s'est produite"
+  },
+  "about": {
+    "eyebrow": "Notre mission",
+    "title": "Acheter une voiture en Suisse devrait fonctionner dans l'autre sens.",
+    "p1": "L'achat traditionnel d'une voiture, c'est des heures sur les sites d'annonces, des essais à travers les cantons et des négociations avec des concessionnaires qui détiennent toutes les informations. AutoVerkauf inverse ce modèle.",
+    "p2": "Vous décrivez une fois ce que vous voulez — budget, carrosserie, carburant, équipements, canton. Des concessionnaires suisses vérifiés examinent votre demande et vous envoient leur meilleure offre. <s>Vous choisissez qui contacter, ou personne.</s> Votre nom, votre e-mail et votre numéro de téléphone restent privés jusqu'à ce que vous décidiez de les partager.",
+    "p3": "Nous sommes une petite équipe basée en Suisse. Nous avons créé AutoVerkauf parce que les acheteurs méritent un processus qui fonctionne pour eux — pas pour le concessionnaire au plus gros budget publicitaire.",
+    "p4": "AutoVerkauf est toujours gratuit pour les acheteurs. Nous gagnons via les abonnements des concessionnaires. Cet alignement compte : notre intérêt est de vous apporter des offres de qualité, pas des clics."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Contactez-nous.",
+    "sub": "Nous répondons en général sous un jour ouvrable.",
+    "topics": [
+      {
+        "heading": "Questions d'acheteur",
+        "body": "Le fonctionnement, vos demandes, vos offres ou votre compte.",
+        "email": "support@autoverkauf.ch"
+      },
+      {
+        "heading": "Partenariats concessionnaires",
+        "body": "Candidature, statut de votre dossier ou votre compte concessionnaire.",
+        "email": "dealers@autoverkauf.ch"
+      },
+      {
+        "heading": "Presse & médias",
+        "body": "Interviews, kit presse ou demandes de partenariat.",
+        "email": "press@autoverkauf.ch"
+      }
+    ]
+  },
+  "legal": {
+    "eyebrow": "Mentions légales",
+    "updated": "Dernière mise à jour : juin 2026",
+    "privacyTitle": "Politique de confidentialité",
+    "termsTitle": "Conditions d'utilisation",
+    "privacy": [
+      {
+        "h": "Ce que nous collectons",
+        "b": "Lorsque vous créez une demande : vos préférences de véhicule, votre budget et votre canton. Lorsque vous créez un compte : votre adresse e-mail et un mot de passe haché. Nous ne collectons ni ne stockons jamais votre numéro de téléphone, votre adresse postale ou vos données de paiement."
+      },
+      {
+        "h": "Comment nous les utilisons",
+        "b": "Vos préférences de véhicule sont partagées avec des concessionnaires vérifiés afin qu'ils puissent vous envoyer des offres pertinentes. Vos coordonnées (nom, e-mail) ne sont jamais transmises aux concessionnaires, sauf si vous contactez vous-même un concessionnaire."
+      },
+      {
+        "h": "Stockage des données",
+        "b": "Les données sont stockées sur l'infrastructure Supabase hébergée dans l'UE. Nous conservons les données de demande 30 jours après leur expiration. Les données de compte sont conservées jusqu'à la suppression de votre compte."
+      },
+      {
+        "h": "Cookies",
+        "b": "Nous utilisons un seul cookie de session pour l'authentification et un cookie de langue pour mémoriser votre préférence linguistique. Nous n'utilisons pas de cookies publicitaires ou de suivi."
+      },
+      {
+        "h": "Vos droits",
+        "b": "En vertu de la nLPD suisse et du RGPD européen, vous avez le droit d'accéder à vos données personnelles, de les corriger, de les exporter ou de les supprimer. Écrivez-nous à privacy@autoverkauf.ch pour exercer ces droits."
+      },
+      {
+        "h": "Contact",
+        "b": "Pour toute question de confidentialité : privacy@autoverkauf.ch"
+      }
+    ],
+    "terms": [
+      {
+        "h": "Le service",
+        "b": "AutoVerkauf est une place de marché qui met en relation les acheteurs de voitures avec des concessionnaires suisses vérifiés. Les acheteurs soumettent des demandes ; les concessionnaires répondent par des offres. AutoVerkauf ne vend pas de voitures et n'est pas partie aux transactions entre acheteur et concessionnaire."
+      },
+      {
+        "h": "Pour les acheteurs",
+        "b": "Le service est gratuit pour les acheteurs. Vous pouvez soumettre jusqu'à trois demandes actives à la fois. Les demandes expirent après 30 jours. Vous n'avez aucune obligation d'accepter une offre. Vous devez avoir au moins 18 ans et résider en Suisse."
+      },
+      {
+        "h": "Pour les concessionnaires",
+        "b": "Les concessionnaires doivent être des professionnels suisses agréés. L'accès nécessite un abonnement payant et une vérification manuelle. Les offres soumises doivent être authentiques et exactes. Les concessionnaires ne peuvent pas contacter les acheteurs en dehors de la plateforme avant que l'acheteur ne partage ses coordonnées."
+      },
+      {
+        "h": "Comportements interdits",
+        "b": "Vous ne pouvez pas utiliser AutoVerkauf pour soumettre des demandes ou des offres fausses ou trompeuses, spammer d'autres utilisateurs, faire de l'ingénierie inverse de la plateforme ou à des fins illégales."
+      },
+      {
+        "h": "Limitation de responsabilité",
+        "b": "AutoVerkauf est fourni tel quel. Nous ne sommes pas responsables de l'exactitude des offres des concessionnaires, de l'issue d'une transaction ou de dommages indirects résultant de l'utilisation de la plateforme."
+      },
+      {
+        "h": "Droit applicable",
+        "b": "Ces conditions sont régies par le droit suisse. Les tribunaux suisses ont une compétence exclusive pour tout litige."
+      },
+      {
+        "h": "Contact",
+        "b": "Questions sur ces conditions : legal@autoverkauf.ch"
+      }
+    ]
+  },
+  "dash": {
+    "signOut": "Se déconnecter",
+    "wrong": "Une erreur s'est produite",
+    "buyer": {
+      "section": "Mon tableau de bord",
+      "welcome": "Bon retour",
+      "welcomeName": "Bon retour, {name}",
+      "loadingIntro": "Chargement de vos demandes…",
+      "introEmpty": "Créez une demande et des concessionnaires vérifiés vous enverront des offres.",
+      "introReviewing": "Les concessionnaires examinent vos demandes — les offres apparaissent ici.",
+      "introOffers": "Vous avez {count, plural, one {# offre} other {# offres}} sur l'ensemble de vos demandes.",
+      "newRequest": "Nouvelle demande",
+      "activeRequests": "Demandes actives",
+      "offersReceived": "Offres reçues",
+      "myRequests": "Mes demandes",
+      "createNew": "Créer une demande",
+      "active": "Active",
+      "offersCount": "{count, plural, one {# offre} other {# offres}}",
+      "noRequestsTitle": "Aucune demande",
+      "noRequestsBody": "Décrivez une fois la voiture que vous voulez — des concessionnaires suisses vérifiés répondent avec leurs meilleures offres.",
+      "offersTitle": "Offres",
+      "noOffersTitle": "Pas encore d'offres",
+      "noOffersBody": "Des concessionnaires vérifiés examinent cette demande. Leurs offres apparaîtront ici.",
+      "offersFailed": "Impossible de charger les offres",
+      "anyVehicle": "Tout véhicule",
+      "anyFuel": "Tout carburant",
+      "verifiedDealer": "Concessionnaire vérifié",
+      "isNew": "NOUVEAU"
+    },
+    "dealer": {
+      "section": "Portail concessionnaire",
+      "pendingTitle": "Candidature en cours d'examen",
+      "pendingBody": "{company} est en cours de vérification. Vous aurez accès aux demandes des acheteurs dès l'approbation — en général sous 2 jours ouvrables.",
+      "introEmpty": "Aucune demande ouverte pour le moment — les nouvelles apparaissent ici.",
+      "introCount": "{count, plural, one {# demande ouverte} other {# demandes ouvertes}} d'acheteurs suisses.",
+      "openRequests": "Demandes ouvertes",
+      "offersSent": "Offres envoyées",
+      "buyerRequests": "Demandes d'acheteurs",
+      "noRequestsTitle": "Aucune demande ouverte",
+      "noRequestsBody": "Quand des acheteurs soumettent des demandes pour le marché suisse, elles apparaissent ici.",
+      "answered": "Répondu",
+      "sendOffer": "Envoyer une offre",
+      "yourOffer": "Votre offre",
+      "makePh": "Marque (p. ex. BMW)",
+      "modelPh": "Modèle (p. ex. 320d)",
+      "yearPh": "Année",
+      "mileagePh": "Kilométrage (km)",
+      "pricePh": "Prix (CHF)",
+      "fuelPh": "Carburant (p. ex. Diesel)",
+      "transmissionPh": "Transmission",
+      "descriptionPh": "Brève description (facultatif)",
+      "sending": "Envoi…",
+      "offerFailed": "L'offre n'a pas pu être envoyée.",
+      "maxKm": "max. {km} km",
+      "anyVehicle": "Tout véhicule",
+      "anyFuel": "Tout carburant"
+    },
+    "admin": {
+      "section": "Admin",
+      "title": "Vue d'ensemble de la plateforme",
+      "buyers": "Acheteurs",
+      "verifiedDealers": "Concessionnaires vérifiés",
+      "activeRequests": "Demandes actives",
+      "offersSent": "Offres envoyées",
+      "pendingTitle": "Vérifications de concessionnaires en attente",
+      "pendingCount": "{count} en attente",
+      "queueEmptyTitle": "File d'attente vide",
+      "queueEmptyBody": "Les nouvelles candidatures de concessionnaires apparaissent ici.",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "website": "Site web ↗",
+      "canton": "Canton {canton}"
+    }
+  },
+  "features": {
+    "panoramaRoof": "Toit panoramique",
+    "heatedSeats": "Sièges chauffants",
+    "navigation": "Navigation",
+    "parkingSensors": "Capteurs de stationnement",
+    "rearCamera": "Caméra de recul",
+    "camera360": "Caméra 360°",
+    "adaptiveCruise": "Régulateur adaptatif",
+    "laneAssist": "Assistant de voie",
+    "blindSpot": "Surveillance des angles morts",
+    "carplay": "Apple CarPlay / Android Auto",
+    "wirelessCharging": "Charge sans fil",
+    "keyless": "Accès sans clé",
+    "electricTailgate": "Hayon électrique",
+    "towHitch": "Attelage",
+    "leatherSeats": "Sièges en cuir",
+    "headUpDisplay": "Affichage tête haute",
+    "ambientLighting": "Éclairage d'ambiance",
+    "awd": "4 roues motrices (4WD/AWD)",
+    "sportPackage": "Pack sport",
+    "winterTyres": "Pneus d'hiver inclus"
+  },
+  "stepsDesc": {
+    "budget": "Fourchette de prix",
+    "vehicle": "Type & marque",
+    "specs": "Carburant & km",
+    "features": "Équipement",
+    "details": "Lieu & notes"
   }
 }

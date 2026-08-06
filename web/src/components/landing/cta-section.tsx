@@ -1,92 +1,54 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { HalftoneCanvas } from "@/components/motion/halftone-canvas";
+import { CtaButton } from "@/components/ui/cta-button";
 
 export function CTASection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const t = useTranslations("cta");
 
   return (
-    <section className="bg-white py-24 lg:py-32">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative bg-[oklch(0.112_0.012_27.0)] rounded-3xl px-8 py-16 lg:px-20 lg:py-20 overflow-hidden"
+    <section data-nav-theme="dark" className="grain relative overflow-hidden bg-[var(--surface-ink)] py-28 lg:py-40">
+      {/* the closing echo of the hero: same ridgeline language, same red sun */}
+      <HalftoneCanvas sun inkAlpha={0.7} farBase={0.7} nearBase={0.86} phase={3.3} />
+
+      <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+        {/* Swiss cross mark */}
+        <Reveal className="mb-8 flex justify-center">
+          <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04]">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+              <rect x="7" y="0" width="4" height="18" rx="1.5" fill="oklch(0.55 0.20 27.3)" />
+              <rect x="0" y="7" width="18" height="4" rx="1.5" fill="oklch(0.55 0.20 27.3)" />
+            </svg>
+          </span>
+        </Reveal>
+
+        <RevealHeading
+          className="text-[clamp(2.2rem,5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white"
+          style={{ textWrap: "balance" }}
+          delay={0.05}
         >
-          {/* Subtle red glow */}
-          <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-[oklch(0.448_0.228_27.3)] opacity-[0.12] blur-3xl pointer-events-none" />
-          {/* Grid */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-          />
+          {t("heading")}
+        </RevealHeading>
 
-          <div className="relative text-center">
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.05 }}
-              className="text-[oklch(0.448_0.228_27.3)] text-[12px] font-semibold tracking-widest uppercase mb-5"
-            >
-              Get started today
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 }}
-              className="text-[clamp(2rem,4vw,3.5rem)] font-bold text-white tracking-[-0.03em] leading-[1.1]"
-            >
-              Ready to find your next car?
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15 }}
-              className="mt-5 text-[oklch(0.660_0.004_27.0)] text-[1.05rem] max-w-md mx-auto leading-relaxed"
-            >
-              Describe what you want once. Sit back. Let verified Swiss
-              dealerships send you their best offers.
-            </motion.p>
+        <Reveal as="p" delay={0.1} className="mx-auto mt-6 max-w-xl text-[1.075rem] leading-relaxed text-[oklch(0.74_0.006_27)]">
+          {t("body")}
+        </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.22 }}
-              className="mt-10 flex flex-col sm:flex-row gap-3 justify-center"
-            >
-              <a
-                href="/buyer/requests/new"
-                className="btn-lift inline-flex items-center justify-center gap-2 px-7 py-4 bg-[oklch(0.448_0.228_27.3)] text-white text-[14px] font-semibold rounded-xl hover:bg-[oklch(0.400_0.218_27.3)] transition-colors shadow-[0_4px_24px_-4px_rgba(180,40,40,0.5)]"
-              >
-                Find my car — it's free
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href="mailto:dealers@autoverkauf.ch"
-                className="btn-lift inline-flex items-center justify-center px-7 py-4 text-white text-[14px] font-medium rounded-xl border border-white/15 hover:bg-white/10 transition-colors"
-              >
-                Register as a dealer
-              </a>
-            </motion.div>
+        <Reveal delay={0.16} stagger className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <CtaButton href="/buyer/requests/new" variant="primary" arrow>
+            {t("primary")}
+          </CtaButton>
+          <CtaButton href="/for-dealers" variant="ghost-dark">
+            {t("secondary")}
+          </CtaButton>
+        </Reveal>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.32 }}
-              className="mt-6 text-[12px] text-[oklch(0.480_0.004_27.0)]"
-            >
-              No commitment. No spam. Cancel any time.
-            </motion.p>
-          </div>
-        </motion.div>
+        <Reveal as="p" delay={0.28} className="mt-7 text-[12.5px] text-[oklch(0.58_0.006_27)]">
+          {t("trust")}
+        </Reveal>
       </div>
     </section>
   );

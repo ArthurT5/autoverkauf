@@ -1,22 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useWizardStore, FuelType, TransmissionType } from "@/store/request-wizard";
 import { Slider } from "@/components/ui/slider";
 
-const FUEL_TYPES: { value: FuelType; label: string; desc?: string }[] = [
-  { value: "any", label: "Any" },
-  { value: "petrol", label: "Petrol" },
-  { value: "diesel", label: "Diesel" },
-  { value: "electric", label: "Electric" },
-  { value: "hybrid", label: "Hybrid" },
-  { value: "phev", label: "Plug-in Hybrid" },
-];
-
-const TRANSMISSIONS: { value: TransmissionType; label: string }[] = [
-  { value: "any", label: "Any" },
-  { value: "automatic", label: "Automatic" },
-  { value: "manual", label: "Manual" },
-];
+const FUEL_TYPES: FuelType[] = ["any", "petrol", "diesel", "electric", "hybrid", "phev"];
+const TRANSMISSIONS: TransmissionType[] = ["any", "automatic", "manual"];
 
 function Chip({ label, selected, onClick }: { label: string; selected: boolean; onClick: () => void }) {
   return (
@@ -40,29 +29,32 @@ function formatMileage(km: number) {
 }
 
 export function StepSpecs() {
+  const t = useTranslations("wizard.specs");
+  const tFuel = useTranslations("fuelTypes");
+  const tTrans = useTranslations("transmissions");
   const { data, update } = useWizardStore();
 
   return (
     <div className="space-y-9">
       <div>
         <h2 className="text-[2.25rem] font-semibold tracking-[-0.02em] leading-[1.1] text-[oklch(0.112_0.012_27.0)]" style={{ textWrap: "balance" }}>
-          Technical preferences
+          {t("title")}
         </h2>
         <p className="mt-2 text-[oklch(0.500_0.012_27.0)] text-[15px] leading-relaxed">
-          Choose "Any" to receive the broadest range of offers.
+          {t("subtitle")}
         </p>
       </div>
 
       {/* Fuel */}
       <div className="space-y-3">
-        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Fuel type</p>
+        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("fuelType")}</p>
         <div className="flex flex-wrap gap-2">
-          {FUEL_TYPES.map((f) => (
+          {FUEL_TYPES.map((value) => (
             <Chip
-              key={f.value}
-              label={f.label}
-              selected={data.fuelType === f.value}
-              onClick={() => update({ fuelType: f.value })}
+              key={value}
+              label={tFuel(value)}
+              selected={data.fuelType === value}
+              onClick={() => update({ fuelType: value })}
             />
           ))}
         </div>
@@ -70,14 +62,14 @@ export function StepSpecs() {
 
       {/* Transmission */}
       <div className="space-y-3">
-        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Transmission</p>
+        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("transmission")}</p>
         <div className="flex flex-wrap gap-2">
-          {TRANSMISSIONS.map((t) => (
+          {TRANSMISSIONS.map((value) => (
             <Chip
-              key={t.value}
-              label={t.label}
-              selected={data.transmission === t.value}
-              onClick={() => update({ transmission: t.value })}
+              key={value}
+              label={tTrans(value)}
+              selected={data.transmission === value}
+              onClick={() => update({ transmission: value })}
             />
           ))}
         </div>
@@ -86,7 +78,7 @@ export function StepSpecs() {
       {/* Mileage */}
       <div className="space-y-4">
         <div className="flex items-baseline justify-between">
-          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Maximum mileage</p>
+          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("maxMileage")}</p>
           <span className="text-[1.5rem] font-bold tabular-nums tracking-tight text-[oklch(0.112_0.012_27.0)]">
             {formatMileage(data.maxMileage)}
           </span>

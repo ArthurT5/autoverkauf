@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useWizardStore } from "@/store/request-wizard";
 import { MapPin, MessageSquare, ShieldCheck } from "lucide-react";
 
@@ -12,16 +13,17 @@ const SWISS_CANTONS = [
 ];
 
 export function StepDetails() {
+  const t = useTranslations("wizard.details");
   const { data, update } = useWizardStore();
 
   return (
     <div className="space-y-9">
       <div>
         <h2 className="text-[2.25rem] font-semibold tracking-[-0.02em] leading-[1.1] text-[oklch(0.112_0.012_27.0)]" style={{ textWrap: "balance" }}>
-          Almost there
+          {t("title")}
         </h2>
         <p className="mt-2 text-[oklch(0.500_0.012_27.0)] text-[15px] leading-relaxed">
-          A few last details to help dealers find you the right match.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -29,13 +31,13 @@ export function StepDetails() {
       <div className="space-y-2">
         <label htmlFor="location" className="flex items-center gap-1.5 text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">
           <MapPin className="w-3.5 h-3.5 text-[oklch(0.500_0.010_27.0)]" />
-          Your canton or city
+          {t("location")}
         </label>
         <input
           id="location"
           type="text"
           list="cantons"
-          placeholder="e.g. Zurich, Bern, Geneva…"
+          placeholder={t("locationPlaceholder")}
           value={data.location}
           onChange={(e) => update({ location: e.target.value })}
           autoComplete="off"
@@ -45,7 +47,7 @@ export function StepDetails() {
           {SWISS_CANTONS.map((c) => <option key={c} value={c} />)}
         </datalist>
         <p className="text-[12px] text-[oklch(0.600_0.010_27.0)]">
-          Dealers near you will be prioritised.
+          {t("locationHint")}
         </p>
       </div>
 
@@ -53,12 +55,12 @@ export function StepDetails() {
       <div className="space-y-2">
         <label htmlFor="notes" className="flex items-center gap-1.5 text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">
           <MessageSquare className="w-3.5 h-3.5 text-[oklch(0.500_0.010_27.0)]" />
-          Anything else dealers should know
-          <span className="text-[12px] font-normal text-[oklch(0.600_0.010_27.0)] ml-1">optional</span>
+          {t("notes")}
+          <span className="text-[12px] font-normal text-[oklch(0.600_0.010_27.0)] ml-1">{t("notesOptional")}</span>
         </label>
         <textarea
           id="notes"
-          placeholder="e.g. I need the car by end of March. Prefer blue or black. Open to German import."
+          placeholder={t("notesPlaceholder")}
           value={data.notes}
           onChange={(e) => update({ notes: e.target.value })}
           rows={4}
@@ -74,11 +76,10 @@ export function StepDetails() {
       <div className="rounded-xl bg-[oklch(0.977_0.005_27.0)] border border-[oklch(0.920_0.006_27.0)] p-5 space-y-3">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-[oklch(0.448_0.228_27.3)]" />
-          <span className="text-[13px] font-semibold text-[oklch(0.112_0.012_27.0)]">What happens next</span>
+          <span className="text-[13px] font-semibold text-[oklch(0.112_0.012_27.0)]">{t("whatNext")}</span>
         </div>
         <p className="text-[13px] text-[oklch(0.468_0.012_27.0)] leading-relaxed">
-          Your request is shared with verified Swiss dealerships. They review it and respond directly in your dashboard.
-          No spam, no cold calls — your contact details stay private until you decide to share them.
+          {t("whatNextBody")}
         </p>
       </div>
     </div>

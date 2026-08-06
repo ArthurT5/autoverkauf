@@ -7,15 +7,113 @@
     "login": "Anmelden"
   },
   "hero": {
-    "badge": "Bald verfügbar in der Schweiz",
-    "headline1": "Nicht mehr suchen.",
-    "headline2": "Händler kommen zu dir.",
+    "badge": "Für die Schweiz gebaut",
+    "headline1": "Dein nächstes Auto,",
+    "headline2": "direkt zu dir.",
     "subtitle": "Beschreibe einmal, was du suchst. Geprüfte Schweizer Autohändler prüfen deine Anfrage und schicken dir passende Angebote.",
     "cta": "Auto finden — kostenlos",
     "ctaSecondary": "So funktioniert's",
     "pillar1": "Für Käufer immer kostenlos",
     "pillar2": "Nur geprüfte Händler",
     "pillar3": "Deine Kontaktdaten bleiben privat"
+  },
+  "how": {
+    "heading": "Von der Anfrage zum Angebot.",
+    "sub": "Vier Schritte. Scrolle und sieh zu, wie dein nächstes Auto dich findet.",
+    "scrollHint": "Scrollen",
+    "scenes": {
+      "request": {
+        "step": "01",
+        "title": "Beschreibe dein Auto",
+        "body": "Budget, Marke, Kraftstoff, Ausstattung — sag einmal, was du willst."
+      },
+      "takeover": {
+        "step": "02",
+        "title": "Die Plattform übernimmt",
+        "body": "Deine Anfrage geht ins System. Jetzt arbeitet sie für dich."
+      },
+      "respond": {
+        "step": "03",
+        "title": "Geprüfte Händler reagieren",
+        "body": "Die passenden Schweizer Händler werden zugeordnet — nur die, die passen."
+      },
+      "arrive": {
+        "step": "04",
+        "title": "Angebote kommen zu dir",
+        "body": "Passende Fahrzeuge erscheinen in deinem Dashboard. Du hast nur gefragt."
+      },
+      "compare": {
+        "step": "05",
+        "title": "Alles auf einen Blick",
+        "body": "Jedes Angebot nebeneinander — Preis, Kilometer, Übereinstimmung."
+      },
+      "decide": {
+        "step": "06",
+        "title": "Mit Sicherheit wählen",
+        "body": "Wähle das beste Angebot und verbinde dich mit dem Händler."
+      }
+    },
+    "ui": {
+      "formTitle": "Neue Anfrage",
+      "budget": "Budget",
+      "brand": "Marke",
+      "fuel": "Kraftstoff",
+      "year": "Jahr",
+      "submit": "An geprüfte Händler senden",
+      "sent": "Anfrage gesendet",
+      "notifying": "Passende Händler werden benachrichtigt",
+      "newRequest": "Neue Anfrage",
+      "match": "Übereinstimmung",
+      "viewOffer": "Angebot ansehen",
+      "bestMatch": "Beste Übereinstimmung",
+      "choose": "Angebot wählen",
+      "accepted": "Angebot angenommen",
+      "formQ": "Was suchst du?",
+      "matching": "Abgleich über alle 26 Kantone…",
+      "yourRequest": "Deine Anfrage",
+      "vehicle": "Hybrid-SUV",
+      "yourOffers": "Deine Angebote",
+      "newCount": "3 neu",
+      "accept": "Angebot annehmen",
+      "lBudget": "Budget",
+      "vBudget": "CHF 35–50k",
+      "lBody": "Karosserie",
+      "vBody": "SUV",
+      "lFuel": "Kraftstoff",
+      "vFuel": "Hybrid",
+      "lTrans": "Getriebe",
+      "vTrans": "Automatik",
+      "lMileage": "Kilometer",
+      "vMileage": "< 60'000 km",
+      "lLocation": "Ort",
+      "vLocation": "Zürich"
+    },
+    "eyebrow": "So funktioniert's"
+  },
+  "cta": {
+    "heading": "Bereit, dein nächstes Auto zu finden?",
+    "body": "Beschreibe einmal, was du suchst. Geprüfte Schweizer Händler senden dir ihre besten Angebote — du entscheidest.",
+    "primary": "Auto finden — kostenlos",
+    "secondary": "Als Händler registrieren",
+    "trust": "Kostenlos für Käufer · Kein Spam · Deine Daten bleiben privat"
+  },
+  "stats": {
+    "heading1": "Worauf du dich verlassen kannst.",
+    "heading2": "",
+    "lead": "Geprüfte Händler in allen <c></c> Kantonen, verfügbar in <l></l> Sprachen.",
+    "free": {
+      "title": "Kostenlos für Käufer",
+      "body": "Keine Gebühren, keine Provision — nie. Du zahlst nur den Händler, für das Auto deiner Wahl."
+    },
+    "verified": {
+      "title": "Nur geprüfte Händler",
+      "body": "Jeder Händler wird manuell geprüft und freigegeben, bevor er Käufer erreichen kann."
+    },
+    "control": {
+      "title": "Du behältst die Kontrolle",
+      "body": "Keine Anrufe oder E-Mails ausserhalb der Plattform, bis du deine Daten teilst."
+    },
+    "eyebrow": "Das Fundament"
   },
   "wizard": {
     "newRequest": "Neue Fahrzeuganfrage",
@@ -51,7 +149,8 @@
       "subtitle": "Einmal tippen = Muss, nochmals = Wäre schön, nochmals = Entfernen.",
       "mustHave": "Muss haben",
       "niceToHave": "Wäre schön",
-      "skip": "Du kannst diesen Schritt überspringen — Händler senden auch Angebote ohne Ausstattungswunsch."
+      "skip": "Du kannst diesen Schritt überspringen — Händler senden auch Angebote ohne Ausstattungswunsch.",
+      "selected": "{count} ausgewählt"
     },
     "details": {
       "title": "Fast geschafft",
@@ -76,6 +175,27 @@
       "vehicle": "Fahrzeug",
       "specs": "Technik",
       "features": "Ausstattung"
+    },
+    "privacyNote": "Deine Kontaktdaten werden ohne deine Zustimmung nie an Händler weitergegeben.",
+    "auth": {
+      "title": "Ein letzter Schritt",
+      "subtitle": "Erstelle ein kostenloses Konto, damit Händler dir Angebote in dein Dashboard senden können. Deine Kontaktdaten bleiben privat.",
+      "signinTitle": "Willkommen zurück",
+      "signinSubtitle": "Melde dich an, um deine Anfrage zu senden.",
+      "namePh": "Dein Name",
+      "emailPh": "du@beispiel.ch",
+      "passwordNewPh": "Passwort (mind. 8 Zeichen)",
+      "passwordPh": "Passwort",
+      "submitSignup": "Konto erstellen & Anfrage senden",
+      "submitSignin": "Anmelden & Anfrage senden",
+      "sending": "Anfrage wird gesendet…",
+      "emailTaken": "Diese E-Mail ist bereits registriert — melde dich stattdessen an.",
+      "createFailed": "Dein Konto konnte nicht erstellt werden.",
+      "invalid": "Ungültige E-Mail oder ungültiges Passwort.",
+      "generic": "Etwas ist schiefgelaufen.",
+      "toSignin": "Schon ein Konto? Anmelden",
+      "toSignup": "Neu hier? Kostenloses Konto erstellen",
+      "sendFailed": "Deine Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."
     }
   },
   "steps": {
@@ -134,5 +254,313 @@
     "terms": "AGB",
     "contact": "Kontakt",
     "rights": "Alle Rechte vorbehalten."
+  },
+  "forDealers": {
+    "eyebrow": "Für Händler",
+    "heading": "Erreiche Käufer, die dein Auto schon wollen.",
+    "body": "Statt für Werbung zu zahlen und Leads zu jagen, erhältst du direkte Anfragen von Käufern, die bereits entschieden haben, was sie wollen und ausgeben können. Sende einfach dein bestes Angebot.",
+    "apply": "Als Händler bewerben",
+    "demo": "Demo-Dashboard ansehen",
+    "b1t": "Vorqualifizierte Käufer",
+    "b1b": "Jeder Käufer hat Budget und Anforderungen bereits festgelegt. Keine Zeitverschwender.",
+    "b2t": "Über Qualität gewinnen",
+    "b2b": "Dein Fahrzeug, Preis und Service gewinnen den Deal — nicht dein Werbebudget.",
+    "b3t": "Leistungsanalysen",
+    "b3b": "Verfolge Annahmequoten, Antwortzeiten und Umsatz in deinem Händler-Dashboard.",
+    "b4t": "Geprüftes Netzwerk",
+    "b4b": "Nur lizenzierte Schweizer Händler werden zugelassen. Dein Ruf bleibt geschützt."
+  },
+  "next": {
+    "eyebrow": "Transparenz",
+    "heading": "Was passiert nach deiner Anfrage?",
+    "s1title": "Deine Anfrage geht ins System",
+    "s1body": "Du beschreibst einmal, was du suchst. Deine Kontaktdaten bleiben privat — Händler sehen nur deine Fahrzeugwünsche.",
+    "s2title": "Geprüfte Händler werden benachrichtigt",
+    "s2body": "Passende, lizenzierte Schweizer Händler in deiner Region werden automatisch zugeordnet — nur solche, die wirklich passen.",
+    "s3title": "Angebote landen direkt bei dir",
+    "s3body": "Du vergleichst alle Angebote in deinem Dashboard. Kein Spam, keine Kaltanrufe. Du entscheidest, wen du kontaktierst."
+  },
+  "coverage": {
+    "eyebrow": "Schweizweite Abdeckung",
+    "heading": "In allen 26 Kantonen.",
+    "sub": "Geprüfte Händler in jeder Region — von Genf bis St. Gallen, von Basel bis Lugano.",
+    "cantons": "Kantone",
+    "languages": "Sprachen",
+    "free": "Kostenlos für Käufer",
+    "dealers": "Händler in der Region"
+  },
+  "faq": {
+    "heading": "Häufige Fragen.",
+    "contactPre": "Nicht gefunden, was du suchst? ",
+    "contactLink": "Kontaktiere uns.",
+    "items": [
+      {
+        "q": "Ist AutoVerkauf für Käufer kostenlos?",
+        "a": "Ja, vollständig. Käufer zahlen nie etwas. Wir verdienen an Händler-Abos, nicht an dir."
+      },
+      {
+        "q": "Woher weiss ich, dass Händler vertrauenswürdig sind?",
+        "a": "Jeder Händler wird manuell geprüft. Wir prüfen Handelsregister und Händlerlizenzen, bevor wir einen Händler zulassen, und du siehst jedes Händlerprofil, bevor du antwortest."
+      },
+      {
+        "q": "Was, wenn mir kein Angebot gefällt?",
+        "a": "Nichts. Du bist zu nichts verpflichtet. Deine Anfrage läuft nach 30 Tagen ab und du kannst jederzeit eine neue erstellen."
+      },
+      {
+        "q": "Können Händler mich anrufen?",
+        "a": "Nein. Die gesamte Kommunikation bleibt in AutoVerkauf, bis du deine Kontaktdaten mit einem bestimmten Händler teilst."
+      },
+      {
+        "q": "Wie viele Angebote bekomme ich?",
+        "a": "Das hängt davon ab, wie spezifisch deine Anfrage ist und wie viele Händler passen. Angebote landen in deinem Dashboard, sobald Händler antworten — und du musst keines annehmen."
+      },
+      {
+        "q": "Welche Informationen sehen Händler über mich?",
+        "a": "Nur deine Fahrzeugwünsche und deinen Kanton. Name, E-Mail und Telefon werden nie geteilt, bis du einen bestimmten Händler kontaktierst."
+      },
+      {
+        "q": "Kann ich mehrere Autos anfragen?",
+        "a": "Ja. Du kannst bis zu drei aktive Anfragen gleichzeitig haben."
+      },
+      {
+        "q": "Wie werde ich geprüfter Händler?",
+        "a": "Bewirb dich als Händler und fülle das Verifizierungsformular aus. Wir prüfen jede Bewerbung vor der Freigabe."
+      }
+    ],
+    "eyebrow": "FAQ"
+  },
+  "login": {
+    "title": "Willkommen zurück",
+    "subtitle": "Melde dich bei deinem AutoVerkauf-Konto an.",
+    "email": "E-Mail",
+    "emailPh": "du@beispiel.ch",
+    "password": "Passwort",
+    "submit": "Anmelden",
+    "submitting": "Anmeldung läuft…",
+    "invalid": "Ungültige E-Mail oder ungültiges Passwort.",
+    "newTo": "Neu bei AutoVerkauf?",
+    "findCar": "Finde dein Auto — kostenlos",
+    "areDealer": "Bist du Händler?",
+    "apply": "Hier bewerben"
+  },
+  "dealerSignup": {
+    "eyebrow": "Für Händler",
+    "title": "Als geprüfter Händler bewerben",
+    "sub": "Wir prüfen jede Bewerbung, bevor wir Zugang gewähren. Du erhältst innerhalb von 2 Werktagen eine Antwort.",
+    "name": "Dein Name",
+    "namePh": "Max Müller",
+    "company": "Firmenname",
+    "companyPh": "AutoCenter AG",
+    "email": "Geschäftliche E-Mail",
+    "emailPh": "info@beispiel.ch",
+    "password": "Passwort",
+    "passwordPh": "Mind. 8 Zeichen",
+    "canton": "Kanton",
+    "select": "Auswählen…",
+    "website": "Website",
+    "optional": "optional",
+    "submit": "Bewerbung senden",
+    "submitting": "Wird gesendet…",
+    "already": "Bereits freigeschaltet?",
+    "signIn": "Anmelden",
+    "successTitle": "Bewerbung erhalten",
+    "successBody": "Wir prüfen dein Händlerprofil innerhalb von 2 Werktagen und senden den Entscheid an {email}.",
+    "back": "Zurück zu AutoVerkauf",
+    "generic": "Etwas ist schiefgelaufen"
+  },
+  "about": {
+    "eyebrow": "Unsere Mission",
+    "title": "Ein Auto zu kaufen sollte in der Schweiz andersherum funktionieren.",
+    "p1": "Der klassische Autokauf bedeutet: Stunden auf Inserate-Plattformen, Probefahrten quer durch die Kantone und Verhandlungen mit Händlern, die alle Informationen haben. AutoVerkauf dreht dieses Modell um.",
+    "p2": "Du beschreibst einmal, was du willst — Budget, Karosserie, Antrieb, Ausstattung, Kanton. Geprüfte Schweizer Händler prüfen deine Anfrage und senden dir ihr bestes passendes Angebot. <s>Du entscheidest, wen du kontaktierst — oder ob überhaupt.</s> Dein Name, deine E-Mail und deine Telefonnummer bleiben privat, bis du sie teilst.",
+    "p3": "Wir sind ein kleines Team aus der Schweiz. Wir haben AutoVerkauf gebaut, weil Käuferinnen und Käufer einen Prozess verdienen, der für sie funktioniert — nicht für den Händler mit dem grössten Werbebudget.",
+    "p4": "AutoVerkauf ist für Käufer immer kostenlos. Wir verdienen über Händler-Abonnemente. Diese Ausrichtung zählt: Unser Anreiz sind gute Angebote für dich, nicht Klicks."
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Melde dich bei uns.",
+    "sub": "Wir antworten in der Regel innerhalb eines Werktags.",
+    "topics": [
+      {
+        "heading": "Fragen als Käufer",
+        "body": "Wie es funktioniert, deine Anfragen, Angebote oder dein Konto.",
+        "email": "support@autoverkauf.ch"
+      },
+      {
+        "heading": "Händler-Partnerschaften",
+        "body": "Bewerbung, Status deiner Bewerbung oder dein Händlerkonto.",
+        "email": "dealers@autoverkauf.ch"
+      },
+      {
+        "heading": "Presse & Medien",
+        "body": "Interviews, Pressematerial oder Partnerschaftsanfragen.",
+        "email": "press@autoverkauf.ch"
+      }
+    ]
+  },
+  "legal": {
+    "eyebrow": "Rechtliches",
+    "updated": "Zuletzt aktualisiert: Juni 2026",
+    "privacyTitle": "Datenschutzerklärung",
+    "termsTitle": "Nutzungsbedingungen",
+    "privacy": [
+      {
+        "h": "Was wir erheben",
+        "b": "Wenn du eine Anfrage erstellst: deine Fahrzeugwünsche, dein Budget und deinen Kanton. Wenn du ein Konto erstellst: deine E-Mail-Adresse und ein gehashtes Passwort. Wir erheben und speichern nie deine Telefonnummer, Wohnadresse oder Zahlungsdaten."
+      },
+      {
+        "h": "Wie wir sie nutzen",
+        "b": "Deine Fahrzeugwünsche werden mit geprüften Händlern geteilt, damit sie dir passende Angebote senden können. Deine Kontaktdaten (Name, E-Mail) werden nie an Händler weitergegeben, ausser du nimmst selbst Kontakt mit einem bestimmten Händler auf."
+      },
+      {
+        "h": "Datenspeicherung",
+        "b": "Daten werden auf Supabase-Infrastruktur in der EU gespeichert. Anfragedaten bewahren wir 30 Tage nach Ablauf einer Anfrage auf. Kontodaten bleiben gespeichert, bis du dein Konto löschst."
+      },
+      {
+        "h": "Cookies",
+        "b": "Wir verwenden ein einzelnes Session-Cookie für die Anmeldung und ein Sprach-Cookie für deine Spracheinstellung. Wir verwenden keine Werbe- oder Tracking-Cookies."
+      },
+      {
+        "h": "Deine Rechte",
+        "b": "Nach Schweizer nDSG und EU-DSGVO hast du das Recht, deine Personendaten einzusehen, zu korrigieren, zu exportieren oder zu löschen. Schreib uns an privacy@autoverkauf.ch, um diese Rechte auszuüben."
+      },
+      {
+        "h": "Kontakt",
+        "b": "Bei Datenschutzfragen: privacy@autoverkauf.ch"
+      }
+    ],
+    "terms": [
+      {
+        "h": "Der Dienst",
+        "b": "AutoVerkauf ist ein Marktplatz, der Autokäufer mit geprüften Schweizer Händlern verbindet. Käufer stellen Fahrzeuganfragen; Händler antworten mit Angeboten. AutoVerkauf verkauft keine Autos und ist nicht Partei einer Transaktion zwischen Käufer und Händler."
+      },
+      {
+        "h": "Für Käufer",
+        "b": "Der Dienst ist für Käufer kostenlos. Du kannst bis zu drei aktive Anfragen gleichzeitig stellen. Anfragen laufen nach 30 Tagen ab. Du bist nicht verpflichtet, ein Angebot anzunehmen. Du musst mindestens 18 Jahre alt sein und in der Schweiz wohnen."
+      },
+      {
+        "h": "Für Händler",
+        "b": "Händler müssen lizenzierte Schweizer Motorfahrzeughändler sein. Der Zugang erfordert ein kostenpflichtiges Abonnement und eine manuelle Prüfung. Eingereichte Angebote müssen echt und korrekt sein. Händler dürfen Käufer nicht ausserhalb der Plattform kontaktieren, bevor der Käufer seine Kontaktdaten teilt."
+      },
+      {
+        "h": "Unzulässiges Verhalten",
+        "b": "Du darfst AutoVerkauf nicht nutzen, um falsche oder irreführende Anfragen oder Angebote zu erstellen, andere Nutzer zu spammen, die Plattform zurückzuentwickeln oder für rechtswidrige Zwecke."
+      },
+      {
+        "h": "Haftungsbeschränkung",
+        "b": "AutoVerkauf wird ohne Gewähr bereitgestellt. Wir haften nicht für die Richtigkeit von Händlerangeboten, den Ausgang einer Transaktion oder indirekte Schäden aus der Nutzung der Plattform."
+      },
+      {
+        "h": "Anwendbares Recht",
+        "b": "Diese Bedingungen unterstehen Schweizer Recht. Für Streitigkeiten sind ausschliesslich Schweizer Gerichte zuständig."
+      },
+      {
+        "h": "Kontakt",
+        "b": "Fragen zu diesen Bedingungen: legal@autoverkauf.ch"
+      }
+    ]
+  },
+  "dash": {
+    "signOut": "Abmelden",
+    "wrong": "Etwas ist schiefgelaufen",
+    "buyer": {
+      "section": "Mein Dashboard",
+      "welcome": "Willkommen zurück",
+      "welcomeName": "Willkommen zurück, {name}",
+      "loadingIntro": "Deine Anfragen werden geladen…",
+      "introEmpty": "Erstelle eine Anfrage und geprüfte Händler senden dir Angebote.",
+      "introReviewing": "Händler prüfen deine Anfragen — Angebote erscheinen hier.",
+      "introOffers": "Du hast {count, plural, one {# Angebot} other {# Angebote}} über deine Anfragen hinweg.",
+      "newRequest": "Neue Anfrage",
+      "activeRequests": "Aktive Anfragen",
+      "offersReceived": "Erhaltene Angebote",
+      "myRequests": "Meine Anfragen",
+      "createNew": "Neue Anfrage erstellen",
+      "active": "Aktiv",
+      "offersCount": "{count, plural, one {# Angebot} other {# Angebote}}",
+      "noRequestsTitle": "Noch keine Anfragen",
+      "noRequestsBody": "Beschreibe einmal, welches Auto du willst — geprüfte Schweizer Händler antworten mit ihren besten Angeboten.",
+      "offersTitle": "Angebote",
+      "noOffersTitle": "Noch keine Angebote",
+      "noOffersBody": "Geprüfte Händler prüfen diese Anfrage. Ihre Angebote erscheinen hier, sobald sie eintreffen.",
+      "offersFailed": "Angebote konnten nicht geladen werden",
+      "anyVehicle": "Beliebiges Fahrzeug",
+      "anyFuel": "Beliebiger Antrieb",
+      "verifiedDealer": "Geprüfter Händler",
+      "isNew": "NEU"
+    },
+    "dealer": {
+      "section": "Händlerportal",
+      "pendingTitle": "Bewerbung in Prüfung",
+      "pendingBody": "{company} wird derzeit geprüft. Du erhältst Zugang zu Käuferanfragen, sobald deine Bewerbung freigegeben ist — in der Regel innerhalb von 2 Werktagen.",
+      "introEmpty": "Momentan keine offenen Käuferanfragen — neue erscheinen hier.",
+      "introCount": "{count, plural, one {# offene Anfrage} other {# offene Anfragen}} von Schweizer Käufern.",
+      "openRequests": "Offene Anfragen",
+      "offersSent": "Gesendete Angebote",
+      "buyerRequests": "Käuferanfragen",
+      "noRequestsTitle": "Keine offenen Anfragen",
+      "noRequestsBody": "Wenn Käufer Anfragen für den Schweizer Markt stellen, erscheinen sie hier zur Beantwortung.",
+      "answered": "Beantwortet",
+      "sendOffer": "Angebot senden",
+      "yourOffer": "Dein Angebot",
+      "makePh": "Marke (z. B. BMW)",
+      "modelPh": "Modell (z. B. 320d)",
+      "yearPh": "Jahr",
+      "mileagePh": "Kilometerstand (km)",
+      "pricePh": "Preis (CHF)",
+      "fuelPh": "Antrieb (z. B. Diesel)",
+      "transmissionPh": "Getriebe",
+      "descriptionPh": "Kurzbeschreibung (optional)",
+      "sending": "Wird gesendet…",
+      "offerFailed": "Angebot konnte nicht gesendet werden.",
+      "maxKm": "max. {km} km",
+      "anyVehicle": "Beliebiges Fahrzeug",
+      "anyFuel": "Beliebiger Antrieb"
+    },
+    "admin": {
+      "section": "Admin",
+      "title": "Plattform-Übersicht",
+      "buyers": "Käufer",
+      "verifiedDealers": "Geprüfte Händler",
+      "activeRequests": "Aktive Anfragen",
+      "offersSent": "Gesendete Angebote",
+      "pendingTitle": "Ausstehende Händlerprüfungen",
+      "pendingCount": "{count} ausstehend",
+      "queueEmptyTitle": "Warteschlange ist leer",
+      "queueEmptyBody": "Neue Händlerbewerbungen erscheinen hier zur Prüfung.",
+      "approve": "Freigeben",
+      "reject": "Ablehnen",
+      "website": "Website ↗",
+      "canton": "Kanton {canton}"
+    }
+  },
+  "features": {
+    "panoramaRoof": "Panoramadach",
+    "heatedSeats": "Sitzheizung",
+    "navigation": "Navigation",
+    "parkingSensors": "Parksensoren",
+    "rearCamera": "Rückfahrkamera",
+    "camera360": "360°-Kamera",
+    "adaptiveCruise": "Adaptiver Tempomat",
+    "laneAssist": "Spurhalteassistent",
+    "blindSpot": "Toter-Winkel-Warner",
+    "carplay": "Apple CarPlay / Android Auto",
+    "wirelessCharging": "Kabelloses Laden",
+    "keyless": "Keyless-Zugang",
+    "electricTailgate": "Elektrische Heckklappe",
+    "towHitch": "Anhängerkupplung",
+    "leatherSeats": "Ledersitze",
+    "headUpDisplay": "Head-up-Display",
+    "ambientLighting": "Ambientebeleuchtung",
+    "awd": "Allrad (4WD/AWD)",
+    "sportPackage": "Sportpaket",
+    "winterTyres": "Winterreifen inklusive"
+  },
+  "stepsDesc": {
+    "budget": "Preisrahmen",
+    "vehicle": "Typ & Marke",
+    "specs": "Antrieb & Kilometer",
+    "features": "Ausstattung",
+    "details": "Ort & Notizen"
   }
 }

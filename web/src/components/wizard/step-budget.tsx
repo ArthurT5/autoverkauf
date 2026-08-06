@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useWizardStore } from "@/store/request-wizard";
 import { Slider } from "@/components/ui/slider";
 
@@ -12,6 +13,7 @@ function formatCHF(value: number) {
 }
 
 export function StepBudget() {
+  const t = useTranslations("wizard.budget");
   const { data, update } = useWizardStore();
 
   const handleSlider = (value: number | readonly number[]) => {
@@ -23,24 +25,24 @@ export function StepBudget() {
     <div className="space-y-10">
       <div>
         <h2 className="text-[2.25rem] font-semibold tracking-[-0.02em] leading-[1.1] text-[oklch(0.112_0.012_27.0)]" style={{ textWrap: "balance" }}>
-          What's your budget?
+          {t("title")}
         </h2>
         <p className="mt-2 text-[oklch(0.500_0.012_27.0)] text-[15px] leading-relaxed">
-          Dealers only send offers within your range.
+          {t("subtitle")}
         </p>
       </div>
 
       {/* Range display */}
       <div className="flex items-end gap-3">
         <div className="flex-1 rounded-xl border border-[oklch(0.910_0.008_27.0)] bg-white px-5 py-4">
-          <div className="text-[12px] font-medium text-[oklch(0.600_0.010_27.0)] mb-1">From</div>
+          <div className="text-[12px] font-medium text-[oklch(0.600_0.010_27.0)] mb-1">{t("from")}</div>
           <div className="text-[2rem] font-bold tabular-nums tracking-tight text-[oklch(0.112_0.012_27.0)]">
             {formatCHF(data.budgetMin)}
           </div>
         </div>
         <div className="text-[oklch(0.700_0.008_27.0)] text-xl font-light pb-4">–</div>
         <div className="flex-1 rounded-xl border border-[oklch(0.448_0.228_27.3)/0.3] bg-[oklch(0.448_0.228_27.3)/0.04] px-5 py-4">
-          <div className="text-[12px] font-medium text-[oklch(0.448_0.228_27.3)/0.7] mb-1">To</div>
+          <div className="text-[12px] font-medium text-[oklch(0.448_0.228_27.3)/0.7] mb-1">{t("to")}</div>
           <div className="text-[2rem] font-bold tabular-nums tracking-tight text-[oklch(0.448_0.228_27.3)]">
             {formatCHF(data.budgetMax)}
           </div>
@@ -65,10 +67,10 @@ export function StepBudget() {
 
       {/* Quick presets */}
       <div className="space-y-2">
-        <p className="text-[12px] font-medium text-[oklch(0.600_0.010_27.0)]">Quick range</p>
+        <p className="text-[12px] font-medium text-[oklch(0.600_0.010_27.0)]">{t("quickRange")}</p>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: "Under 20k", min: 5000, max: 20000 },
+            { label: "< 20k", min: 5000, max: 20000 },
             { label: "20k – 40k", min: 20000, max: 40000 },
             { label: "40k – 80k", min: 40000, max: 80000 },
             { label: "80k – 150k", min: 80000, max: 150000 },

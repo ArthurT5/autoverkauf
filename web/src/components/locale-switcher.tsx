@@ -1,54 +1,50 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { setUserLocale } from "@/i18n/locale";
+import { locales, localeLabels, type Locale } from "@/i18n/config";
 
-const LOCALE_LABELS: Record<string, string> = {
-  de: "DE",
-  fr: "FR",
-  it: "IT",
-  en: "EN",
-};
-
-export function LocaleSwitcher() {
+export function LocaleSwitcher({ dark = false }: { dark?: boolean }) {
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
 
-  const switchLocale = (next: string) => {
+  const onSelect = (next: Locale) => {
     if (next === locale) return;
-
-    // Replace the current locale prefix in the pathname
-    const segments = pathname.split("/");
-    const isLocaleSegment = routing.locales.includes(segments[1] as "de" | "fr" | "it" | "en");
-
-    let newPath: string;
-    if (isLocaleSegment) {
-      segments[1] = next === routing.defaultLocale ? "" : next;
-      newPath = segments.filter(Boolean).join("/");
-      newPath = newPath ? `/${newPath}` : "/";
-    } else {
-      newPath = next === routing.defaultLocale ? pathname : `/${next}${pathname}`;
-    }
-
-    router.push(newPath);
+    startTransition(async () => {
+      await setUserLocale(next);
+      router.refresh();
+    });
   };
 
   return (
-    <div className="flex items-center gap-0.5 rounded-lg border border-[oklch(0.910_0.008_27.0)] p-0.5">
-      {routing.locales.map((l) => (
+    <div
+      className={[
+        "flex items-center gap-0.5 rounded-lg border p-0.5 transition-opacity",
+        dark ? "border-white/15" : "border-[oklch(0.910_0.008_27.0)]",
+        isPending ? "opacity-60" : "",
+      ].join(" ")}
+    >
+      {locales.map((l) => (
         <button
           key={l}
-          onClick={() => switchLocale(l)}
+          type="button"
+          onClick={() => onSelect(l)}
+          aria-pressed={l === locale}
           className={[
             "px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all duration-150 cursor-pointer tracking-wide",
             l === locale
-              ? "bg-[oklch(0.112_0.012_27.0)] text-white"
-              : "text-[oklch(0.500_0.010_27.0)] hover:text-[oklch(0.200_0.012_27.0)]",
+              ? dark
+                ? "bg-white text-[oklch(0.15_0.012_27.0)]"
+                : "bg-[oklch(0.112_0.012_27.0)] text-white"
+              : dark
+                ? "text-white/50 hover:text-white"
+                : "text-[oklch(0.500_0.010_27.0)] hover:text-[oklch(0.200_0.012_27.0)]",
           ].join(" ")}
         >
-          {LOCALE_LABELS[l]}
+          {localeLabels[l]}
         </button>
       ))}
     </div>

@@ -1,117 +1,102 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { TrendingUp, Users, BarChart3, Shield } from "lucide-react";
+import { useRef, useLayoutEffect } from "react";
+import { Users, TrendingUp, BarChart3, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { gsap } from "@/lib/gsap";
+import { Reveal } from "@/components/motion/reveal";
+import { RevealHeading } from "@/components/motion/reveal-heading";
+import { Eyebrow } from "@/components/motion/eyebrow";
+import { HalftoneCanvas } from "@/components/motion/halftone-canvas";
+import { CtaButton } from "@/components/ui/cta-button";
 
-const BENEFITS = [
-  {
-    icon: Users,
-    title: "Pre-qualified buyers",
-    description: "Every buyer has already defined their budget and requirements. No tyre-kickers.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Compete on quality",
-    description: "Your vehicle, price, and service speak for themselves — not your ad spend.",
-  },
-  {
-    icon: BarChart3,
-    title: "Performance analytics",
-    description: "Track offer acceptance rates, response times, and revenue through your dealer dashboard.",
-  },
-  {
-    icon: Shield,
-    title: "Verified platform",
-    description: "Only verified, licensed Swiss dealerships are approved. Your reputation is protected.",
-  },
-];
+const ICONS = [Users, TrendingUp, BarChart3, Shield];
+const BENEFIT_KEYS = ["b1", "b2", "b3", "b4"] as const;
 
 export function ForDealers() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const t = useTranslations("forDealers");
+  const tNav = useTranslations("nav");
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  // Sondaven-style opposite column parallax: left drifts up, right drifts down
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const left = leftRef.current;
+    const right = rightRef.current;
+    if (!section || !left || !right) return;
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 1024px)", () => {
+        const shared = { ease: "none", scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true } };
+        gsap.fromTo(left,  { yPercent:  5 }, { yPercent: -5, ...shared });
+        gsap.fromTo(right, { yPercent: -5 }, { yPercent:  5, ...shared });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="dealers" className="bg-[oklch(0.977_0.005_27.0)] py-28 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left */}
-          <div ref={ref}>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-[oklch(0.448_0.228_27.3)] text-[13px] font-semibold tracking-widest uppercase mb-4"
-            >
-              For dealerships
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              className="text-[clamp(2rem,3.5vw,3rem)] font-bold tracking-[-0.025em] text-[oklch(0.112_0.012_27.0)] leading-[1.15]"
-            >
-              Reach buyers who
-              <br />
-              already want your car.
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-5 text-[1.05rem] text-[oklch(0.450_0.010_27.0)] leading-relaxed"
-            >
-              Instead of spending on ads and waiting for leads, you receive direct
-              requests from buyers who have already decided what they want and what
-              they can spend. Just send your best offer.
-            </motion.p>
+    <section
+      ref={sectionRef}
+      id="dealers"
+      data-theme="dark"
+      data-nav-theme="dark"
+      className="grain-dark relative overflow-hidden bg-[oklch(0.068_0.008_27)] py-28 lg:py-40"
+    >
+      <HalftoneCanvas inkAlpha={0.45} farBase={0.74} nearBase={0.9} phase={4.4} />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-8 flex flex-col sm:flex-row gap-3"
-            >
-              <a
-                href="/dealer/signup"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-[oklch(0.448_0.228_27.3)] text-white text-[14px] font-semibold rounded-xl hover:bg-[oklch(0.400_0.218_27.3)] transition-colors"
-              >
-                Apply as a dealer →
-              </a>
-              <a
-                href="/dealer/dashboard"
-                className="inline-flex items-center justify-center px-6 py-3.5 bg-white text-[oklch(0.250_0.012_27.0)] text-[14px] font-medium rounded-xl border border-[oklch(0.920_0.006_27.0)] hover:bg-[oklch(0.960_0.005_27.0)] transition-colors"
-              >
-                View demo dashboard
-              </a>
-            </motion.div>
-          </div>
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
+        {/* Left — pitch (drifts up on scroll) */}
+        <div ref={leftRef}>
+          <Eyebrow className="text-white/40">{t("eyebrow")}</Eyebrow>
+          <RevealHeading
+            className="mt-3 text-[clamp(2.1rem,3.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--ink-900)]"
+            style={{ textWrap: "balance" }}
+          >
+            {t("heading")}
+          </RevealHeading>
+          <Reveal delay={0.12}>
+            <p className="mt-6 max-w-md text-[1.075rem] leading-relaxed text-[var(--ink-500)]">
+              {t("body")}
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <CtaButton href="/dealer/signup" variant="primary" arrow>
+                {t("apply")}
+              </CtaButton>
+              <CtaButton href="/#how-it-works" variant="ghost-dark">
+                {tNav("howItWorks")}
+              </CtaButton>
+            </div>
+          </Reveal>
+        </div>
 
-          {/* Right: benefit cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {BENEFITS.map((b, i) => {
-              const Icon = b.icon;
+        {/* Right — benefit cards (drifts down on scroll) */}
+        <div ref={rightRef}>
+          <Reveal stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {BENEFIT_KEYS.map((key, i) => {
+              const Icon = ICONS[i];
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-white rounded-2xl p-6 border border-[oklch(0.920_0.006_27.0)] hover:shadow-md transition-shadow duration-300"
+                <div
+                  key={key}
+                  className="group lift rounded-2xl border border-[var(--hairline)] bg-[var(--card-bg)] p-6 shadow-[var(--shadow-card)]"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[oklch(0.960_0.005_27.0)] flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-[oklch(0.448_0.228_27.3)]" />
-                  </div>
-                  <h3 className="text-[15px] font-semibold text-[oklch(0.112_0.012_27.0)] mb-1.5">
-                    {b.title}
+                  <span className="mb-5 grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-[var(--red)]/12">
+                    <Icon className="h-[19px] w-[19px] text-[var(--red)] transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-125" strokeWidth={1.75} />
+                  </span>
+                  <h3 className="text-[15.5px] font-semibold tracking-[-0.01em] text-[var(--ink-900)]">
+                    {t(`${key}t`)}
                   </h3>
-                  <p className="text-[13px] text-[oklch(0.500_0.010_27.0)] leading-relaxed">
-                    {b.description}
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-[var(--ink-500)]">
+                    {t(`${key}b`)}
                   </p>
-                </motion.div>
+                </div>
               );
             })}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

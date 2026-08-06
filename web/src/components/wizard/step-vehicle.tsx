@@ -1,19 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useWizardStore, VehicleType } from "@/store/request-wizard";
 import { Slider } from "@/components/ui/slider";
 import { X } from "lucide-react";
 import { useState } from "react";
 
-const VEHICLE_TYPES: { value: VehicleType; label: string }[] = [
-  { value: "any", label: "Any" },
-  { value: "suv", label: "SUV" },
-  { value: "sedan", label: "Sedan" },
-  { value: "estate", label: "Estate" },
-  { value: "coupe", label: "Coupé" },
-  { value: "convertible", label: "Convertible" },
-  { value: "van", label: "Van" },
-  { value: "pickup", label: "Pickup" },
+const VEHICLE_TYPES: VehicleType[] = [
+  "any", "suv", "sedan", "estate", "coupe", "convertible", "van", "pickup",
 ];
 
 const POPULAR_BRANDS = [
@@ -41,6 +35,8 @@ function Chip({ label, selected, onClick }: { label: string; selected: boolean; 
 }
 
 export function StepVehicle() {
+  const t = useTranslations("wizard.vehicle");
+  const tTypes = useTranslations("vehicleTypes");
   const { data, update } = useWizardStore();
   const [brandInput, setBrandInput] = useState("");
 
@@ -67,23 +63,23 @@ export function StepVehicle() {
     <div className="space-y-9">
       <div>
         <h2 className="text-[2.25rem] font-semibold tracking-[-0.02em] leading-[1.1] text-[oklch(0.112_0.012_27.0)]" style={{ textWrap: "balance" }}>
-          What are you looking for?
+          {t("title")}
         </h2>
         <p className="mt-2 text-[oklch(0.500_0.012_27.0)] text-[15px] leading-relaxed">
-          Be as specific or open as you like — broader means more offers.
+          {t("subtitle")}
         </p>
       </div>
 
       {/* Body type */}
       <div className="space-y-3">
-        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Body type</p>
+        <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("bodyType")}</p>
         <div className="flex flex-wrap gap-2">
-          {VEHICLE_TYPES.map((t) => (
+          {VEHICLE_TYPES.map((value) => (
             <Chip
-              key={t.value}
-              label={t.label}
-              selected={data.vehicleType === t.value}
-              onClick={() => update({ vehicleType: t.value })}
+              key={value}
+              label={tTypes(value)}
+              selected={data.vehicleType === value}
+              onClick={() => update({ vehicleType: value })}
             />
           ))}
         </div>
@@ -92,8 +88,8 @@ export function StepVehicle() {
       {/* Brands */}
       <div className="space-y-3">
         <div className="flex items-baseline gap-2">
-          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Preferred brands</p>
-          <span className="text-[12px] text-[oklch(0.600_0.010_27.0)]">optional</span>
+          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("brands")}</p>
+          <span className="text-[12px] text-[oklch(0.600_0.010_27.0)]">{t("brandsOptional")}</span>
         </div>
 
         {data.brands.length > 0 && (
@@ -118,7 +114,7 @@ export function StepVehicle() {
         <div className="relative">
           <input
             type="text"
-            placeholder="Search brands…"
+            placeholder={t("brandsPlaceholder")}
             value={brandInput}
             onChange={(e) => setBrandInput(e.target.value)}
             onKeyDown={(e) => {
@@ -146,7 +142,7 @@ export function StepVehicle() {
       {/* Year range — dual slider */}
       <div className="space-y-4">
         <div className="flex items-baseline justify-between">
-          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">Year range</p>
+          <p className="text-[13px] font-medium text-[oklch(0.300_0.012_27.0)]">{t("yearRange")}</p>
           <span className="text-[15px] font-semibold tabular-nums text-[oklch(0.112_0.012_27.0)]">
             {data.yearFrom} – {data.yearTo}
           </span>
