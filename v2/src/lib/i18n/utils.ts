@@ -20,4 +20,12 @@ export function localizedPath(path: string, locale: Locale): string {
   return locale === defaultLocale ? clean : `/${locale}${clean}`;
 }
 
+/** Same page, different locale: strip the current locale prefix and apply the target. */
+export function switchLocalePath(url: URL, locale: Locale): string {
+  const segments = url.pathname.split("/").filter(Boolean);
+  if (segments[0] === "de" || segments[0] === "fr" || segments[0] === "it") segments.shift();
+  const rest = segments.length ? `/${segments.join("/")}` : "/";
+  return localizedPath(rest, locale);
+}
+
 export const localeList: Locale[] = ["en", "de", "fr", "it"];

@@ -1,6 +1,6 @@
 ---
 import "@/styles/global.css";
-import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+import { getLangFromUrl, useTranslations, localizedPath, switchLocalePath } from "@/lib/i18n/utils";
 import { localeList } from "@/lib/i18n/utils";
 import { languages } from "@/lib/i18n/ui";
 
@@ -14,17 +14,16 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const {
-  title = "AutoVerkauf — Schluss mit Suchen. Händler kommen zu dir.",
-  description =
-    "Der umgekehrte Automarkt der Schweiz. Beschreib dein Wunschauto einmal — verifizierte Händler senden dir passende Angebote mit Preis.",
+  title = `AutoVerkauf — ${t("hero.h1.line1")} ${t("hero.h1.line2")}`,
+  description = t("hero.sub"),
   navTheme = "dark",
 } = Astro.props;
 
 // navTheme is only the INITIAL theme; a script below swaps it per section on scroll.
 const nav = [
-  { href: "/so-funktionierts", label: t("nav.how") },
+  { href: "/#how-it-works", label: t("nav.how") },
   { href: "/haendler", label: t("nav.dealers") },
-  { href: "/preise", label: t("nav.pricing") },
+  { href: "/haendler#pricing", label: t("nav.pricing") },
 ];
 ---
 
@@ -73,7 +72,7 @@ const nav = [
               <>
                 {i > 0 && <span class="nav-sep">/</span>}
                 <a
-                  href={l === lang ? "#" : localizedPath("/", l)}
+                  href={l === lang ? "#" : switchLocalePath(Astro.url, l)}
                   class:list={["nav-loc num uppercase tracking-[0.06em] transition-colors", l === lang && "is-active"]}
                   aria-current={l === lang ? "true" : undefined}
                   title={languages[l]}
@@ -82,7 +81,7 @@ const nav = [
             ))}
           </div>
           <a href={localizedPath("/login", lang)} class="nav-login hidden text-[0.875rem] transition-colors sm:inline">{t("nav.login")}</a>
-          <a href={localizedPath("/inserat", lang)} class="nav-cta inline-flex items-center rounded-[var(--radius-sm)] border px-4 py-2 text-[0.85rem] font-medium transition-colors duration-200">{t("nav.cta")}</a>
+          <a href={localizedPath("/anfrage", lang)} class="nav-cta inline-flex items-center rounded-[var(--radius-sm)] border px-4 py-2 text-[0.85rem] font-medium transition-colors duration-200">{t("nav.cta")}</a>
         </div>
       </nav>
     </header>
@@ -139,6 +138,19 @@ const nav = [
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll);
         update();
+      }
+
+      // Robust deep-link: re-scroll to #hash after fonts/canvas/ScrollTrigger
+      // settle, so anchors land accurately on long animated pages.
+      const scrollToHash = () => {
+        if (!location.hash) return;
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: "auto", block: "start" });
+      };
+      if (location.hash) {
+        window.addEventListener("load", scrollToHash);
+        if (document.fonts?.ready) document.fonts.ready.then(() => requestAnimationFrame(scrollToHash));
+        [250, 600, 1000].forEach((d) => setTimeout(scrollToHash, d));
       }
     </script>
   </body>
