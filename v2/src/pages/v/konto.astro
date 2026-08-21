@@ -1,0 +1,133 @@
+---
+// DESIGN PREVIEW ONLY — buyer dashboard with example data, no auth.
+// Not linked anywhere; same convention as the other /v/* exploration routes.
+import Base from "@/layouts/Base.astro";
+import BuyerDashboard from "@/components/konto/BuyerDashboard.tsx";
+import { useTranslations, localizedPath } from "@/lib/i18n/utils";
+
+const t = useTranslations("en");
+
+const dict = {
+  title: t("konto.title"),
+  hello: t("konto.hello"),
+  requests: t("konto.requests"),
+  noRequests: t("konto.noRequests"),
+  noRequestsSub: t("konto.noRequestsSub"),
+  startRequest: t("konto.startRequest"),
+  newRequest: t("konto.newRequest"),
+  offers: t("konto.offers"),
+  noOffers: t("konto.noOffers"),
+  statusOpen: t("konto.status.open"),
+  statusFulfilled: t("konto.status.fulfilled"),
+  statusClosed: t("konto.status.closed"),
+  offerAccepted: t("konto.offer.accepted"),
+  offerRejected: t("konto.offer.rejected"),
+  accept: t("konto.accept"),
+  acceptConfirm: t("konto.accept.confirm"),
+  contactTitle: t("konto.contact.title"),
+  contactSub: t("konto.contact.sub"),
+  viewListing: t("konto.viewListing"),
+  budget: t("konto.budget"),
+  firmPrice: t("konto.firmPrice"),
+  km: t("konto.km"),
+  errAccept: t("konto.err.accept"),
+  signout: t("auth.signout"),
+  orSimilar: t("konto.orSimilar"),
+  year: t("konto.year"),
+  fuel: t("konto.fuel"),
+  gear: t("konto.gear"),
+  region: t("konto.region"),
+};
+
+// Example data (labelled preview; nothing here is a platform statistic).
+const demo = {
+  requests: [
+    {
+      id: "b3f10000-0000-0000-0000-000000000000",
+      status: "open",
+      make: "BMW", model: "3er Touring", model_similar: true, body: null,
+      budget_chf: 45000, year_from: 2020, km_max: 80000,
+      fuel: "Petrol", gear: "Automatic", canton: "ZH", radius_km: 50,
+      created_at: "2026-08-20T10:00:00Z",
+    },
+    {
+      id: "a4f20000-0000-0000-0000-000000000000",
+      status: "fulfilled",
+      make: "Audi", model: "A4 Avant", model_similar: false, body: null,
+      budget_chf: 40000, year_from: 2019, km_max: 100000,
+      fuel: null, gear: "Automatic", canton: "BE", radius_km: 30,
+      created_at: "2026-08-12T09:00:00Z",
+    },
+  ],
+  offers: [
+    {
+      id: "of100000-0000-0000-0000-000000000000",
+      request_id: "b3f10000-0000-0000-0000-000000000000",
+      garage_id: "g1", amount_chf: 42800, status: "submitted",
+      make: "BMW", model: "320i Touring", trim: "M Sport",
+      first_reg: 2021, km: 46500, fuel: "Petrol", gear: "Automatic", color: "Mineralweiss",
+      photos: ["/demo/car-1.svg", "/demo/car-2.svg", "/demo/car-3.svg"], message: "Frisch ab Service, 8-fach bereift. Probefahrt jederzeit möglich.",
+      autoscout_url: "https://www.autoscout24.ch/", created_at: "2026-08-20T14:00:00Z",
+    },
+    {
+      id: "of200000-0000-0000-0000-000000000000",
+      request_id: "b3f10000-0000-0000-0000-000000000000",
+      garage_id: "g2", amount_chf: 43900, status: "submitted",
+      make: "BMW", model: "330i Touring", trim: "M Sport",
+      first_reg: 2022, km: 31200, fuel: "Petrol", gear: "Automatic", color: "Saphirschwarz",
+      photos: [], message: null,
+      autoscout_url: "https://www.autoscout24.ch/", created_at: "2026-08-20T16:00:00Z",
+    },
+    {
+      id: "of300000-0000-0000-0000-000000000000",
+      request_id: "b3f10000-0000-0000-0000-000000000000",
+      garage_id: "g3", amount_chf: 44950, status: "submitted",
+      make: "BMW", model: "320d Touring", trim: "Luxury Line",
+      first_reg: 2022, km: 28900, fuel: "Diesel", gear: "Automatic", color: "Portimao Blau",
+      photos: [], message: "Anhängerkupplung und Panoramadach. Eintausch möglich.",
+      autoscout_url: "https://www.autoscout24.ch/", created_at: "2026-08-21T09:00:00Z",
+    },
+    {
+      id: "of400000-0000-0000-0000-000000000000",
+      request_id: "a4f20000-0000-0000-0000-000000000000",
+      garage_id: "g1", amount_chf: 38500, status: "accepted",
+      make: "Audi", model: "A4 Avant", trim: "40 TFSI advanced",
+      first_reg: 2021, km: 52000, fuel: "Petrol", gear: "Automatic", color: "Daytonagrau",
+      photos: ["/demo/car-2.svg", "/demo/car-3.svg", "/demo/car-1.svg"], message: "Frisch ab MFK, Service neu.",
+      autoscout_url: "https://www.autoscout24.ch/", created_at: "2026-08-13T11:00:00Z",
+    },
+    {
+      id: "of500000-0000-0000-0000-000000000000",
+      request_id: "a4f20000-0000-0000-0000-000000000000",
+      garage_id: "g2", amount_chf: 39900, status: "rejected",
+      make: "Audi", model: "A4 Avant", trim: "45 TFSI S line",
+      first_reg: 2022, km: 38000, fuel: "Petrol", gear: "Automatic", color: "Gletscherweiss",
+      photos: [], message: null,
+      autoscout_url: "https://www.autoscout24.ch/", created_at: "2026-08-13T15:00:00Z",
+    },
+  ],
+  garages: {
+    g1: { id: "g1", name: "Garage Muster AG", canton: "ZH" },
+    g2: { id: "g2", name: "Auto Beispiel GmbH", canton: "AG" },
+    g3: { id: "g3", name: "Auto Weber AG", canton: "ZH" },
+  },
+  contacts: {
+    "of400000-0000-0000-0000-000000000000": {
+      role: "garage", name: "Garage Muster AG", email: "verkauf@garage-muster.example", phone: "+41 44 000 00 00",
+    },
+  },
+};
+---
+
+<Base navTheme="light" title="AutoVerkauf — Dashboard preview">
+  <section data-nav="light" class="min-h-svh bg-paper-3 px-[var(--gutter)] pb-24 pt-28">
+    <BuyerDashboard
+      client:load
+      dict={dict}
+      userEmail="you@example.ch"
+      anfrageHref={localizedPath("/anfrage", "en")}
+      homeHref={localizedPath("/", "en")}
+      demo={demo}
+    />
+  </section>
+</Base>

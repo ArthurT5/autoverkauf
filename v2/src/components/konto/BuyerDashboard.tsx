@@ -113,10 +113,17 @@ function SpecPill({ label, value }: { label: string; value: string }) {
 
 /* ── the dashboard ── */
 
+export interface KontoDemoData {
+  requests: RequestRow[];
+  offers: OfferRow[];
+  garages: Record<string, GarageCard>;
+  contacts?: Record<string, Contact>;
+}
+
 export default function BuyerDashboard({
-  dict, userEmail, anfrageHref, homeHref,
+  dict, userEmail, anfrageHref, homeHref, demo,
 }: {
-  dict: KontoDict; userEmail: string; anfrageHref: string; homeHref: string;
+  dict: KontoDict; userEmail: string; anfrageHref: string; homeHref: string; demo?: KontoDemoData;
 }) {
   const [requests, setRequests] = useState<RequestRow[] | null>(null);
   const [offers, setOffers] = useState<OfferRow[]>([]);
@@ -127,6 +134,13 @@ export default function BuyerDashboard({
   const rootRef = useRef<HTMLDivElement>(null);
 
   const load = async () => {
+    if (demo) {
+      setRequests(demo.requests);
+      setOffers(demo.offers);
+      setGarages(demo.garages);
+      setContacts(demo.contacts ?? {});
+      return;
+    }
     const sb = supabaseBrowser();
     const { data: reqs, error: reqErr } = await sb
       .from("requests")
@@ -171,7 +185,7 @@ export default function BuyerDashboard({
   }, [requests !== null]);
 
   const accept = async (offer: OfferRow) => {
-    if (busyOffer) return;
+    if (demo || busyOffer) return;
     if (!confirm(dict.acceptConfirm)) return;
     setBusyOffer(offer.id);
     setError(null);
@@ -183,6 +197,7 @@ export default function BuyerDashboard({
   };
 
   const signout = async () => {
+    if (demo) return;
     await supabaseBrowser().auth.signOut();
     location.assign(homeHref);
   };
@@ -325,13 +340,25 @@ export default function BuyerDashboard({
                             {oLost && <span className="text-[10px] uppercase tracking-[0.12em] text-ink-400 [font-family:var(--font-mono)]">{dict.offerRejected}</span>}
                           </div>
 
-                          {/* photos */}
+                          {/* photo gallery — swipe / scroll through the actual car */}
                           {o.photos.length > 0 && (
-                            <div className="mt-4 flex gap-2 overflow-x-auto">
-                              {o.photos.slice(0, 4).map((ph) => (
-                                <img key={ph} src={ph.startsWith("http") ? ph : PHOTO_BASE + ph} alt={car}
-                                  className="h-28 w-40 shrink-0 rounded-[var(--radius-md)] object-cover" loading="lazy" />
-                              ))}
+                            <div className="relative mt-4">
+                              <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto rounded-[var(--radius-lg)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                                {o.photos.map((ph) => (
+                                  <img
+                                    key={ph}
+                                    src={ph.startsWith("http") || ph.startsWith("/") ? ph : PHOTO_BASE + ph}
+                                    alt={car}
+                                    className="aspect-[3/2] w-[86%] shrink-0 snap-center rounded-[var(--radius-lg)] bg-paper-2 object-cover sm:w-[70%]"
+                                    loading="lazy"
+                                  />
+                                ))}
+                              </div>
+                              {o.photos.length > 1 && (
+                                <span className="pointer-events-none absolute bottom-2.5 right-2.5 rounded-full bg-ink-900/70 px-2.5 py-1 text-[10px] font-medium tracking-[0.08em] text-white [font-family:var(--font-mono)]">
+                                  {o.photos.length} ›
+                                </span>
+                              )}
                             </div>
                           )}
 
