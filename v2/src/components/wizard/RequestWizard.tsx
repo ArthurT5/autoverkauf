@@ -3,6 +3,7 @@ import { gsap } from "@/lib/gsap";
 import { chf } from "@/lib/format";
 import { CANTONS } from "@/lib/cantons";
 import { MAKES, type WizardDict } from "@/lib/i18n/wizard";
+import { supabaseBrowser } from "@/lib/auth/client";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    The request wizard — the product's front door. Light, ultra-focused stage:
@@ -61,7 +62,7 @@ const newDraft = (): Draft => ({
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const fmtKm = (n: number) => `${new Intl.NumberFormat("de-CH").format(n)} km`;
 
-export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDict; lang: Lang; homeHref: string }) {
+export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dict: WizardDict; lang: Lang; homeHref: string; kontoHref: string }) {
   const [d, setD] = useState<Draft>(newDraft);
   const [step, setStep] = useState(0); // 0..5, 6 = confirmation
   const [emailTouched, setEmailTouched] = useState(false);
@@ -69,6 +70,23 @@ export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDi
   const [sheetOpen, setSheetOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const stage = useRef<HTMLDivElement>(null);
+
+  /* ── account step state: the email becomes the buyer's account ── */
+  const [password, setPassword] = useState("");
+  const [haveAccount, setHaveAccount] = useState(false);
+  const [sessionEmail, setSessionEmail] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Already signed in → no password step, submit straight to the account.
+    supabaseBrowser().auth.getUser().then(({ data }) => {
+      if (data.user?.email) {
+        setSessionEmail(data.user.email);
+        setD((p) => ({ ...p, email: data.user!.email! }));
+      }
+    });
+  }, []);
 
   const set = (patch: Partial<Draft>) => setD((p) => ({ ...p, ...patch }));
 
@@ -109,30 +127,93 @@ export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDi
 
   /* ── validity per step ── */
   const emailOk = EMAIL_RE.test(d.email.trim());
+  const passwordOk = sessionEmail !== null || password.length >= (haveAccount ? 1 : 8);
   const canNext = useMemo(() => {
     switch (step) {
       case 0: return d.make !== null;
       case 4: return d.canton !== null;
-      case 5: return emailOk;
+      case 5: return emailOk && passwordOk;
       default: return true;
     }
-  }, [step, d.make, d.canton, emailOk]);
+  }, [step, d.make, d.canton, emailOk, passwordOk]);
 
   const next = () => {
     if (!canNext) { if (step === 5) setEmailTouched(true); return; }
-    if (step === 5) { submit(); return; }
+    if (step === 5) { void submit(); return; }
     setStep((s) => s + 1);
   };
   const back = () => setStep((s) => Math.max(0, s - 1));
   const jump = (s: number) => { if (step <= 5) { setStep(s); setSheetOpen(false); } };
 
-  const submit = () => {
+  /* Sign in / create the account with the request's email, then insert the
+     request under that account (RLS: buyer_id must equal auth.uid()). */
+  const submit = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+    setSubmitError(null);
+    const sb = supabaseBrowser();
+    const email = d.email.trim();
     try {
-      localStorage.setItem("av-request-submitted", JSON.stringify({ at: Date.now(), request: d }));
-      localStorage.removeItem(DRAFT_KEY);
-    } catch {}
-    // TODO backend: POST the request; email is the only contact field.
-    setStep(6);
+      let userId: string;
+      if (sessionEmail) {
+        const { data } = await sb.auth.getUser();
+        if (!data.user) throw new Error("generic");
+        userId = data.user.id;
+      } else if (haveAccount) {
+        const { data, error } = await sb.auth.signInWithPassword({ email, password });
+        if (error || !data.user) throw new Error("wrong");
+        userId = data.user.id;
+      } else {
+        const { data, error } = await sb.auth.signUp({ email, password });
+        if (error) {
+          if (/already|exists/i.test(error.message)) {
+            // Account exists — maybe they typed their real password; try it.
+            const retry = await sb.auth.signInWithPassword({ email, password });
+            if (retry.error || !retry.data.user) throw new Error("exists");
+            userId = retry.data.user.id;
+          } else if (/password/i.test(error.message)) {
+            throw new Error("weak");
+          } else {
+            throw new Error("generic");
+          }
+        } else {
+          if (!data.user) throw new Error("generic");
+          userId = data.user.id;
+        }
+      }
+
+      const { error: insErr } = await sb.from("requests").insert({
+        buyer_id: userId,
+        make: d.make === ANY ? null : d.make,
+        model: d.model.trim() || null,
+        model_similar: d.modelSimilar,
+        body: d.body === ANY ? null : d.body,
+        budget_chf: d.budget,
+        year_from: d.yearFrom <= 2005 ? null : d.yearFrom,
+        km_max: d.kmMax,
+        fuel: d.fuel,
+        gear: d.gear,
+        canton: d.canton,
+        radius_km: d.canton === CH ? null : d.radius,
+        plz: d.plz.trim() || null,
+        buyer_email: email,
+      });
+      if (insErr) throw new Error("generic");
+
+      try { localStorage.removeItem(DRAFT_KEY); } catch {}
+      setSessionEmail(email);
+      setStep(6);
+    } catch (e) {
+      const code = (e as Error).message;
+      setSubmitError(
+        code === "wrong" ? dict.s6errWrong
+        : code === "exists" ? dict.s6errExists
+        : code === "weak" ? dict.s6errWeak
+        : dict.s6errGeneric,
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
   const restart = () => { setD(newDraft()); setStep(0); setEmailTouched(false); setMakeQuery(""); };
 
@@ -193,8 +274,8 @@ export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDi
         </ol>
 
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
-          <a href={homeHref} className="group inline-flex items-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style={{ background: "var(--color-red)", boxShadow: "var(--shadow-red)" }}>
-            {dict.cHome}
+          <a href={kontoHref} className="group inline-flex items-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style={{ background: "var(--color-red)", boxShadow: "var(--shadow-red)" }}>
+            {dict.cDashboard}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </a>
           <button onClick={restart} className="px-4 py-3.5 text-[0.95rem] font-medium text-ink-700 transition-colors hover:text-ink-900">
@@ -444,6 +525,42 @@ export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDi
                   {emailTouched && !emailOk && (
                     <p className="mt-2 text-[0.85rem]" style={{ color: "var(--color-red)" }}>{dict.s6emailError}</p>
                   )}
+
+                  {sessionEmail ? (
+                    <p className="mt-6 text-[0.85rem] text-ink-400">
+                      <span className="[font-family:var(--font-mono)] text-[0.8rem]">{dict.s6signedInAs}</span>{" "}
+                      <span className="text-ink-700">{sessionEmail}</span>
+                    </p>
+                  ) : (
+                    <>
+                      <label className="mt-8 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="wz-password">
+                        {dict.s6password}
+                      </label>
+                      <input
+                        id="wz-password"
+                        type="password"
+                        autoComplete={haveAccount ? "current-password" : "new-password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.3rem] font-medium text-ink-900 outline-none transition-colors focus:border-ink-900"
+                      />
+                      {!haveAccount && <p className="mt-2 text-[0.85rem] text-ink-400">{dict.s6passwordHint}</p>}
+                      <button
+                        type="button"
+                        onClick={() => { setHaveAccount(!haveAccount); setSubmitError(null); }}
+                        className="mt-4 text-[0.875rem] text-ink-500 underline decoration-line-2 underline-offset-4 transition-colors hover:text-ink-900"
+                      >
+                        {haveAccount ? dict.s6newHere : dict.s6haveAccount}
+                      </button>
+                    </>
+                  )}
+
+                  {submitError && (
+                    <p role="alert" className="mt-5 rounded-[var(--radius-sm)] px-3.5 py-2.5 text-[0.875rem]" style={{ color: "var(--color-red-deep)", background: "oklch(0.6 0.2 27 / 0.06)", border: "1px solid oklch(0.6 0.2 27 / 0.3)" }}>
+                      {submitError}
+                    </p>
+                  )}
+
                   <p className="mt-6 text-[0.9rem] leading-[1.6] text-ink-500">{dict.s6note}</p>
                 </div>
               </div>
@@ -458,11 +575,11 @@ export default function RequestWizard({ dict, lang, homeHref }: { dict: WizardDi
               )}
               <button
                 onClick={next}
-                disabled={!canNext}
+                disabled={!canNext || submitting}
                 className="group inline-flex items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-7 py-3.5 text-[0.95rem] font-medium text-white transition-all duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-35"
                 style={{ background: "var(--color-red)", boxShadow: canNext ? "var(--shadow-red)" : "none" }}
               >
-                {step === 5 ? dict.submit : dict.next}
+                {submitting ? "…" : step === 5 ? dict.submit : dict.next}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-200 group-enabled:group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>

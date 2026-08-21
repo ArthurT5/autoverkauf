@@ -1,0 +1,36 @@
+---
+import Base from "@/layouts/Base.astro";
+import AuthForm from "@/components/auth/AuthForm.tsx";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const dict = {
+  signinTitle: t("auth.signin.title"),
+  signinSub: t("auth.signin.sub"),
+  signupTitle: t("auth.signup.title"),
+  signupSub: t("auth.signup.sub"),
+  email: t("auth.email"),
+  password: t("auth.password"),
+  passwordHint: t("auth.password.hint"),
+  signinCta: t("auth.signin.cta"),
+  signupCta: t("auth.signup.cta"),
+  google: t("auth.google"),
+  or: t("auth.or"),
+  toSignup: t("auth.toSignup"),
+  toSignin: t("auth.toSignin"),
+  errCredentials: t("auth.err.credentials"),
+  errExists: t("auth.err.exists"),
+  errWeak: t("auth.err.weak"),
+  errGeneric: t("auth.err.generic"),
+};
+---
+
+<Base navTheme="light" title={`AutoVerkauf — ${t("auth.signin.title")}`}>
+  <section data-nav="light" class="flex min-h-svh items-center bg-paper px-[var(--gutter)] pb-20 pt-32">
+    <div class="mx-auto w-full max-w-[82rem]">
+      <AuthForm client:load dict={dict} defaultRedirect={localizedPath("/konto", lang)} />
+    </div>
+  </section>
+</Base>

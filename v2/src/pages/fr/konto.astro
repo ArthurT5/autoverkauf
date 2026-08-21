@@ -1,0 +1,58 @@
+---
+// Buyer dashboard — SSR (auth-gated). The island fetches its own data with
+// the session cookie; this page only guards access.
+export const prerender = false;
+
+import Base from "@/layouts/Base.astro";
+import BuyerDashboard from "@/components/konto/BuyerDashboard.tsx";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+import { requestUser } from "@/lib/auth/server";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { user } = await requestUser(Astro.request, Astro.cookies);
+if (!user) {
+  return Astro.redirect(`${localizedPath("/login", lang)}?redirect=${encodeURIComponent(localizedPath("/konto", lang))}`);
+}
+
+const dict = {
+  title: t("konto.title"),
+  hello: t("konto.hello"),
+  requests: t("konto.requests"),
+  noRequests: t("konto.noRequests"),
+  noRequestsSub: t("konto.noRequestsSub"),
+  startRequest: t("konto.startRequest"),
+  newRequest: t("konto.newRequest"),
+  offers: t("konto.offers"),
+  noOffers: t("konto.noOffers"),
+  statusOpen: t("konto.status.open"),
+  statusFulfilled: t("konto.status.fulfilled"),
+  statusClosed: t("konto.status.closed"),
+  offerAccepted: t("konto.offer.accepted"),
+  offerRejected: t("konto.offer.rejected"),
+  accept: t("konto.accept"),
+  acceptConfirm: t("konto.accept.confirm"),
+  contactTitle: t("konto.contact.title"),
+  contactSub: t("konto.contact.sub"),
+  viewListing: t("konto.viewListing"),
+  budget: t("konto.budget"),
+  firmPrice: t("konto.firmPrice"),
+  km: t("konto.km"),
+  errAccept: t("konto.err.accept"),
+  signout: t("auth.signout"),
+  orSimilar: t("konto.orSimilar"),
+};
+---
+
+<Base navTheme="light" title={`AutoVerkauf — ${t("konto.title")}`}>
+  <section data-nav="light" class="min-h-svh bg-paper px-[var(--gutter)] pb-24 pt-32">
+    <BuyerDashboard
+      client:load
+      dict={dict}
+      userEmail={user.email ?? ""}
+      anfrageHref={localizedPath("/anfrage", lang)}
+      homeHref={localizedPath("/", lang)}
+    />
+  </section>
+</Base>

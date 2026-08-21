@@ -9,5 +9,5 @@ const dict = wizardDicts[lang];
 ---
 
 <Base navTheme="light" title="AutoVerkauf — Start a request">
-  <RequestWizard client:load dict={dict} lang={lang} homeHref={localizedPath("/", lang)} />
+  <RequestWizard client:load dict={dict} lang={lang} homeHref={localizedPath("/", lang)} kontoHref={localizedPath("/konto", lang)} />
 </Base>

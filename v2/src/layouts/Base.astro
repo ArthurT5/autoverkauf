@@ -80,7 +80,7 @@ const nav = [
               </>
             ))}
           </div>
-          <a href={localizedPath("/login", lang)} class="nav-login hidden text-[0.875rem] transition-colors sm:inline">{t("nav.login")}</a>
+          <a href={localizedPath("/login", lang)} data-konto-href={localizedPath("/konto", lang)} data-konto-label={t("nav.konto")} class="nav-login hidden text-[0.875rem] transition-colors sm:inline">{t("nav.login")}</a>
           <a href={localizedPath("/anfrage", lang)} class="nav-cta inline-flex items-center rounded-[var(--radius-sm)] border px-4 py-2 text-[0.85rem] font-medium transition-colors duration-200">{t("nav.cta")}</a>
         </div>
       </nav>
@@ -138,6 +138,14 @@ const nav = [
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll);
         update();
+      }
+
+      // Signed-in? (cookie presence only — no SDK on marketing pages)
+      // Swap "Log in" → "Konto" so the account is always one click away.
+      const loginLink = document.querySelector<HTMLAnchorElement>(".nav-login");
+      if (loginLink && document.cookie.split("; ").some((c) => c.startsWith("sb-") && c.includes("-auth-token"))) {
+        loginLink.href = loginLink.dataset.kontoHref || loginLink.href;
+        loginLink.textContent = loginLink.dataset.kontoLabel || loginLink.textContent;
       }
 
       // Robust deep-link: re-scroll to #hash after fonts/canvas/ScrollTrigger

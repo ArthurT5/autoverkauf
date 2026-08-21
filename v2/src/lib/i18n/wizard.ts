@@ -57,6 +57,16 @@ export interface WizardDict {
   s6emailPlaceholder: string;
   s6emailError: string;
   s6note: string;
+  s6password: string;
+  s6passwordHint: string;
+  s6haveAccount: string;
+  s6newHere: string;
+  s6signedInAs: string;
+  s6errWrong: string;
+  s6errExists: string;
+  s6errWeak: string;
+  s6errGeneric: string;
+  cDashboard: string;
   // dossier
   dTitle: string;
   dMake: string;
@@ -129,6 +139,16 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6emailPlaceholder: "you@example.ch",
     s6emailError: "Please enter a valid email address.",
     s6note: "Verified Swiss dealers answer your request. You stay anonymous — dealers only see your requirements, never your contact details, until you choose an offer.",
+    s6password: "Password",
+    s6passwordHint: "At least 8 characters — this creates your account, so every offer lands in your dashboard.",
+    s6haveAccount: "Already have an account? Sign in",
+    s6newHere: "New here? Create an account",
+    s6signedInAs: "Signed in as",
+    s6errWrong: "Wrong email or password.",
+    s6errExists: "An account with this email already exists — the password didn't match. Try signing in.",
+    s6errWeak: "Password must be at least 8 characters.",
+    s6errGeneric: "Something went wrong. Please try again.",
+    cDashboard: "Open your dashboard",
     dTitle: "Your request",
     dMake: "Make",
     dModel: "Model",
@@ -196,6 +216,16 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6emailPlaceholder: "du@beispiel.ch",
     s6emailError: "Bitte gib eine gültige E-Mail-Adresse ein.",
     s6note: "Verifizierte Schweizer Händler beantworten deine Anfrage. Du bleibst anonym — Händler sehen nur deine Kriterien, nie deine Kontaktdaten, bis du ein Angebot wählst.",
+    s6password: "Passwort",
+    s6passwordHint: "Mindestens 8 Zeichen — damit entsteht dein Konto, und jedes Angebot landet in deinem Dashboard.",
+    s6haveAccount: "Schon ein Konto? Anmelden",
+    s6newHere: "Neu hier? Konto erstellen",
+    s6signedInAs: "Angemeldet als",
+    s6errWrong: "E-Mail oder Passwort falsch.",
+    s6errExists: "Mit dieser E-Mail existiert bereits ein Konto — das Passwort stimmt nicht. Versuche dich anzumelden.",
+    s6errWeak: "Das Passwort muss mindestens 8 Zeichen haben.",
+    s6errGeneric: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    cDashboard: "Zum Dashboard",
     dTitle: "Deine Anfrage",
     dMake: "Marke",
     dModel: "Modell",
@@ -263,6 +293,16 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6emailPlaceholder: "vous@exemple.ch",
     s6emailError: "Veuillez saisir une adresse e-mail valide.",
     s6note: "Des garages suisses vérifiés répondent à votre demande. Vous restez anonyme — les garages voient uniquement vos critères, jamais vos coordonnées, jusqu'à ce que vous choisissiez une offre.",
+    s6password: "Mot de passe",
+    s6passwordHint: "Au moins 8 caractères — cela crée votre compte, et chaque offre arrive dans votre tableau de bord.",
+    s6haveAccount: "Déjà un compte ? Se connecter",
+    s6newHere: "Nouveau ici ? Créer un compte",
+    s6signedInAs: "Connecté en tant que",
+    s6errWrong: "E-mail ou mot de passe incorrect.",
+    s6errExists: "Un compte existe déjà avec cet e-mail — le mot de passe ne correspond pas. Essayez de vous connecter.",
+    s6errWeak: "Le mot de passe doit contenir au moins 8 caractères.",
+    s6errGeneric: "Une erreur est survenue. Veuillez réessayer.",
+    cDashboard: "Ouvrir le tableau de bord",
     dTitle: "Votre demande",
     dMake: "Marque",
     dModel: "Modèle",
@@ -330,6 +370,16 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6emailPlaceholder: "tu@esempio.ch",
     s6emailError: "Inserisci un indirizzo e-mail valido.",
     s6note: "Garage svizzeri verificati rispondono alla tua richiesta. Resti anonimo — i garage vedono solo i tuoi criteri, mai i tuoi contatti, finché non scegli un'offerta.",
+    s6password: "Password",
+    s6passwordHint: "Almeno 8 caratteri — così nasce il tuo account e ogni offerta arriva nella tua dashboard.",
+    s6haveAccount: "Hai già un account? Accedi",
+    s6newHere: "Nuovo qui? Crea un account",
+    s6signedInAs: "Accesso come",
+    s6errWrong: "E-mail o password errati.",
+    s6errExists: "Esiste già un account con questa e-mail — la password non corrisponde. Prova ad accedere.",
+    s6errWeak: "La password deve contenere almeno 8 caratteri.",
+    s6errGeneric: "Qualcosa è andato storto. Riprova.",
+    cDashboard: "Apri la dashboard",
     dTitle: "La tua richiesta",
     dMake: "Marca",
     dModel: "Modello",
