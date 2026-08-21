@@ -1,11 +1,11 @@
 // Shared clients for AutoVerkauf billing Edge Functions.
-// Stripe API version pinned to 2026-05-27 — required for TWINT recurring /
+// Stripe API version pinned ≥ 2026-05-27 — required for TWINT recurring /
 // off-session support (spec §10). Do not float the version.
 
 import Stripe from "npm:stripe@18";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-export const STRIPE_API_VERSION = "2026-05-27" as Stripe.LatestApiVersion;
+export const STRIPE_API_VERSION = "2026-07-29.dahlia" as Stripe.LatestApiVersion;
 
 export function stripeClient(): Stripe {
   const key = Deno.env.get("STRIPE_SECRET_KEY");

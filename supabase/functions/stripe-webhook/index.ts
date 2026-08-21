@@ -81,6 +81,7 @@ Deno.serve(async (req) => {
       }
 
       // ── Keep subscription state + the can_offer gate in sync ──
+      case "customer.subscription.created":
       case "customer.subscription.updated":
       case "customer.subscription.deleted": {
         const sub = event.data.object as Stripe.Subscription;

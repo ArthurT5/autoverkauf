@@ -22,8 +22,9 @@ if (!key.startsWith("sk_test_")) {
   console.warn("⚠️  Not a test key — you are about to create LIVE products.");
 }
 
-// Spec §10: pin 2026-05-27+ for TWINT recurring support.
-const API_VERSION = "2026-05-27";
+// Spec §10: TWINT recurring needs API 2026-05-27 or later. Stripe version
+// strings carry a release suffix; this is the current dahlia release.
+const API_VERSION = "2026-07-29.dahlia";
 
 // PLACEHOLDER tiers — confirm with the business before launch.
 const TIERS = [

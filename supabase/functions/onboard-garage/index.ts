@@ -115,6 +115,9 @@ Deno.serve(async (req) => {
     automatic_tax: { enabled: true },          // MWST via Stripe Tax (§6)
     tax_id_collection: { enabled: true },      // B2B: collect the garage's UID/VAT no.
     billing_address_collection: "required",
+    // Save the address entered in Checkout onto the Customer — required for
+    // automatic tax with a pre-created customer.
+    customer_update: { address: "auto", name: "auto" },
   });
 
   return json({ garage_id: garage.id, checkout_url: session.url, mode: "checkout" });
