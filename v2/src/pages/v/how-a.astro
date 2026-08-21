@@ -1,0 +1,13 @@
+---
+// Maximal How-it-works · Variant 1 — "Kinetic Dossier"
+import Base from "@/layouts/Base.astro";
+import HowKinetic from "@/components/HowKinetic.tsx";
+import { buildHowDict } from "@/lib/howDict";
+import { getLangFromUrl } from "@/lib/i18n/utils";
+
+const dict = buildHowDict(getLangFromUrl(Astro.url));
+---
+
+<Base navTheme="dark">
+  <HowKinetic client:load dict={dict} />
+</Base>

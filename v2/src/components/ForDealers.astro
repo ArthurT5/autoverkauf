@@ -1,0 +1,23 @@
+---
+import ForDealers, { type DealersDict } from "./ForDealers.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: DealersDict = {
+  kicker: t("dealers.kicker"),
+  title: t("dealers.title"),
+  lead: t("dealers.lead"),
+  values: [
+    { t: t("dealers.v1t"), b: t("dealers.v1b") },
+    { t: t("dealers.v2t"), b: t("dealers.v2b") },
+    { t: t("dealers.v3t"), b: t("dealers.v3b") },
+  ],
+  cta: t("dealers.cta"),
+  feed: t("dealers.feed"),
+  near: t("dealers.near"),
+  respond: t("dealers.respond"),
+  neu: t("dealers.new"),
+};
+---
+
+<ForDealers client:visible dict={dict} />

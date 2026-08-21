@@ -1,0 +1,12 @@
+---
+import Base from "@/layouts/Base.astro";
+import HeroCalm from "@/components/HeroCalm.tsx";
+import { buildHeroDict } from "@/lib/heroDict";
+import { getLangFromUrl } from "@/lib/i18n/utils";
+
+const dict = buildHeroDict(getLangFromUrl(Astro.url));
+---
+
+<Base navTheme="light">
+  <HeroCalm client:load dict={dict} theme="light" />
+</Base>

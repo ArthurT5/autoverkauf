@@ -1,0 +1,28 @@
+---
+import HowItWorksEpic, { type EpicDict } from "./HowItWorksEpic.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: EpicDict = {
+  kicker: t("how.kicker"),
+  acts: [
+    { t: t("how.s1.t"), b: t("how.s1.b") },
+    { t: t("how.s2.t"), b: t("how.s2.b") },
+    { t: t("how.s3.t"), b: t("how.s3.b") },
+  ],
+  reqLabel: t("panel.request.label"),
+  reqModel: t("panel.request.model"),
+  rows: [
+    [t("panel.req.yearL"), t("panel.req.yearV")],
+    [t("panel.req.kmL"), t("panel.req.kmV")],
+    [t("panel.req.budgetL"), t("panel.req.budgetV")],
+    [t("panel.req.regionL"), t("panel.req.regionV")],
+  ],
+  offersLabel: t("panel.offers.label"),
+  responding: t("panel.offers.responding"),
+  best: t("panel.offers.best"),
+  match: t("panel.offers.match"),
+};
+---
+
+<HowItWorksEpic client:load dict={dict} />

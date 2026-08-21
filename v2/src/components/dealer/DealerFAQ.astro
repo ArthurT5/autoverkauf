@@ -1,0 +1,38 @@
+---
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+const qas = [
+  { q: t("dp.faq.q1"), a: t("dp.faq.a1") },
+  { q: t("dp.faq.q2"), a: t("dp.faq.a2") },
+  { q: t("dp.faq.q3"), a: t("dp.faq.a3") },
+  { q: t("dp.faq.q4"), a: t("dp.faq.a4") },
+];
+---
+
+<section data-nav="light" class="grain relative bg-paper-2 py-28 text-ink lg:py-40">
+  <div class="mx-auto grid w-full max-w-[82rem] grid-cols-1 gap-x-20 gap-y-10 px-[var(--gutter)] lg:grid-cols-[0.7fr_1.3fr]">
+    <div>
+      <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
+        <span style="color: var(--color-red)">//</span> {t("dp.faq.kicker")}
+      </span>
+      <h2 data-reveal="h" class="mt-5 text-[clamp(1.9rem,3.2vw,2.8rem)] font-medium leading-[1.05] tracking-[-0.025em] text-ink-900 [font-family:var(--font-display)]">
+        {t("dp.faq.title")}
+      </h2>
+    </div>
+
+    <div data-reveal="up" class="flex flex-col">
+      {qas.map((qa) => (
+        <details class="hp-faq group border-t border-line last:border-b">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.075rem] font-medium text-ink-900 marker:hidden [&::-webkit-details-marker]:hidden">
+            {qa.q}
+            <span class="relative grid h-6 w-6 shrink-0 place-items-center rounded-full border border-line text-ink-500 transition-colors group-open:border-transparent group-open:text-white" style="--o:1">
+              <span class="absolute inset-0 rounded-full opacity-0 transition-opacity group-open:opacity-100" style="background: var(--color-red)"></span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="relative transition-transform duration-300 group-open:rotate-45"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+          </summary>
+          <p class="max-w-[46rem] pb-6 text-[0.975rem] leading-[1.65] text-ink-500">{qa.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

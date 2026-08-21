@@ -1,0 +1,20 @@
+---
+// Dealer page · Direction A — "Radar" (dark)
+import Base from "@/layouts/Base.astro";
+import DealerHeroRadar, { type DealerHeroDict } from "@/components/dealer/DealerHeroRadar.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: DealerHeroDict = {
+  kicker: t("dealers.kicker"),
+  tagline: t("dealers.tagline"),
+  title: t("dealers.title"),
+  sub: t("dealers.hsub"),
+  cta: t("dealers.cta"),
+  scroll: t("dealers.scroll"),
+};
+---
+
+<Base navTheme="dark">
+  <DealerHeroRadar client:load dict={dict} />
+</Base>

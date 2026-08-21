@@ -1,0 +1,9 @@
+---
+import HeroEditorial from "./HeroEditorial.tsx";
+import { buildHeroDict } from "@/lib/heroDict";
+import { getLangFromUrl } from "@/lib/i18n/utils";
+
+const dict = buildHeroDict(getLangFromUrl(Astro.url));
+---
+
+<HeroEditorial client:load dict={dict} />

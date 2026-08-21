@@ -1,0 +1,25 @@
+---
+// How-it-works · scrollytelling — "The journey of your request"
+import Base from "@/layouts/Base.astro";
+import HowStory, { type StoryDict } from "@/components/HowStory.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: StoryDict = {
+  kicker: t("how.kicker"),
+  scenes: [
+    { t: t("how.sc1"), b: t("how.p1.b") },
+    { t: t("how.sc2"), b: t("how.p2.b") },
+    { t: t("how.sc3"), b: t("how.p3.b") },
+    { t: t("how.sc4"), b: t("how.p4.b") },
+    { t: t("how.sc5"), b: t("how.p5.b") },
+  ],
+  best: t("panel.offers.best"),
+  model: t("panel.request.model"),
+  specs: [t("panel.req.yearV"), t("panel.req.kmV"), t("panel.req.budgetV"), t("panel.req.regionV")],
+};
+---
+
+<Base navTheme="light">
+  <HowStory client:load dict={dict} />
+</Base>

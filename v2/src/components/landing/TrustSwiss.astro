@@ -1,0 +1,35 @@
+---
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+const points = [
+  { t: t("trust.t1t"), b: t("trust.t1b") },
+  { t: t("trust.t2t"), b: t("trust.t2b") },
+  { t: t("trust.t3t"), b: t("trust.t3b") },
+];
+---
+
+<section data-nav="light" class="grain relative bg-paper py-28 text-ink lg:py-40">
+  <div class="mx-auto w-full max-w-[82rem] px-[var(--gutter)]">
+    <div class="max-w-[42rem]">
+      <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
+        <span style="color: var(--color-red)">//</span> {t("trust.kicker")}
+      </span>
+      <h2 data-reveal="h" class="mt-5 text-[clamp(2rem,3.6vw,3.1rem)] font-medium leading-[1.04] tracking-[-0.025em] text-ink-900 [font-family:var(--font-display)]">
+        {t("trust.title")}
+      </h2>
+      <p data-reveal="up" class="mt-5 max-w-[38rem] text-[1.05rem] leading-[1.6] text-ink-500">{t("trust.lead")}</p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
+      {points.map((p) => (
+        <div data-reveal="up">
+          <div class="flex items-center gap-3 border-t border-line-2 pt-5">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="mt-5 text-[1.2rem] font-semibold tracking-[-0.015em] text-ink-900">{p.t}</h3>
+          <p class="mt-2.5 max-w-[24rem] text-[0.95rem] leading-[1.6] text-ink-500">{p.b}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

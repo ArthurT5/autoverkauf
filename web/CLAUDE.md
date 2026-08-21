@@ -1,6 +1,8 @@
 @AGENTS.md
 
-# AutoVerkauf — Web
+# AutoVerkauf — Web (v1 · PAUSED)
+
+> ⚠️ **This is the paused v1.** Active development is the rebuild in **`../v2`** (Astro + React islands) — see `../v2/CLAUDE.md`. Don't build here unless explicitly asked to work on v1.
 
 Reverse car marketplace for Switzerland: buyers describe the car they want once, and verified Swiss dealerships compete by sending matching offers. The platform creates the match — it does not complete the sale. See `PRODUCT.md` for users, brand, and design principles.
 

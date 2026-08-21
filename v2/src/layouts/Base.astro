@@ -1,0 +1,145 @@
+---
+import "@/styles/global.css";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+import { localeList } from "@/lib/i18n/utils";
+import { languages } from "@/lib/i18n/ui";
+
+interface Props {
+  title?: string;
+  description?: string;
+  navTheme?: "dark" | "light";
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const {
+  title = "AutoVerkauf — Schluss mit Suchen. Händler kommen zu dir.",
+  description =
+    "Der umgekehrte Automarkt der Schweiz. Beschreib dein Wunschauto einmal — verifizierte Händler senden dir passende Angebote mit Preis.",
+  navTheme = "dark",
+} = Astro.props;
+
+// navTheme is only the INITIAL theme; a script below swaps it per section on scroll.
+const nav = [
+  { href: "/so-funktionierts", label: t("nav.how") },
+  { href: "/haendler", label: t("nav.dealers") },
+  { href: "/preise", label: t("nav.pricing") },
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300..800;1,400..600&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header id="sitenav" data-theme={navTheme} class="fixed inset-x-0 top-0 z-50">
+      <div class="nav-surface pointer-events-none absolute inset-0 -z-10 border-b opacity-0 backdrop-blur-md transition-opacity duration-300"></div>
+      <nav class="mx-auto flex max-w-[82rem] items-center justify-between px-[var(--gutter)] py-4">
+        <a href={localizedPath("/", lang)} class="inline-flex items-center" aria-label="AutoVerkauf">
+          <img src="/brand/lockup-on-dark.svg" alt="AutoVerkauf" width="128" height="28" class="logo-dark h-[26px] w-auto" />
+          <img src="/brand/lockup-on-light.svg" alt="AutoVerkauf" width="128" height="28" class="logo-light h-[26px] w-auto" />
+        </a>
+
+        <div class="hidden items-center gap-8 md:flex">
+          {nav.map((item) => (
+            <a href={localizedPath(item.href, lang)} class="nav-link text-[0.875rem] transition-colors duration-200">{item.label}</a>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="hidden items-center gap-1 text-[0.75rem] md:flex">
+            {localeList.map((l, i) => (
+              <>
+                {i > 0 && <span class="nav-sep">/</span>}
+                <a
+                  href={l === lang ? "#" : localizedPath("/", l)}
+                  class:list={["nav-loc num uppercase tracking-[0.06em] transition-colors", l === lang && "is-active"]}
+                  aria-current={l === lang ? "true" : undefined}
+                  title={languages[l]}
+                >{l}</a>
+              </>
+            ))}
+          </div>
+          <a href={localizedPath("/login", lang)} class="nav-login hidden text-[0.875rem] transition-colors sm:inline">{t("nav.login")}</a>
+          <a href={localizedPath("/inserat", lang)} class="nav-cta inline-flex items-center rounded-[var(--radius-sm)] border px-4 py-2 text-[0.85rem] font-medium transition-colors duration-200">{t("nav.cta")}</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <style is:global>
+      #sitenav[data-theme="dark"] {
+        --n-fg: #fff; --n-dim: rgba(255,255,255,0.62); --n-idle: rgba(255,255,255,0.42);
+        --n-ctab: rgba(255,255,255,0.18); --n-ctabh: rgba(255,255,255,0.4);
+        --n-surface: oklch(0.135 0.01 27 / 0.72); --n-line: rgba(255,255,255,0.09);
+      }
+      #sitenav[data-theme="light"] {
+        --n-fg: var(--color-ink-900); --n-dim: var(--color-ink-500); --n-idle: var(--color-ink-400);
+        --n-ctab: var(--color-line-2); --n-ctabh: var(--color-ink-400);
+        --n-surface: oklch(0.992 0.001 27 / 0.82); --n-line: var(--color-line);
+      }
+      #sitenav .logo-light { display: none; }
+      #sitenav[data-theme="light"] .logo-light { display: block; }
+      #sitenav[data-theme="light"] .logo-dark { display: none; }
+      #sitenav .nav-surface { background: var(--n-surface); border-color: var(--n-line); }
+      #sitenav.is-scrolled .nav-surface { opacity: 1; }
+      #sitenav .nav-link { color: var(--n-dim); }
+      #sitenav .nav-link:hover { color: var(--n-fg); }
+      #sitenav .nav-sep { color: var(--n-idle); }
+      #sitenav .nav-loc { color: var(--n-idle); }
+      #sitenav .nav-loc:hover, #sitenav .nav-loc.is-active { color: var(--n-fg); }
+      #sitenav .nav-login { color: var(--n-dim); }
+      #sitenav .nav-login:hover { color: var(--n-fg); }
+      #sitenav .nav-cta { border-color: var(--n-ctab); color: var(--n-fg); }
+      #sitenav .nav-cta:hover { border-color: var(--n-ctabh); }
+    </style>
+
+    <script>
+      // Sticky theme-adaptive nav: recolour by the section under the nav baseline.
+      const nav = document.getElementById("sitenav");
+      if (nav) {
+        const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-nav]"));
+        const BASELINE = 32;
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          nav.classList.toggle("is-scrolled", window.scrollY > 8);
+          let theme = nav.dataset.theme;
+          for (const s of sections) {
+            const r = s.getBoundingClientRect();
+            if (r.top <= BASELINE && r.bottom > BASELINE) { theme = s.dataset.nav || theme; break; }
+          }
+          if (theme && theme !== nav.dataset.theme) nav.dataset.theme = theme;
+        };
+        const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        update();
+      }
+    </script>
+  </body>
+</html>

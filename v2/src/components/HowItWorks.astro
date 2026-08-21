@@ -1,0 +1,18 @@
+---
+import HowItWorks, { type HowDict } from "./HowItWorks.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: HowDict = {
+  kicker: t("how.kicker"),
+  title: t("how.title"),
+  lead: t("how.lead"),
+  steps: [
+    { t: t("how.s1.t"), b: t("how.s1.b") },
+    { t: t("how.s2.t"), b: t("how.s2.b") },
+    { t: t("how.s3.t"), b: t("how.s3.b") },
+  ],
+};
+---
+
+<HowItWorks client:visible dict={dict} />

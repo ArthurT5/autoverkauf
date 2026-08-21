@@ -1,0 +1,9 @@
+---
+import HeroCalm from "./HeroCalm.tsx";
+import { buildHeroDict } from "@/lib/heroDict";
+import { getLangFromUrl } from "@/lib/i18n/utils";
+
+const dict = buildHeroDict(getLangFromUrl(Astro.url));
+---
+
+<HeroCalm client:load dict={dict} theme="light" />

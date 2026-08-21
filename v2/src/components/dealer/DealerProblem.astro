@@ -1,0 +1,47 @@
+---
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+const olds = [t("dp.problem.o1"), t("dp.problem.o2"), t("dp.problem.o3")];
+const news = [t("dp.problem.n1"), t("dp.problem.n2"), t("dp.problem.n3")];
+---
+
+<section data-nav="light" class="grain relative bg-paper py-28 text-ink lg:py-40">
+  <div class="mx-auto w-full max-w-[82rem] px-[var(--gutter)]">
+    <div class="max-w-[40rem]">
+      <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
+        <span style="color: var(--color-red)">//</span> {t("dp.problem.kicker")}
+      </span>
+      <h2 data-reveal="h" class="mt-5 text-[clamp(2rem,3.6vw,3.1rem)] font-medium leading-[1.04] tracking-[-0.025em] text-ink-900 [font-family:var(--font-display)]">
+        {t("dp.problem.title")}
+      </h2>
+      <p data-reveal="up" class="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-ink-500">{t("dp.problem.lead")}</p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-x-16 gap-y-10 md:grid-cols-2 lg:mt-20">
+      {/* Classifieds */}
+      <div>
+        <p data-reveal="up" class="text-[11px] uppercase tracking-[0.16em] text-ink-400 [font-family:var(--font-mono)]">{t("dp.problem.oldLabel")}</p>
+        <ul class="mt-5 flex flex-col">
+          {olds.map((o) => (
+            <li data-reveal="up" class="flex items-center gap-3 border-t border-line py-4 text-[1rem] text-ink-400">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="shrink-0"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+              <span class="line-through decoration-line-2">{o}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* AutoVerkauf */}
+      <div class="md:border-l md:border-line md:pl-16">
+        <p data-reveal="up" class="text-[11px] uppercase tracking-[0.16em] [font-family:var(--font-mono)]" style="color: var(--color-red)">{t("dp.problem.newLabel")}</p>
+        <ul class="mt-5 flex flex-col">
+          {news.map((n) => (
+            <li data-reveal="up" class="flex items-center gap-3 border-t border-line py-4 text-[1rem] font-medium text-ink-900">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="shrink-0"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {n}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import ContourBg from "./ContourBg.tsx";
+import { CANTONS } from "@/lib/cantons";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+const codes = CANTONS.map((c) => c.code);
+---
+
+<section data-nav="light" class="grain relative isolate overflow-hidden bg-paper-2 py-28 text-ink lg:py-40">
+  {/* the contour texture (Direction B), reused as a light section background */}
+  <div class="pointer-events-none absolute inset-0 opacity-90">
+    <ContourBg client:visible />
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-[82rem] px-[var(--gutter)]">
+    <div class="max-w-[42rem]">
+      <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
+        <span style="color: var(--color-red)">//</span> {t("dp.reach.kicker")}
+      </span>
+      <h2 data-reveal="h" class="mt-5 text-[clamp(2.2rem,4vw,3.5rem)] font-medium leading-[1.02] tracking-[-0.025em] text-ink-900 [font-family:var(--font-display)]">
+        {t("dp.reach.title")}
+      </h2>
+      <p data-reveal="up" class="mt-5 max-w-[32rem] text-[1.05rem] leading-[1.6] text-ink-500">{t("dp.reach.lead")}</p>
+    </div>
+
+    <div data-reveal="up" class="mt-12 flex max-w-[52rem] flex-wrap gap-1.5">
+      {codes.map((c) => (
+        <span class="rounded-full border border-line bg-paper/70 px-2.5 py-1 text-[11px] font-medium text-ink-500 backdrop-blur-sm [font-family:var(--font-mono)]">{c}</span>
+      ))}
+    </div>
+  </div>
+</section>

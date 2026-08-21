@@ -1,0 +1,13 @@
+---
+// Maximal How-it-works · Variant 2 — "Command Center"
+import Base from "@/layouts/Base.astro";
+import HowConsole from "@/components/HowConsole.tsx";
+import { buildHowDict } from "@/lib/howDict";
+import { getLangFromUrl } from "@/lib/i18n/utils";
+
+const dict = buildHowDict(getLangFromUrl(Astro.url));
+---
+
+<Base navTheme="dark">
+  <HowConsole client:load dict={dict} />
+</Base>

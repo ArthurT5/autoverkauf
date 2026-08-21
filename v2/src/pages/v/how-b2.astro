@@ -1,0 +1,33 @@
+---
+// How-it-works · refined — "The Swiss instrument" (light, SBB × AP finishing)
+import Base from "@/layouts/Base.astro";
+import HowPrecision, { type PrecisionDict } from "@/components/HowPrecision.tsx";
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+
+const t = useTranslations(getLangFromUrl(Astro.url));
+const dict: PrecisionDict = {
+  kicker: t("how.kicker"),
+  steps: [
+    { t: t("how.p1.t"), b: t("how.p1.b") },
+    { t: t("how.p2.t"), b: t("how.p2.b") },
+    { t: t("how.p3.t"), b: t("how.p3.b") },
+    { t: t("how.p4.t"), b: t("how.p4.b") },
+    { t: t("how.p5.t"), b: t("how.p5.b") },
+  ],
+  reqLabel: t("panel.request.label"),
+  reqModel: t("panel.request.model"),
+  rows: [
+    [t("panel.req.yearL"), t("panel.req.yearV")],
+    [t("panel.req.kmL"), t("panel.req.kmV")],
+    [t("panel.req.budgetL"), t("panel.req.budgetV")],
+    [t("panel.req.regionL"), t("panel.req.regionV")],
+  ],
+  offersLabel: t("panel.offers.label"),
+  best: t("panel.offers.best"),
+  match: t("panel.offers.match"),
+};
+---
+
+<Base navTheme="light">
+  <HowPrecision client:load dict={dict} />
+</Base>

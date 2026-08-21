@@ -1,0 +1,23 @@
+---
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section data-nav="dark" class="grain-dark relative isolate overflow-hidden py-28 text-white lg:py-44" style="background: var(--color-red)">
+  <div aria-hidden class="pointer-events-none absolute inset-0 opacity-30" style="background: radial-gradient(80% 120% at 50% -10%, oklch(0.6 0.24 27), transparent 60%)"></div>
+  <div class="relative z-10 mx-auto w-full max-w-[62rem] px-[var(--gutter)] text-center">
+    <h2 data-reveal="h" class="mx-auto max-w-[16ch] text-[clamp(2.4rem,5.2vw,4.5rem)] font-semibold leading-[0.98] tracking-[-0.03em] [font-family:var(--font-display)]">
+      {t("dp.cta.title")}
+    </h2>
+    <p data-reveal="up" class="mx-auto mt-6 max-w-[38rem] text-[1.0625rem] leading-[1.6] text-white/80">{t("dp.cta.lead")}</p>
+    <div data-reveal="up" class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a href="/haendler/apply" class="group inline-flex items-center justify-center gap-2.5 rounded-[var(--radius-md)] bg-white px-7 py-4 text-[0.98rem] font-semibold transition-transform duration-200 hover:-translate-y-px" style="color: var(--color-red-deep)">
+        {t("dp.cta.button")}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/kontakt" class="inline-flex items-center justify-center rounded-[var(--radius-md)] px-6 py-4 text-[0.98rem] font-medium text-white ring-1 ring-inset ring-white/35 transition-colors duration-200 hover:bg-white/10">
+        {t("dp.cta.secondary")}
+      </a>
+    </div>
+  </div>
+</section>

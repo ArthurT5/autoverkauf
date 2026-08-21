@@ -1,0 +1,41 @@
+---
+import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
+const t = useTranslations(getLangFromUrl(Astro.url));
+const features = [t("dp.pricing.f1"), t("dp.pricing.f2"), t("dp.pricing.f3"), t("dp.pricing.f4")];
+---
+
+<section data-nav="light" class="grain relative bg-paper py-28 text-ink lg:py-40">
+  <div class="mx-auto grid w-full max-w-[82rem] grid-cols-1 items-center gap-14 px-[var(--gutter)] lg:grid-cols-[1fr_0.95fr] lg:gap-20">
+    <div class="max-w-[34rem]">
+      <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
+        <span style="color: var(--color-red)">//</span> {t("dp.pricing.kicker")}
+      </span>
+      <h2 data-reveal="h" class="mt-5 text-[clamp(2rem,3.6vw,3.1rem)] font-medium leading-[1.04] tracking-[-0.025em] text-ink-900 [font-family:var(--font-display)]">
+        {t("dp.pricing.title")}
+      </h2>
+      <p data-reveal="up" class="mt-5 max-w-[32rem] text-[1.05rem] leading-[1.6] text-ink-500">{t("dp.pricing.lead")}</p>
+    </div>
+
+    <div data-reveal="up" class="rounded-[var(--radius-xl)] border border-line bg-white p-8" style="box-shadow: var(--shadow-float)">
+      <div class="flex items-end gap-3">
+        <span class="text-[clamp(3rem,6vw,4.5rem)] font-semibold leading-none tracking-[-0.03em] text-ink-900 [font-family:var(--font-display)]">{t("dp.pricing.price")}</span>
+        <span class="mb-2 text-[0.85rem] text-ink-400 [font-family:var(--font-mono)]">{t("dp.pricing.priceNote")}</span>
+      </div>
+      <p class="mt-2 text-[0.95rem] font-medium" style="color: var(--color-red)">{t("dp.pricing.fee")}</p>
+
+      <ul class="mt-7 flex flex-col gap-3.5 border-t border-line pt-7">
+        {features.map((f) => (
+          <li class="flex items-center gap-3 text-[0.95rem] text-ink-700">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="shrink-0"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      <a href="/haendler/apply" class="group mt-8 inline-flex w-full items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
+        {t("dp.pricing.cta")}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
