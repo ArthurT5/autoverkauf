@@ -266,3 +266,47 @@ create or replace view public.garages_public as
   select id, name, canton from public.garages;
 grant select on public.garages_public to authenticated;
 revoke select on public.garages_public from anon;
+
+-- Pre-launch: billing gate OFF (approved garages can offer without Stripe).
+-- At launch: UPDATE billing_config SET billing_gate_enabled = true — then the
+-- §2 sub+payment-method gate applies again. No redeploy either way.
+alter table public.billing_config
+  add column if not exists billing_gate_enabled boolean not null default true;
+update public.billing_config set billing_gate_enabled = false;
+
+create or replace function public.garage_can_offer(g public.garages)
+returns boolean language sql stable as $$
+  select (not g.suspended) and (
+    (select not billing_gate_enabled from public.billing_config)
+    or (g.subscription_status = 'active' and g.payment_method_valid)
+  )
+$$;
+
+-- Fix: the offer-insert policy checked requests directly, but the dealer's
+-- RLS on requests hides all rows -> policy always failed. Security definer
+-- helper sees through.
+create or replace function public.request_is_open(p_request_id uuid)
+returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from requests where id = p_request_id and status = 'open')
+$$;
+
+drop policy "garage owner submits offers" on public.offers;
+create policy "garage owner submits offers" on public.offers for insert
+  with check (
+    garage_id in (
+      select id from public.garages g
+      where g.owner_id = auth.uid() and public.garage_can_offer(g)
+    )
+    and public.request_is_open(request_id)
+  );
+
+-- garage_can_offer reads billing_config, which is RLS-locked -> inside an
+-- RLS policy (invoker rights) it returned NULL for garage owners. Security
+-- definer: it only ever exposes a boolean.
+create or replace function public.garage_can_offer(g public.garages)
+returns boolean language sql stable security definer set search_path = public as $$
+  select (not g.suspended) and (
+    (select not billing_gate_enabled from public.billing_config)
+    or (g.subscription_status = 'active' and g.payment_method_valid)
+  )
+$$;

@@ -1,0 +1,75 @@
+---
+// Dealer dashboard — SSR (auth-gated). Dark: the dealer side keeps the void
+// language of /haendler.
+export const prerender = false;
+
+import Base from "@/layouts/Base.astro";
+import DealerDashboard from "@/components/dealer/DealerDashboard.tsx";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+import { requestUser } from "@/lib/auth/server";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { user } = await requestUser(Astro.request, Astro.cookies);
+if (!user) {
+  return Astro.redirect(`${localizedPath("/login", lang)}?redirect=${encodeURIComponent(localizedPath("/haendler/konto", lang))}`);
+}
+
+const dict = {
+  title: t("dk.title"),
+  hello: t("konto.hello"),
+  signout: t("auth.signout"),
+  applyTitle: t("dk.apply.title"),
+  applySub: t("dk.apply.sub"),
+  applyCta: t("dk.apply.cta"),
+  pendingTitle: t("dk.pending.title"),
+  pendingSub: t("dk.pending.sub"),
+  openTitle: t("dk.open.title"),
+  openEmpty: t("dk.open.empty"),
+  offerCta: t("dk.offer.cta"),
+  offerTitle: t("dk.offer.title"),
+  price: t("dk.offer.price"),
+  make: t("dk.offer.make"),
+  model: t("dk.offer.model"),
+  trim: t("dk.offer.trim"),
+  year: t("dk.offer.year"),
+  km: t("dk.offer.km"),
+  fuel: t("dk.offer.fuel"),
+  gear: t("dk.offer.gear"),
+  color: t("dk.offer.color"),
+  url: t("dk.offer.url"),
+  urlHint: t("dk.offer.urlHint"),
+  urlError: t("dk.offer.urlError"),
+  photos: t("dk.offer.photos"),
+  photosHint: t("dk.offer.photosHint"),
+  message: t("dk.offer.message"),
+  optional: t("dk.offer.optional"),
+  submit: t("dk.offer.submit"),
+  sent: t("dk.offer.sent"),
+  err: t("dk.offer.err"),
+  already: t("dk.already"),
+  mineTitle: t("dk.mine.title"),
+  mineEmpty: t("dk.mine.empty"),
+  mineWon: t("dk.mine.won"),
+  statusSubmitted: t("dk.status.submitted"),
+  statusAccepted: t("dk.status.accepted"),
+  statusRejected: t("dk.status.rejected"),
+  statusExpired: t("dk.status.expired"),
+  budget: t("konto.budget"),
+  orSimilar: t("konto.orSimilar"),
+  kmUnit: t("konto.km"),
+};
+---
+
+<Base navTheme="dark" title={`AutoVerkauf — ${t("dk.title")}`}>
+  <section data-nav="dark" class="grain min-h-svh bg-void px-[var(--gutter)] pb-24 pt-32">
+    <DealerDashboard
+      client:load
+      dict={dict}
+      userEmail={user.email ?? ""}
+      applyHref={localizedPath("/haendler/apply", lang)}
+      homeHref={localizedPath("/haendler", lang)}
+    />
+  </section>
+</Base>

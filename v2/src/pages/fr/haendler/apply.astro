@@ -1,0 +1,36 @@
+---
+import Base from "@/layouts/Base.astro";
+import DealerApply from "@/components/dealer/DealerApply.tsx";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const dict = {
+  title: t("da.title"),
+  sub: t("da.sub"),
+  company: t("da.company"),
+  uid: t("da.uid"),
+  contact: t("da.contact"),
+  email: t("auth.email"),
+  password: t("auth.password"),
+  passwordHint: t("auth.password.hint"),
+  phone: t("da.phone"),
+  canton: t("da.canton"),
+  autoscout: t("da.autoscout"),
+  note: t("da.note"),
+  optional: t("dk.offer.optional"),
+  submit: t("da.submit"),
+  doneTitle: t("da.done.title"),
+  doneSub: t("da.done.sub"),
+  err: t("da.err"),
+  errExists: t("auth.err.exists"),
+  dashboard: t("dk.title"),
+};
+---
+
+<Base navTheme="light" title={`AutoVerkauf — ${t("da.title")}`}>
+  <section data-nav="light" class="min-h-svh bg-paper px-[var(--gutter)] pb-24 pt-32">
+    <DealerApply client:load dict={dict} lang={lang} kontoHref={localizedPath("/haendler/konto", lang)} />
+  </section>
+</Base>

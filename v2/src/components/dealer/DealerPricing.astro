@@ -1,6 +1,7 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
-const t = useTranslations(getLangFromUrl(Astro.url));
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const features = [t("dp.pricing.f1"), t("dp.pricing.f2"), t("dp.pricing.f3"), t("dp.pricing.f4")];
 ---
 
@@ -32,7 +33,7 @@ const features = [t("dp.pricing.f1"), t("dp.pricing.f2"), t("dp.pricing.f3"), t(
         ))}
       </ul>
 
-      <a href="/haendler/apply" class="group mt-8 inline-flex w-full items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
+      <a href={localizedPath("/haendler/apply", lang)} class="group mt-8 inline-flex w-full items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
         {t("dp.pricing.cta")}
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
