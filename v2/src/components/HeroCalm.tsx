@@ -9,7 +9,7 @@ const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : use
    No hero visual — the typography and space carry it. GSAP drives a quiet
    line-reveal on load. Themeable light/dark. */
 
-export default function HeroCalm({ dict, theme = "light" }: { dict: HeroDict; theme?: "light" | "dark" }) {
+export default function HeroCalm({ dict, theme = "light", ctaHref = "/anfrage", dealerHref = "/haendler" }: { dict: HeroDict; theme?: "light" | "dark"; ctaHref?: string; dealerHref?: string }) {
   const root = useRef<HTMLElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const dark = theme === "dark";
@@ -71,7 +71,7 @@ export default function HeroCalm({ dict, theme = "light" }: { dict: HeroDict; th
 
           <div className="cf mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href="/anfrage"
+              href={ctaHref}
               className="group inline-flex items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px"
               style={{ background: "var(--color-red)", boxShadow: "var(--shadow-red)" }}
             >
@@ -80,7 +80,7 @@ export default function HeroCalm({ dict, theme = "light" }: { dict: HeroDict; th
                 <path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <a href="/haendler" className={`inline-flex items-center gap-1.5 px-2 py-3.5 text-[0.95rem] font-medium transition-colors duration-200 ${c.ghost}`}>
+            <a href={dealerHref} className={`inline-flex items-center gap-1.5 px-2 py-3.5 text-[0.95rem] font-medium transition-colors duration-200 ${c.ghost}`}>
               {dict.ctaSecondary}
               <span aria-hidden>→</span>
             </a>

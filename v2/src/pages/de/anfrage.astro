@@ -1,0 +1,13 @@
+---
+import Base from "@/layouts/Base.astro";
+import RequestWizard from "@/components/wizard/RequestWizard.tsx";
+import { wizardDicts } from "@/lib/i18n/wizard";
+import { getLangFromUrl, localizedPath } from "@/lib/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const dict = wizardDicts[lang];
+---
+
+<Base navTheme="light" title="AutoVerkauf — Start a request">
+  <RequestWizard client:load dict={dict} lang={lang} homeHref={localizedPath("/", lang)} />
+</Base>

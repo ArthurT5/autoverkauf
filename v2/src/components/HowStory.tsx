@@ -262,7 +262,7 @@ export default function HowStory({ dict }: { dict: StoryDict }) {
   const specTags = dict.specs.map((label, i) => ({ label, pos: TAG_POS[i] ?? TAG_POS[0] }));
 
   return (
-    <section ref={section} data-nav="light" className="relative bg-paper-2">
+    <section ref={section} id="how-it-works" data-nav="light" className="relative scroll-mt-20 bg-paper-2">
       <div ref={pin} className="grain relative flex flex-col bg-paper-2 py-16 text-ink lg:py-20">
         {/* chrome: kicker · counter · tick ruler */}
         <div className="relative z-20 mx-auto w-full max-w-[82rem] px-[var(--gutter)]">
@@ -284,7 +284,7 @@ export default function HowStory({ dict }: { dict: StoryDict }) {
               }}
               aria-hidden
             />
-            <span ref={dot} className="absolute -top-[3px] h-2 w-2 -translate-x-1/2 rounded-full" style={{ left: "0%", background: "var(--color-red)" }} aria-hidden />
+            <span ref={dot} className="absolute top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full" style={{ left: "0%", background: "var(--color-red)" }} aria-hidden />
           </div>
         </div>
 

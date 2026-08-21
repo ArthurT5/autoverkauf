@@ -1,9 +1,10 @@
 ---
 import HeroCalm from "./HeroCalm.tsx";
 import { buildHeroDict } from "@/lib/heroDict";
-import { getLangFromUrl } from "@/lib/i18n/utils";
+import { getLangFromUrl, localizedPath } from "@/lib/i18n/utils";
 
-const dict = buildHeroDict(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const dict = buildHeroDict(lang);
 ---
 
-<HeroCalm client:load dict={dict} theme="light" />
+<HeroCalm client:load dict={dict} theme="light" ctaHref={localizedPath("/anfrage", lang)} dealerHref={localizedPath("/haendler", lang)} />

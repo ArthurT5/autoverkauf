@@ -1,6 +1,7 @@
 ---
-import { getLangFromUrl, useTranslations } from "@/lib/i18n/utils";
-const t = useTranslations(getLangFromUrl(Astro.url));
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section data-nav="light" class="grain relative isolate overflow-hidden bg-paper-2 py-28 text-ink lg:py-44">
@@ -11,11 +12,11 @@ const t = useTranslations(getLangFromUrl(Astro.url));
     </h2>
     <p data-reveal="up" class="mx-auto mt-6 max-w-[36rem] text-[1.0625rem] leading-[1.6] text-ink-500">{t("lcta.lead")}</p>
     <div data-reveal="up" class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-      <a href="/anfrage" class="group inline-flex items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-7 py-4 text-[0.98rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
+      <a href={localizedPath("/anfrage", lang)} class="group inline-flex items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-7 py-4 text-[0.98rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
         {t("lcta.button")}
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="/so-funktionierts" class="inline-flex items-center gap-1.5 px-5 py-4 text-[0.98rem] font-medium text-ink-700 transition-colors duration-200 hover:text-ink-900">
+      <a href={localizedPath("/#how-it-works", lang)} class="inline-flex items-center gap-1.5 px-5 py-4 text-[0.98rem] font-medium text-ink-700 transition-colors duration-200 hover:text-ink-900">
         {t("lcta.secondary")}<span aria-hidden>→</span>
       </a>
     </div>

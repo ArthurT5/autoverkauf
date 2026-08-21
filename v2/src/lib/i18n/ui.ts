@@ -25,10 +25,10 @@ export const ui = {
     "nav.cta": "Start a request",
 
     "hero.kicker": "Switzerland's reverse car market",
-    "hero.h1.line1": "Stop searching.",
-    "hero.h1.line2": "Dealers come to you.",
+    "hero.h1.line1": "One request.",
+    "hero.h1.line2": "The market comes to you.",
     "hero.sub":
-      "Describe your ideal car once — verified Swiss dealers send you matching offers with a price. No searching, no haggling. You compare and choose.",
+      "Describe the car you want once. Verified Swiss dealers respond with matching offers at a firm price — you compare, choose the best, and buy directly from that dealer.",
     "hero.cta.primary": "Describe your car",
     "hero.cta.secondary": "I'm a dealer",
     "hero.trust.dealers": "Verified dealers",
@@ -89,7 +89,7 @@ export const ui = {
     "how.sc5": "You choose.",
 
     "dealers.kicker": "For dealers",
-    "dealers.title": "Buyers come to you.",
+    "dealers.title": "Real requests. Your offer. Direct sale.",
     "dealers.lead": "Stop paying for cold leads and listing fees. See real buyers who've already described exactly what they want — and answer only the requests that fit your stock.",
     "dealers.v1t": "Pre-qualified demand",
     "dealers.v1b": "Every request is a buyer who has specified model, budget, mileage and region. No tyre-kickers, no cold calls.",
@@ -173,8 +173,8 @@ export const ui = {
     "bridge.lead": "See pre-qualified buyers, not cold leads — and answer only what fits your stock.",
     "bridge.cta": "For dealers",
 
-    "lcta.title": "Your next car is looking for you.",
-    "lcta.lead": "Describe it once. Let verified Swiss dealers come to you with their best offer.",
+    "lcta.title": "Let the market come to you.",
+    "lcta.lead": "One request is all it takes — firm-price offers from verified Swiss dealers, compared side by side.",
     "lcta.button": "Describe your car",
     "lcta.secondary": "See how it works",
 
@@ -198,10 +198,10 @@ export const ui = {
     "nav.cta": "Anfrage starten",
 
     "hero.kicker": "Der umgekehrte Automarkt der Schweiz",
-    "hero.h1.line1": "Schluss mit Suchen.",
-    "hero.h1.line2": "Händler kommen zu dir.",
+    "hero.h1.line1": "Eine Anfrage.",
+    "hero.h1.line2": "Der Markt kommt zu dir.",
     "hero.sub":
-      "Beschreib dein Wunschauto ein einziges Mal — verifizierte Schweizer Händler senden dir passende Angebote mit Preis. Kein Suchen, kein Feilschen. Du vergleichst und wählst.",
+      "Beschreib das Auto, das du willst, ein einziges Mal. Verifizierte Schweizer Händler antworten mit passenden Angeboten zum Festpreis — du vergleichst, wählst das beste und kaufst direkt beim Händler.",
     "hero.cta.primary": "Wunschauto beschreiben",
     "hero.cta.secondary": "Ich bin Händler",
     "hero.trust.dealers": "Verifizierte Händler",
@@ -265,7 +265,7 @@ export const ui = {
     "how.sc5": "Du wählst.",
 
     "dealers.kicker": "Für Händler",
-    "dealers.title": "Käufer kommen zu dir.",
+    "dealers.title": "Echte Anfragen. Dein Angebot. Direkter Verkauf.",
     "dealers.lead": "Schluss mit kalten Leads und Inseratsgebühren. Sieh echte Käufer, die bereits genau beschrieben haben, was sie wollen — und antworte nur auf Anfragen, die zu deinem Bestand passen.",
     "dealers.v1t": "Vorqualifizierte Nachfrage",
     "dealers.v1b": "Jede Anfrage ist ein Käufer mit klaren Angaben zu Modell, Budget, Kilometern und Region. Keine Zeitverschwender, keine Kaltakquise.",
@@ -349,8 +349,8 @@ export const ui = {
     "bridge.lead": "Sieh vorqualifizierte Käufer statt kalter Leads — und antworte nur auf Passendes.",
     "bridge.cta": "Für Händler",
 
-    "lcta.title": "Dein nächstes Auto sucht dich.",
-    "lcta.lead": "Beschreib es einmal. Lass verifizierte Schweizer Händler mit ihrem besten Angebot zu dir kommen.",
+    "lcta.title": "Lass den Markt zu dir kommen.",
+    "lcta.lead": "Mehr als eine Anfrage braucht es nicht — Festpreis-Angebote verifizierter Schweizer Händler im direkten Vergleich.",
     "lcta.button": "Wunschauto beschreiben",
     "lcta.secondary": "So funktioniert's",
 
@@ -374,10 +374,10 @@ export const ui = {
     "nav.cta": "Lancer une demande",
 
     "hero.kicker": "Le marché auto inversé de la Suisse",
-    "hero.h1.line1": "Fini les recherches.",
-    "hero.h1.line2": "Les garages viennent à vous.",
+    "hero.h1.line1": "Une demande.",
+    "hero.h1.line2": "Le marché vient à vous.",
     "hero.sub":
-      "Décrivez la voiture de vos rêves une seule fois — des garages suisses vérifiés vous envoient des offres correspondantes avec prix. Sans chercher, sans marchander. Vous comparez et choisissez.",
+      "Décrivez la voiture que vous voulez une seule fois. Des garages suisses vérifiés répondent avec des offres correspondantes à prix ferme — vous comparez, choisissez la meilleure et achetez directement auprès de ce garage.",
     "hero.cta.primary": "Décrire ma voiture",
     "hero.cta.secondary": "Je suis un garage",
     "hero.trust.dealers": "Garages vérifiés",
@@ -438,7 +438,7 @@ export const ui = {
     "how.sc5": "Vous choisissez.",
 
     "dealers.kicker": "Pour les garages",
-    "dealers.title": "Les acheteurs viennent à vous.",
+    "dealers.title": "De vraies demandes. Votre offre. Vente directe.",
     "dealers.lead": "Fini les leads froids et les frais d'annonce. Voyez de vrais acheteurs qui ont déjà décrit précisément ce qu'ils veulent — et répondez uniquement aux demandes qui correspondent à votre stock.",
     "dealers.v1t": "Une demande pré-qualifiée",
     "dealers.v1b": "Chaque demande est un acheteur ayant précisé modèle, budget, kilométrage et région. Sans curieux, sans démarchage.",
@@ -522,8 +522,8 @@ export const ui = {
     "bridge.lead": "Voyez des acheteurs pré-qualifiés, pas des leads froids — et répondez uniquement à ce qui convient.",
     "bridge.cta": "Pour les garages",
 
-    "lcta.title": "Votre prochaine voiture vous cherche.",
-    "lcta.lead": "Décrivez-la une fois. Laissez des garages suisses vérifiés venir à vous avec leur meilleure offre.",
+    "lcta.title": "Laissez le marché venir à vous.",
+    "lcta.lead": "Une seule demande suffit — des offres à prix ferme de garages suisses vérifiés, comparées côte à côte.",
     "lcta.button": "Décrire ma voiture",
     "lcta.secondary": "Comment ça marche",
 
@@ -547,10 +547,10 @@ export const ui = {
     "nav.cta": "Avvia una richiesta",
 
     "hero.kicker": "Il mercato auto invertito della Svizzera",
-    "hero.h1.line1": "Basta cercare.",
-    "hero.h1.line2": "I garage vengono da te.",
+    "hero.h1.line1": "Una richiesta.",
+    "hero.h1.line2": "Il mercato viene da te.",
     "hero.sub":
-      "Descrivi l'auto dei tuoi sogni una sola volta — garage svizzeri verificati ti inviano offerte corrispondenti con prezzo. Niente ricerche, niente trattative. Confronti e scegli.",
+      "Descrivi l'auto che vuoi una sola volta. Garage svizzeri verificati rispondono con offerte corrispondenti a prezzo fisso — confronti, scegli la migliore e acquisti direttamente da quel garage.",
     "hero.cta.primary": "Descrivi la tua auto",
     "hero.cta.secondary": "Sono un garage",
     "hero.trust.dealers": "Garage verificati",
@@ -611,7 +611,7 @@ export const ui = {
     "how.sc5": "Scegli tu.",
 
     "dealers.kicker": "Per i garage",
-    "dealers.title": "Gli acquirenti vengono da te.",
+    "dealers.title": "Richieste reali. La tua offerta. Vendita diretta.",
     "dealers.lead": "Basta lead freddi e costi di annuncio. Vedi acquirenti reali che hanno già descritto esattamente ciò che vogliono — e rispondi solo alle richieste adatte al tuo stock.",
     "dealers.v1t": "Domanda pre-qualificata",
     "dealers.v1b": "Ogni richiesta è un acquirente che ha indicato modello, budget, chilometri e regione. Niente perditempo, niente chiamate a freddo.",
@@ -695,8 +695,8 @@ export const ui = {
     "bridge.lead": "Vedi acquirenti pre-qualificati, non lead freddi — e rispondi solo a ciò che si adatta.",
     "bridge.cta": "Per i garage",
 
-    "lcta.title": "La tua prossima auto ti sta cercando.",
-    "lcta.lead": "Descrivila una volta. Lascia che garage svizzeri verificati vengano da te con la loro offerta migliore.",
+    "lcta.title": "Lascia che il mercato venga da te.",
+    "lcta.lead": "Basta una sola richiesta — offerte a prezzo fisso da garage svizzeri verificati, confrontate fianco a fianco.",
     "lcta.button": "Descrivi la tua auto",
     "lcta.secondary": "Come funziona",
 

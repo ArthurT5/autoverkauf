@@ -1,0 +1,35 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getLangFromUrl, localizedPath } from "@/lib/i18n/utils";
+import type { Locale } from "@/lib/i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+
+const copy: Record<Locale, { code: string; title: string; body: string; home: string; how: string; dealers: string }> = {
+  en: { code: "Error 404", title: "This page isn't ready yet.", body: "That link doesn't lead anywhere — yet. Some pages are still being built. Here's the way back.", home: "Back to home", how: "How it works", dealers: "For dealers" },
+  de: { code: "Fehler 404", title: "Diese Seite ist noch nicht bereit.", body: "Dieser Link führt (noch) nirgendwohin. Einige Seiten sind noch im Aufbau. Hier geht's zurück.", home: "Zur Startseite", how: "So funktioniert's", dealers: "Für Händler" },
+  fr: { code: "Erreur 404", title: "Cette page n'est pas encore prête.", body: "Ce lien ne mène (pas encore) nulle part. Certaines pages sont en construction. Voici le retour.", home: "Retour à l'accueil", how: "Comment ça marche", dealers: "Pour les garages" },
+  it: { code: "Errore 404", title: "Questa pagina non è ancora pronta.", body: "Questo link non porta (ancora) da nessuna parte. Alcune pagine sono in costruzione. Ecco come tornare indietro.", home: "Torna alla home", how: "Come funziona", dealers: "Per i garage" },
+};
+const c = copy[lang];
+---
+
+<Base navTheme="light" title="AutoVerkauf — 404">
+  <section data-nav="light" class="grain relative flex min-h-[100svh] flex-col items-center justify-center bg-paper px-[var(--gutter)] text-center text-ink">
+    <span class="text-[11px] font-medium uppercase tracking-[0.2em] text-ink-400 [font-family:var(--font-mono)]">
+      <span style="color: var(--color-red)">//</span> {c.code}
+    </span>
+    <h1 class="mt-6 max-w-[16ch] text-[clamp(2.2rem,5vw,3.8rem)] font-semibold leading-[1.0] tracking-[-0.03em] text-ink-900 [font-family:var(--font-display)]">
+      {c.title}
+    </h1>
+    <p class="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-ink-500">{c.body}</p>
+    <div class="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+      <a href={localizedPath("/", lang)} class="group inline-flex items-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
+        {c.home}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </a>
+      <a href={localizedPath("/#how-it-works", lang)} class="px-4 py-3.5 text-[0.95rem] font-medium text-ink-700 transition-colors hover:text-ink-900">{c.how}</a>
+      <a href={localizedPath("/haendler", lang)} class="px-4 py-3.5 text-[0.95rem] font-medium text-ink-700 transition-colors hover:text-ink-900">{c.dealers}</a>
+    </div>
+  </section>
+</Base>
