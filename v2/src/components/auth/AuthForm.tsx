@@ -22,26 +22,38 @@ export interface AuthDict {
   errExists: string;
   errWeak: string;
   errGeneric: string;
+  roleBuyer: string;
+  roleDealer: string;
 }
 
-export default function AuthForm({ dict, defaultRedirect }: { dict: AuthDict; defaultRedirect: string }) {
+export default function AuthForm({
+  dict, defaultRedirect, dealerRedirect,
+}: {
+  dict: AuthDict; defaultRedirect: string; dealerRedirect: string;
+}) {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [role, setRole] = useState<"buyer" | "dealer">("buyer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  // ?redirect=/konto — where to land after auth (validated: same-origin path)
-  const redirectTo = () => {
+  // Destination: explicit ?redirect wins; otherwise the chosen role decides.
+  const redirectTo = (forRole: "buyer" | "dealer" = role) => {
     const p = new URLSearchParams(location.search).get("redirect");
-    return p && p.startsWith("/") && !p.startsWith("//") ? p : defaultRedirect;
+    if (p && p.startsWith("/") && !p.startsWith("//")) return p;
+    return forRole === "dealer" ? dealerRedirect : defaultRedirect;
   };
 
   useEffect(() => {
+    // ?as=dealer preselects the dealer side (used by dealer-page links).
+    if (new URLSearchParams(location.search).get("as") === "dealer") setRole("dealer");
     // Already signed in → straight to the dashboard.
     supabaseBrowser().auth.getUser().then(({ data }) => {
-      if (data.user) location.replace(redirectTo());
+      if (data.user) location.replace(redirectTo(
+        new URLSearchParams(location.search).get("as") === "dealer" ? "dealer" : "buyer",
+      ));
     });
   }, []);
 
@@ -107,6 +119,26 @@ export default function AuthForm({ dict, defaultRedirect }: { dict: AuthDict; de
         <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-500">
           {signup ? dict.signupSub : dict.signinSub}
         </p>
+      </div>
+
+      {/* buyer / dealer segmented switch */}
+      <div className="af-in mt-7 flex rounded-full border border-line-2 bg-paper-2 p-1" role="tablist" aria-label="Account type">
+        {([["buyer", dict.roleBuyer], ["dealer", dict.roleDealer]] as const).map(([r, label]) => (
+          <button
+            key={r}
+            type="button"
+            role="tab"
+            aria-selected={role === r}
+            onClick={() => setRole(r)}
+            className={`flex-1 rounded-full px-4 py-2 text-[0.85rem] font-medium transition-all duration-150 ${
+              role === r
+                ? "bg-white text-ink-900 shadow-[0_1px_3px_oklch(0.2_0.01_27/0.12)]"
+                : "text-ink-500 hover:text-ink-900"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       <button

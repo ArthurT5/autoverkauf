@@ -24,13 +24,15 @@ const dict = {
   errExists: t("auth.err.exists"),
   errWeak: t("auth.err.weak"),
   errGeneric: t("auth.err.generic"),
+  roleBuyer: t("auth.role.buyer"),
+  roleDealer: t("auth.role.dealer"),
 };
 ---
 
 <Base navTheme="light" title={`AutoVerkauf — ${t("auth.signin.title")}`}>
   <section data-nav="light" class="flex min-h-svh items-center bg-paper px-[var(--gutter)] pb-20 pt-32">
     <div class="mx-auto w-full max-w-[82rem]">
-      <AuthForm client:load dict={dict} defaultRedirect={localizedPath("/konto", lang)} />
+      <AuthForm client:load dict={dict} defaultRedirect={localizedPath("/konto", lang)} dealerRedirect={localizedPath("/haendler/konto", lang)} />
     </div>
   </section>
 </Base>

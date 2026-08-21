@@ -11,9 +11,19 @@ import { requestUser } from "@/lib/auth/server";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { user } = await requestUser(Astro.request, Astro.cookies);
+const { user, supabase } = await requestUser(Astro.request, Astro.cookies);
 if (!user) {
   return Astro.redirect(`${localizedPath("/login", lang)}?redirect=${encodeURIComponent(localizedPath("/konto", lang))}`);
+}
+
+// Dealers belong on their own dashboard — garage owners and applicants who
+// hit the buyer dashboard are routed over (RLS scopes both lookups to them).
+const [{ data: ownGarage }, { data: ownApplication }] = await Promise.all([
+  supabase.from("garages").select("id").limit(1).maybeSingle(),
+  supabase.from("dealer_applications").select("id").limit(1).maybeSingle(),
+]);
+if (ownGarage || ownApplication) {
+  return Astro.redirect(localizedPath("/haendler/konto", lang));
 }
 
 const dict = {
