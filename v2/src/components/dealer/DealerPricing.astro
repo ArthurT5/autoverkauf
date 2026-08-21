@@ -1,12 +1,23 @@
 ---
+// Pricing = the two real Stripe plans (Starter CHF 49 / Pro CHF 149 per month,
+// excl. MWST). Keep this section in sync with scripts/stripe-setup.mjs — the
+// Stripe products are the source of truth.
 import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const features = [t("dp.pricing.f1"), t("dp.pricing.f2"), t("dp.pricing.f3"), t("dp.pricing.f4")];
+
+const starterFeatures = [
+  t("dp.pricing.starter.f1"),
+  t("dp.pricing.starter.f2"),
+  t("dp.pricing.starter.f3"),
+  t("dp.pricing.starter.f4"),
+];
+const proFeatures = [t("dp.pricing.pro.f1"), t("dp.pricing.pro.f2"), t("dp.pricing.pro.f3")];
+const applyHref = localizedPath("/haendler/apply", lang);
 ---
 
 <section id="pricing" data-nav="light" class="grain relative scroll-mt-20 bg-paper py-28 text-ink lg:py-40">
-  <div class="mx-auto grid w-full max-w-[82rem] grid-cols-1 items-center gap-14 px-[var(--gutter)] lg:grid-cols-[1fr_0.95fr] lg:gap-20">
+  <div class="mx-auto w-full max-w-[82rem] px-[var(--gutter)]">
     <div class="max-w-[34rem]">
       <span data-reveal="up" class="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500 [font-family:var(--font-mono)]">
         <span style="color: var(--color-red)">//</span> {t("dp.pricing.kicker")}
@@ -17,26 +28,58 @@ const features = [t("dp.pricing.f1"), t("dp.pricing.f2"), t("dp.pricing.f3"), t(
       <p data-reveal="up" class="mt-5 max-w-[32rem] text-[1.05rem] leading-[1.6] text-ink-500">{t("dp.pricing.lead")}</p>
     </div>
 
-    <div data-reveal="up" class="rounded-[var(--radius-xl)] border border-line bg-white p-8" style="box-shadow: var(--shadow-float)">
-      <div class="flex items-end gap-3">
-        <span class="text-[clamp(3rem,6vw,4.5rem)] font-semibold leading-none tracking-[-0.03em] text-ink-900 [font-family:var(--font-display)]">{t("dp.pricing.price")}</span>
-        <span class="mb-2 text-[0.85rem] text-ink-400 [font-family:var(--font-mono)]">{t("dp.pricing.priceNote")}</span>
+    <div class="mt-14 grid gap-5 md:grid-cols-2 lg:gap-6">
+      <!-- Starter -->
+      <div data-reveal="up" class="flex flex-col rounded-[var(--radius-xl)] border border-line bg-white p-8" style="box-shadow: var(--shadow-float)">
+        <div class="flex items-center justify-between">
+          <span class="text-[1.05rem] font-medium text-ink-900">{t("dp.pricing.starter.name")}</span>
+          <span class="rounded-full border border-line px-3 py-1 text-[10px] uppercase tracking-[0.12em] text-ink-500 [font-family:var(--font-mono)]">{t("dp.pricing.starter.tag")}</span>
+        </div>
+        <div class="mt-6 flex items-end gap-3">
+          <span class="num text-[clamp(2.6rem,5vw,3.6rem)] font-semibold leading-none tracking-[-0.02em] text-ink-900 [font-family:var(--font-display)]">{t("dp.pricing.starter.price")}</span>
+          <span class="mb-1.5 text-[0.8rem] text-ink-400 [font-family:var(--font-mono)]">{t("dp.pricing.perMonth")}</span>
+        </div>
+
+        <ul class="mt-7 flex flex-col gap-3.5 border-t border-line pt-7">
+          {starterFeatures.map((f) => (
+            <li class="flex items-start gap-3 text-[0.95rem] leading-snug text-ink-700">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="mt-0.5 shrink-0"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <a href={applyHref} class="mt-8 inline-flex w-full items-center justify-center rounded-[var(--radius-md)] border border-line-2 px-6 py-3.5 text-[0.95rem] font-medium text-ink-900 transition-colors hover:border-ink-400">
+          {t("dp.pricing.cta")}
+        </a>
       </div>
-      <p class="mt-2 text-[0.95rem] font-medium" style="color: var(--color-red)">{t("dp.pricing.fee")}</p>
 
-      <ul class="mt-7 flex flex-col gap-3.5 border-t border-line pt-7">
-        {features.map((f) => (
-          <li class="flex items-center gap-3 text-[0.95rem] text-ink-700">
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="shrink-0"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            {f}
-          </li>
-        ))}
-      </ul>
+      <!-- Pro — carries the accent -->
+      <div data-reveal="up" class="flex flex-col rounded-[var(--radius-xl)] bg-white p-8" style="box-shadow: 0 0 0 1.5px var(--color-red), var(--shadow-float)">
+        <div class="flex items-center justify-between">
+          <span class="text-[1.05rem] font-medium text-ink-900">{t("dp.pricing.pro.name")}</span>
+          <span class="rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.12em] text-white [font-family:var(--font-mono)]" style="background: var(--color-red)">{t("dp.pricing.pro.tag")}</span>
+        </div>
+        <div class="mt-6 flex items-end gap-3">
+          <span class="num text-[clamp(2.6rem,5vw,3.6rem)] font-semibold leading-none tracking-[-0.02em] text-ink-900 [font-family:var(--font-display)]">{t("dp.pricing.pro.price")}</span>
+          <span class="mb-1.5 text-[0.8rem] text-ink-400 [font-family:var(--font-mono)]">{t("dp.pricing.perMonth")}</span>
+        </div>
 
-      <a href={localizedPath("/haendler/apply", lang)} class="group mt-8 inline-flex w-full items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
-        {t("dp.pricing.cta")}
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+        <p class="mt-7 border-t border-line pt-7 text-[0.85rem] text-ink-500">{t("dp.pricing.pro.plus")}</p>
+        <ul class="mt-3.5 flex flex-col gap-3.5">
+          {proFeatures.map((f) => (
+            <li class="flex items-start gap-3 text-[0.95rem] leading-snug text-ink-700">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" class="mt-0.5 shrink-0"><path d="M3.5 8.5l3 3 6-7" stroke="var(--color-red)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <a href={applyHref} class="group mt-auto inline-flex w-full items-center justify-center gap-2.5 rounded-[var(--radius-md)] px-6 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-200 hover:-translate-y-px" style="background: var(--color-red); box-shadow: var(--shadow-red)">
+          {t("dp.pricing.cta")}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="transition-transform duration-200 group-hover:translate-x-0.5"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
