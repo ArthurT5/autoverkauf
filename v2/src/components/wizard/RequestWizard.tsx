@@ -192,6 +192,7 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
 
       const { error: insErr } = await sb.from("requests").insert({
         buyer_id: userId,
+        locale: lang,
         make: d.make === ANY ? null : d.make,
         model: d.model.trim() || null,
         model_similar: d.modelSimilar,

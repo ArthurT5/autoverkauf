@@ -80,6 +80,7 @@ export default function DealerApply({ dict, lang, kontoHref }: { dict: DealerApp
       }
       const { error: insErr } = await sb.from("dealer_applications").insert({
         user_id: userId!,
+        locale: lang,
         company_name: form.company.trim(),
         uid: form.uid.trim() || null,
         contact_name: form.contact.trim(),
