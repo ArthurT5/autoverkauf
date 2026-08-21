@@ -246,9 +246,7 @@ export const ui = {
     "dp.pricing.pro.name": "Pro",
     "dp.pricing.pro.tag": "Unlimited",
     "dp.pricing.pro.price": "CHF 149",
-    "dp.pricing.pro.plus": "Everything in Starter, plus:",
     "dp.pricing.pro.f1": "Unlimited offers — answer every matching request",
-    "dp.pricing.pro.f2": "Commission on sales: still CHF 0",
     "dp.pricing.cta": "Apply as a dealer",
 
     "dp.faq.kicker": "Questions",
@@ -530,9 +528,7 @@ export const ui = {
     "dp.pricing.pro.name": "Pro",
     "dp.pricing.pro.tag": "Unbegrenzt",
     "dp.pricing.pro.price": "CHF 149",
-    "dp.pricing.pro.plus": "Alles aus Starter, plus:",
     "dp.pricing.pro.f1": "Unbegrenzte Angebote — antworte auf jedes passende Gesuch",
-    "dp.pricing.pro.f2": "Kommission auf Verkäufe: unverändert CHF 0",
     "dp.pricing.cta": "Als Händler bewerben",
 
     "dp.faq.kicker": "Fragen",
@@ -811,9 +807,7 @@ export const ui = {
     "dp.pricing.pro.name": "Pro",
     "dp.pricing.pro.tag": "Illimité",
     "dp.pricing.pro.price": "CHF 149",
-    "dp.pricing.pro.plus": "Tout Starter, plus :",
     "dp.pricing.pro.f1": "Offres illimitées — répondez à chaque demande pertinente",
-    "dp.pricing.pro.f2": "Commission sur les ventes : toujours CHF 0",
     "dp.pricing.cta": "Postuler comme concessionnaire",
 
     "dp.faq.kicker": "Questions",
@@ -1092,9 +1086,7 @@ export const ui = {
     "dp.pricing.pro.name": "Pro",
     "dp.pricing.pro.tag": "Illimitato",
     "dp.pricing.pro.price": "CHF 149",
-    "dp.pricing.pro.plus": "Tutto di Starter, più:",
     "dp.pricing.pro.f1": "Offerte illimitate — rispondi a ogni richiesta adatta",
-    "dp.pricing.pro.f2": "Commissione sulle vendite: sempre CHF 0",
     "dp.pricing.cta": "Candidati come concessionario",
 
     "dp.faq.kicker": "Domande",
