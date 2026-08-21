@@ -310,3 +310,36 @@ returns boolean language sql stable security definer set search_path = public as
     or (g.subscription_status = 'active' and g.payment_method_valid)
   )
 $$;
+
+-- Business model locked: plans differ ONLY by offer volume. No commission,
+-- no per-sale fee (per-win fee machinery stays dormant at 0 / disabled).
+alter table public.billing_config
+  add column if not exists starter_monthly_offer_limit integer not null default 10;
+
+-- Client-readable limit (single scalar, nothing sensitive).
+create or replace view public.plan_limits as
+  select starter_monthly_offer_limit from public.billing_config;
+grant select on public.plan_limits to authenticated;
+revoke select on public.plan_limits from anon;
+
+-- Quota gate: Pro = unlimited; Starter (or no tier yet) = capped per
+-- calendar month. SECURITY DEFINER — used inside the offers insert policy.
+create or replace function public.garage_within_offer_quota(p_garage_id uuid)
+returns boolean language sql stable security definer set search_path = public as $$
+  select coalesce((select tier from garages where id = p_garage_id), 'starter') = 'pro'
+      or (select count(*) from offers o
+            where o.garage_id = p_garage_id
+              and o.created_at >= date_trunc('month', now()))
+         < (select starter_monthly_offer_limit from billing_config)
+$$;
+
+drop policy "garage owner submits offers" on public.offers;
+create policy "garage owner submits offers" on public.offers for insert
+  with check (
+    garage_id in (
+      select id from public.garages g
+      where g.owner_id = auth.uid() and public.garage_can_offer(g)
+    )
+    and public.request_is_open(request_id)
+    and public.garage_within_offer_quota(garage_id)
+  );

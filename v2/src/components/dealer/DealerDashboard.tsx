@@ -49,6 +49,8 @@ export interface DealerKontoDict {
   budget: string;
   orSimilar: string;
   kmUnit: string;
+  quota: string;
+  limitReached: string;
 }
 
 interface OpenRequest {
@@ -93,7 +95,8 @@ export default function DealerDashboard({
   dict: DealerKontoDict; userEmail: string; applyHref: string; homeHref: string;
 }) {
   const [state, setState] = useState<"loading" | "none" | "pending" | "active">("loading");
-  const [garage, setGarage] = useState<{ id: string; name: string } | null>(null);
+  const [garage, setGarage] = useState<{ id: string; name: string; tier: string | null } | null>(null);
+  const [offerLimit, setOfferLimit] = useState<number | null>(null);
   const [openRequests, setOpenRequests] = useState<OpenRequest[]>([]);
   const [myOffers, setMyOffers] = useState<MyOffer[]>([]);
   const [contacts, setContacts] = useState<Record<string, Contact>>({});
@@ -106,7 +109,7 @@ export default function DealerDashboard({
 
   const load = async () => {
     const sb = supabaseBrowser();
-    const { data: g } = await sb.from("garages").select("id,name").limit(1).maybeSingle();
+    const { data: g } = await sb.from("garages").select("id,name,tier").limit(1).maybeSingle();
     if (g) {
       setGarage(g);
       setState("active");
@@ -116,6 +119,8 @@ export default function DealerDashboard({
       ]);
       setOpenRequests((reqs ?? []) as OpenRequest[]);
       setMyOffers((offs ?? []) as MyOffer[]);
+      const { data: lim } = await sb.from("plan_limits").select("starter_monthly_offer_limit").single();
+      if (lim) setOfferLimit(lim.starter_monthly_offer_limit);
       for (const o of offs ?? []) {
         if (o.status === "accepted") {
           const { data } = await sb.rpc("contact_for_offer", { p_offer_id: o.id });
@@ -131,6 +136,15 @@ export default function DealerDashboard({
   useEffect(() => { void load(); }, []);
 
   const offeredRequestIds = useMemo(() => new Set(myOffers.map((o) => o.request_id)), [myOffers]);
+
+  // Starter quota: offers sent in the current calendar month (Pro = unlimited).
+  const isPro = garage?.tier === "pro";
+  const usedThisMonth = useMemo(() => {
+    const monthStart = new Date();
+    monthStart.setDate(1); monthStart.setHours(0, 0, 0, 0);
+    return myOffers.filter((o) => new Date(o.created_at) >= monthStart).length;
+  }, [myOffers]);
+  const quotaExhausted = !isPro && offerLimit !== null && usedThisMonth >= offerLimit;
 
   const openForm = (requestId: string, r: OpenRequest) => {
     setFormFor(requestId);
@@ -151,6 +165,10 @@ export default function DealerDashboard({
   const submitOffer = async (requestId: string) => {
     if (busy || !garage) return;
     setFormError(null);
+    if (quotaExhausted) {
+      setFormError(dict.limitReached);
+      return;
+    }
     if (!AS24_RE.test(form.url.trim())) {
       setFormError(dict.urlError);
       return;
@@ -246,6 +264,11 @@ export default function DealerDashboard({
             <span className="mx-2 text-white/20">·</span>
             {userEmail}
           </p>
+          {!isPro && offerLimit !== null && (
+            <p className={`mt-2 text-[11px] uppercase tracking-[0.14em] [font-family:var(--font-mono)] ${quotaExhausted ? "text-red" : "text-white/40"}`}>
+              {dict.quota} · {String(usedThisMonth).padStart(2, "0")}/{offerLimit}
+            </p>
+          )}
         </div>
         <button type="button" onClick={signout} className="text-[0.875rem] text-white/40 transition-colors hover:text-white">{dict.signout}</button>
       </div>

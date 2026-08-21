@@ -7,11 +7,11 @@
 //
 // Idempotent: prices are looked up by lookup_key before anything is created.
 //
-// ⚠️ PRICING IS A PLACEHOLDER. The public dealer page also marks pricing as
-// placeholder. Confirm real tiers/amounts with the business before go-live —
-// change AMOUNTS below, re-run, and update the secrets. Fees-per-win are NOT
-// configured here; they live in the billing_config table (spec §2, §7) and
-// launch at 0.
+// BUSINESS MODEL (locked 2026-08-21): plans differ ONLY by offer volume —
+// Starter = capped offers/month (limit in billing_config), Pro = unlimited.
+// AutoVerkauf takes NO commission on sales; the per-win fee machinery stays
+// at 0/disabled. These amounts are the real public pricing (dealer page
+// mirrors them) — change here, re-run, update the page.
 
 const key = process.env.STRIPE_SECRET_KEY;
 if (!key) {
@@ -26,19 +26,18 @@ if (!key.startsWith("sk_test_")) {
 // strings carry a release suffix; this is the current dahlia release.
 const API_VERSION = "2026-07-29.dahlia";
 
-// PLACEHOLDER tiers — confirm with the business before launch.
 const TIERS = [
   {
     lookupKey: "starter",
     productName: "AutoVerkauf Garage — Starter",
     monthlyChf: 49,
-    description: "Zugang zu Anfragen im eigenen Kanton, Angebote unbegrenzt.",
+    description: "Bis zu 10 Angebote pro Monat. Alle 26 Kantone, Händler-Dashboard, Käuferkontakt bei Zuschlag. Keine Verkaufskommission.",
   },
   {
     lookupKey: "pro",
     productName: "AutoVerkauf Garage — Pro",
     monthlyChf: 149,
-    description: "Ganze Schweiz, Prioritäts-Benachrichtigungen, Statistiken.",
+    description: "Unbegrenzte Angebote. Alle 26 Kantone, Händler-Dashboard, Käuferkontakt bei Zuschlag. Keine Verkaufskommission.",
   },
 ];
 
