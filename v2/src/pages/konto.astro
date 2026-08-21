@@ -42,11 +42,15 @@ const dict = {
   errAccept: t("konto.err.accept"),
   signout: t("auth.signout"),
   orSimilar: t("konto.orSimilar"),
+  year: t("konto.year"),
+  fuel: t("konto.fuel"),
+  gear: t("konto.gear"),
+  region: t("konto.region"),
 };
 ---
 
 <Base navTheme="light" title={`AutoVerkauf — ${t("konto.title")}`}>
-  <section data-nav="light" class="min-h-svh bg-paper px-[var(--gutter)] pb-24 pt-32">
+  <section data-nav="light" class="min-h-svh bg-paper-3 px-[var(--gutter)] pb-24 pt-28">
     <BuyerDashboard
       client:load
       dict={dict}

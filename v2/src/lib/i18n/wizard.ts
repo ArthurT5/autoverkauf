@@ -53,6 +53,9 @@ export interface WizardDict {
   optional: string;
   // step 6 — contact
   s6q: string;
+  s6qReady: string;
+  s6readyNote: string;
+  s6notYou: string;
   s6emailLabel: string;
   s6emailPlaceholder: string;
   s6emailError: string;
@@ -135,6 +138,9 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s5plzPlaceholder: "e.g. 8001",
     optional: "optional",
     s6q: "Where should offers go?",
+    s6qReady: "Ready to send?",
+    s6readyNote: "Offers land in your dashboard — you'll see them the moment a dealer responds.",
+    s6notYou: "Not you? Sign out",
     s6emailLabel: "Email",
     s6emailPlaceholder: "you@example.ch",
     s6emailError: "Please enter a valid email address.",
@@ -212,6 +218,9 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s5plzPlaceholder: "z. B. 8001",
     optional: "optional",
     s6q: "Wohin sollen die Angebote?",
+    s6qReady: "Bereit zum Senden?",
+    s6readyNote: "Angebote landen in deinem Dashboard — du siehst sie, sobald ein Händler antwortet.",
+    s6notYou: "Nicht du? Abmelden",
     s6emailLabel: "E-Mail",
     s6emailPlaceholder: "du@beispiel.ch",
     s6emailError: "Bitte gib eine gültige E-Mail-Adresse ein.",
@@ -289,6 +298,9 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s5plzPlaceholder: "p. ex. 1201",
     optional: "facultatif",
     s6q: "Où envoyer les offres ?",
+    s6qReady: "Prêt à envoyer ?",
+    s6readyNote: "Les offres arrivent dans votre tableau de bord — vous les verrez dès qu'un concessionnaire répond.",
+    s6notYou: "Ce n'est pas vous ? Se déconnecter",
     s6emailLabel: "E-mail",
     s6emailPlaceholder: "vous@exemple.ch",
     s6emailError: "Veuillez saisir une adresse e-mail valide.",
@@ -366,6 +378,9 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s5plzPlaceholder: "es. 6900",
     optional: "facoltativo",
     s6q: "Dove inviamo le offerte?",
+    s6qReady: "Pronto per l'invio?",
+    s6readyNote: "Le offerte arrivano nella tua dashboard — le vedrai appena un concessionario risponde.",
+    s6notYou: "Non sei tu? Esci",
     s6emailLabel: "E-mail",
     s6emailPlaceholder: "tu@esempio.ch",
     s6emailError: "Inserisci un indirizzo e-mail valido.",

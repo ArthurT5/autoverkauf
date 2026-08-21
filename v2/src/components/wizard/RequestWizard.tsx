@@ -80,12 +80,20 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
 
   useEffect(() => {
     // Already signed in → no password step, submit straight to the account.
-    supabaseBrowser().auth.getUser().then(({ data }) => {
-      if (data.user?.email) {
-        setSessionEmail(data.user.email);
-        setD((p) => ({ ...p, email: data.user!.email! }));
+    // Subscribe as well: the session can land after mount (cookie flush,
+    // token refresh, sign-out in another tab).
+    const sb = supabaseBrowser();
+    const apply = (email: string | null | undefined) => {
+      if (email) {
+        setSessionEmail(email);
+        setD((p) => ({ ...p, email }));
+      } else {
+        setSessionEmail(null);
       }
-    });
+    };
+    sb.auth.getSession().then(({ data }) => apply(data.session?.user.email));
+    const { data: sub } = sb.auth.onAuthStateChange((_evt, session) => apply(session?.user.email));
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   const set = (patch: Partial<Draft>) => setD((p) => ({ ...p, ...patch }));
@@ -504,8 +512,39 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
               </div>
             )}
 
-            {/* STEP 6 · contact */}
-            {step === 5 && (
+            {/* STEP 6 · account — signed-in users just review & send */}
+            {step === 5 && sessionEmail && (
+              <div>
+                <h1 className="wz-in text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium leading-[1.05] tracking-[-0.02em] text-ink-900 [font-family:var(--font-display)]">{dict.s6qReady}</h1>
+                <div className="wz-in mt-8 max-w-[26rem]">
+                  <div className="flex items-center gap-3 rounded-full border border-line-2 py-2 pl-2 pr-4">
+                    <span className="grid h-8 w-8 place-items-center rounded-full bg-red text-[0.8rem] font-semibold uppercase text-white">
+                      {sessionEmail[0]}
+                    </span>
+                    <span className="min-w-0 flex-1 truncate text-[0.9rem] text-ink-900">{sessionEmail}</span>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M3 7.5l2.5 2.5L11 4.5" stroke="var(--color-red)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={async () => { await supabaseBrowser().auth.signOut(); setSessionEmail(null); set({ email: "" }); }}
+                    className="mt-3 text-[0.85rem] text-ink-400 underline decoration-line-2 underline-offset-4 transition-colors hover:text-ink-900"
+                  >
+                    {dict.s6notYou}
+                  </button>
+
+                  {submitError && (
+                    <p role="alert" className="mt-5 rounded-[var(--radius-sm)] px-3.5 py-2.5 text-[0.875rem]" style={{ color: "var(--color-red-deep)", background: "oklch(0.6 0.2 27 / 0.06)", border: "1px solid oklch(0.6 0.2 27 / 0.3)" }}>
+                      {submitError}
+                    </p>
+                  )}
+
+                  <p className="mt-6 text-[0.9rem] leading-[1.6] text-ink-500">{dict.s6readyNote}</p>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 6 · account — new visitor: email + password */}
+            {step === 5 && !sessionEmail && (
               <div>
                 <h1 className="wz-in text-[clamp(1.9rem,3.6vw,2.9rem)] font-medium leading-[1.05] tracking-[-0.02em] text-ink-900 [font-family:var(--font-display)]">{dict.s6q}</h1>
                 <div className="wz-in mt-10 max-w-[26rem]">
@@ -526,12 +565,7 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
                     <p className="mt-2 text-[0.85rem]" style={{ color: "var(--color-red)" }}>{dict.s6emailError}</p>
                   )}
 
-                  {sessionEmail ? (
-                    <p className="mt-6 text-[0.85rem] text-ink-400">
-                      <span className="[font-family:var(--font-mono)] text-[0.8rem]">{dict.s6signedInAs}</span>{" "}
-                      <span className="text-ink-700">{sessionEmail}</span>
-                    </p>
-                  ) : (
+                  {(
                     <>
                       <label className="mt-8 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="wz-password">
                         {dict.s6password}

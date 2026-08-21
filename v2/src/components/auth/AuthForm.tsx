@@ -81,6 +81,9 @@ export default function AuthForm({ dict, defaultRedirect }: { dict: AuthDict; de
       setBusy(false);
       return;
     }
+    // Ensure the session cookie is flushed before navigating (avoids a race
+    // where the next page's client sees no session).
+    await supabase.auth.getSession();
     location.assign(redirectTo());
   };
 
