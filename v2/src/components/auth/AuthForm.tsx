@@ -24,6 +24,12 @@ export interface AuthDict {
   errGeneric: string;
   roleBuyer: string;
   roleDealer: string;
+  forgot: string;
+  resetTitle: string;
+  resetSub: string;
+  resetSend: string;
+  resetSent: string;
+  back: string;
 }
 
 export default function AuthForm({
@@ -31,7 +37,8 @@ export default function AuthForm({
 }: {
   dict: AuthDict; defaultRedirect: string; dealerRedirect: string;
 }) {
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "reset">("signin");
+  const [resetSent, setResetSent] = useState(false);
   const [role, setRole] = useState<"buyer" | "dealer">("buyer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -78,6 +85,16 @@ export default function AuthForm({
     e.preventDefault();
     if (busy) return;
     setError(null);
+    if (mode === "reset") {
+      setBusy(true);
+      // Same response whether the account exists or not (no enumeration).
+      await supabaseBrowser().auth.resetPasswordForEmail(email, {
+        redirectTo: `${location.origin}/passwort`,
+      });
+      setResetSent(true);
+      setBusy(false);
+      return;
+    }
     if (mode === "signup" && password.length < 8) {
       setError(dict.errWeak);
       return;
@@ -114,14 +131,15 @@ export default function AuthForm({
     <div ref={rootRef} className="mx-auto w-full max-w-[26rem]">
       <div className="af-in">
         <h1 className="text-[clamp(1.8rem,4vw,2.4rem)] font-medium leading-tight text-ink-900 [font-family:var(--font-display)]">
-          {signup ? dict.signupTitle : dict.signinTitle}
+          {mode === "reset" ? dict.resetTitle : signup ? dict.signupTitle : dict.signinTitle}
         </h1>
         <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-500">
-          {signup ? dict.signupSub : dict.signinSub}
+          {mode === "reset" ? dict.resetSub : signup ? dict.signupSub : dict.signinSub}
         </p>
       </div>
 
       {/* buyer / dealer segmented switch */}
+      {mode !== "reset" && (
       <div className="af-in mt-7 flex rounded-full border border-line-2 bg-paper-2 p-1" role="tablist" aria-label="Account type">
         {([["buyer", dict.roleBuyer], ["dealer", dict.roleDealer]] as const).map(([r, label]) => (
           <button
@@ -140,7 +158,9 @@ export default function AuthForm({
           </button>
         ))}
       </div>
+      )}
 
+      {mode !== "reset" && (
       <button
         type="button"
         onClick={google}
@@ -154,13 +174,21 @@ export default function AuthForm({
         </svg>
         {dict.google}
       </button>
+      )}
 
+      {mode !== "reset" && (
       <div className="af-in mt-6 flex items-center gap-4" aria-hidden="true">
         <span className="h-px flex-1 bg-line" />
         <span className="text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]">{dict.or}</span>
         <span className="h-px flex-1 bg-line" />
       </div>
+      )}
 
+      {mode === "reset" && resetSent ? (
+        <p className="af-in mt-8 rounded-[var(--radius-sm)] border border-line-2 bg-paper-2 px-4 py-4 text-[0.9rem] leading-relaxed text-ink-700" role="status">
+          {dict.resetSent}
+        </p>
+      ) : (
       <form onSubmit={submit} className="af-in mt-6">
         <label className="block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="af-email">
           {dict.email}
@@ -175,20 +203,33 @@ export default function AuthForm({
           className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.05rem] text-ink-900 outline-none transition-colors focus:border-ink-900"
         />
 
-        <label className="mt-6 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="af-password">
-          {dict.password}
-        </label>
-        <input
-          id="af-password"
-          type="password"
-          required
-          minLength={signup ? 8 : undefined}
-          autoComplete={signup ? "new-password" : "current-password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.05rem] text-ink-900 outline-none transition-colors focus:border-ink-900"
-        />
-        {signup && <p className="mt-2 text-[0.8rem] text-ink-400">{dict.passwordHint}</p>}
+        {mode !== "reset" && (
+          <>
+            <label className="mt-6 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="af-password">
+              {dict.password}
+            </label>
+            <input
+              id="af-password"
+              type="password"
+              required
+              minLength={signup ? 8 : undefined}
+              autoComplete={signup ? "new-password" : "current-password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.05rem] text-ink-900 outline-none transition-colors focus:border-ink-900"
+            />
+            {signup && <p className="mt-2 text-[0.8rem] text-ink-400">{dict.passwordHint}</p>}
+            {mode === "signin" && (
+              <button
+                type="button"
+                onClick={() => { setMode("reset"); setError(null); }}
+                className="mt-3 text-[0.82rem] text-ink-400 underline decoration-line-2 underline-offset-4 transition-colors hover:text-ink-900"
+              >
+                {dict.forgot}
+              </button>
+            )}
+          </>
+        )}
 
         {error && (
           <p role="alert" className="mt-4 rounded-[var(--radius-sm)] border border-red/30 bg-red/5 px-3 py-2.5 text-[0.85rem] text-red-deep">
@@ -201,16 +242,17 @@ export default function AuthForm({
           disabled={busy}
           className="mt-8 flex w-full items-center justify-center rounded-[var(--radius-sm)] bg-red px-4 py-3.5 text-[0.95rem] font-medium text-white transition-colors hover:bg-red-deep disabled:opacity-60"
         >
-          {signup ? dict.signupCta : dict.signinCta}
+          {mode === "reset" ? dict.resetSend : signup ? dict.signupCta : dict.signinCta}
         </button>
       </form>
+      )}
 
       <button
         type="button"
-        onClick={() => { setMode(signup ? "signin" : "signup"); setError(null); }}
+        onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setResetSent(false); setError(null); }}
         className="af-in mt-6 w-full text-center text-[0.875rem] text-ink-500 transition-colors hover:text-ink-900"
       >
-        {signup ? dict.toSignin : dict.toSignup}
+        {mode === "reset" ? dict.back : signup ? dict.toSignin : dict.toSignup}
       </button>
     </div>
   );

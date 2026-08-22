@@ -343,3 +343,8 @@ create policy "garage owner submits offers" on public.offers for insert
     and public.request_is_open(request_id)
     and public.garage_within_offer_quota(garage_id)
   );
+
+-- Users may create their own profile row (signup trigger normally does it,
+-- but client-side upserts need the insert path too).
+create policy "own profile insert" on public.profiles for insert
+  with check (id = auth.uid());

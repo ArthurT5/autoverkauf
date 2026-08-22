@@ -1,0 +1,28 @@
+---
+import Base from "@/layouts/Base.astro";
+import NewPassword from "@/components/auth/NewPassword.tsx";
+import { getLangFromUrl, useTranslations, localizedPath } from "@/lib/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const dict = {
+  title: t("pw.title"),
+  sub: t("pw.sub"),
+  newPassword: t("pw.new"),
+  passwordHint: t("auth.password.hint"),
+  save: t("pw.save"),
+  errLink: t("pw.err.link"),
+  errSave: t("pw.err.save"),
+  errWeak: t("auth.err.weak"),
+  back: t("auth.back"),
+};
+---
+
+<Base navTheme="light" title={`AutoVerkauf — ${t("pw.title")}`}>
+  <section data-nav="light" class="flex min-h-svh items-center bg-paper px-[var(--gutter)] pb-20 pt-32">
+    <div class="mx-auto w-full max-w-[82rem]">
+      <NewPassword client:load dict={dict} kontoHref={localizedPath("/konto", lang)} loginHref={localizedPath("/login", lang)} />
+    </div>
+  </section>
+</Base>

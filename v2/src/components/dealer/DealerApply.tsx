@@ -78,6 +78,12 @@ export default function DealerApply({ dict, lang, kontoHref }: { dict: DealerApp
           userId = data.user.id;
         }
       }
+      await sb.from("profiles").upsert({
+        id: userId!,
+        display_name: form.contact.trim() || null,
+        phone: form.phone.trim() || null,
+      }, { onConflict: "id" });
+
       const { error: insErr } = await sb.from("dealer_applications").insert({
         user_id: userId!,
         locale: lang,

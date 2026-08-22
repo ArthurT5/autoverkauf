@@ -61,6 +61,8 @@ export interface WizardDict {
   s6emailError: string;
   s6note: string;
   s6password: string;
+  s6name: string;
+  s6phone: string;
   s6passwordHint: string;
   s6haveAccount: string;
   s6newHere: string;
@@ -147,6 +149,8 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6note: "Verified Swiss dealers answer your request. You stay anonymous — dealers only see your requirements, never your contact details, until you choose an offer.",
     s6password: "Password",
     s6passwordHint: "At least 8 characters — this creates your account, so every offer lands in your dashboard.",
+    s6name: "Your name",
+    s6phone: "Phone",
     s6haveAccount: "Already have an account? Sign in",
     s6newHere: "New here? Create an account",
     s6signedInAs: "Signed in as",
@@ -227,6 +231,8 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6note: "Verifizierte Schweizer Händler beantworten deine Anfrage. Du bleibst anonym — Händler sehen nur deine Kriterien, nie deine Kontaktdaten, bis du ein Angebot wählst.",
     s6password: "Passwort",
     s6passwordHint: "Mindestens 8 Zeichen — damit entsteht dein Konto, und jedes Angebot landet in deinem Dashboard.",
+    s6name: "Dein Name",
+    s6phone: "Telefon",
     s6haveAccount: "Schon ein Konto? Anmelden",
     s6newHere: "Neu hier? Konto erstellen",
     s6signedInAs: "Angemeldet als",
@@ -307,6 +313,8 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6note: "Des garages suisses vérifiés répondent à votre demande. Vous restez anonyme — les garages voient uniquement vos critères, jamais vos coordonnées, jusqu'à ce que vous choisissiez une offre.",
     s6password: "Mot de passe",
     s6passwordHint: "Au moins 8 caractères — cela crée votre compte, et chaque offre arrive dans votre tableau de bord.",
+    s6name: "Votre nom",
+    s6phone: "Téléphone",
     s6haveAccount: "Déjà un compte ? Se connecter",
     s6newHere: "Nouveau ici ? Créer un compte",
     s6signedInAs: "Connecté en tant que",
@@ -387,6 +395,8 @@ export const wizardDicts: Record<"en" | "de" | "fr" | "it", WizardDict> = {
     s6note: "Garage svizzeri verificati rispondono alla tua richiesta. Resti anonimo — i garage vedono solo i tuoi criteri, mai i tuoi contatti, finché non scegli un'offerta.",
     s6password: "Password",
     s6passwordHint: "Almeno 8 caratteri — così nasce il tuo account e ogni offerta arriva nella tua dashboard.",
+    s6name: "Il tuo nome",
+    s6phone: "Telefono",
     s6haveAccount: "Hai già un account? Accedi",
     s6newHere: "Nuovo qui? Crea un account",
     s6signedInAs: "Accesso come",

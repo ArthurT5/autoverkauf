@@ -73,6 +73,8 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
 
   /* ── account step state: the email becomes the buyer's account ── */
   const [password, setPassword] = useState("");
+  const [buyerName, setBuyerName] = useState("");
+  const [buyerPhone, setBuyerPhone] = useState("");
   const [haveAccount, setHaveAccount] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -136,14 +138,15 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
   /* ── validity per step ── */
   const emailOk = EMAIL_RE.test(d.email.trim());
   const passwordOk = sessionEmail !== null || password.length >= (haveAccount ? 1 : 8);
+  const nameOk = sessionEmail !== null || haveAccount || buyerName.trim().length >= 2;
   const canNext = useMemo(() => {
     switch (step) {
       case 0: return d.make !== null;
       case 4: return d.canton !== null;
-      case 5: return emailOk && passwordOk;
+      case 5: return emailOk && passwordOk && nameOk;
       default: return true;
     }
-  }, [step, d.make, d.canton, emailOk, passwordOk]);
+  }, [step, d.make, d.canton, emailOk, passwordOk, nameOk]);
 
   const next = () => {
     if (!canNext) { if (step === 5) setEmailTouched(true); return; }
@@ -188,6 +191,14 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
           if (!data.user) throw new Error("generic");
           userId = data.user.id;
         }
+      }
+
+      if (buyerName.trim() || buyerPhone.trim()) {
+        await sb.from("profiles").upsert({
+          id: userId,
+          ...(buyerName.trim() ? { display_name: buyerName.trim() } : {}),
+          ...(buyerPhone.trim() ? { phone: buyerPhone.trim() } : {}),
+        }, { onConflict: "id" });
       }
 
       const { error: insErr } = await sb.from("requests").insert({
@@ -568,6 +579,32 @@ export default function RequestWizard({ dict, lang, homeHref, kontoHref }: { dic
 
                   {(
                     <>
+                      {!haveAccount && (
+                        <>
+                          <label className="mt-8 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="wz-name">
+                            {dict.s6name}
+                          </label>
+                          <input
+                            id="wz-name"
+                            type="text"
+                            autoComplete="name"
+                            value={buyerName}
+                            onChange={(e) => setBuyerName(e.target.value)}
+                            className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.3rem] font-medium text-ink-900 outline-none transition-colors focus:border-ink-900"
+                          />
+                          <label className="mt-8 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="wz-phone">
+                            {dict.s6phone} <span className="normal-case tracking-normal text-ink-400/70">· {dict.optional}</span>
+                          </label>
+                          <input
+                            id="wz-phone"
+                            type="tel"
+                            autoComplete="tel"
+                            value={buyerPhone}
+                            onChange={(e) => setBuyerPhone(e.target.value)}
+                            className="mt-2 w-full border-b border-line-2 bg-transparent pb-2 text-[1.3rem] font-medium text-ink-900 outline-none transition-colors focus:border-ink-900"
+                          />
+                        </>
+                      )}
                       <label className="mt-8 block text-[11px] uppercase tracking-[0.14em] text-ink-400 [font-family:var(--font-mono)]" htmlFor="wz-password">
                         {dict.s6password}
                       </label>
