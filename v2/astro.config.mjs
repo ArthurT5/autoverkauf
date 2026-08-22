@@ -28,5 +28,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // Bundle gsap into the server build: its dual CJS/ESM packaging breaks
+    // under Vercel's runtime module loader when left external.
+    ssr: { noExternal: ["gsap"] },
   },
 });
