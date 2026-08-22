@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { supabaseBrowser } from "@/lib/auth/client";
 import { chf } from "@/lib/format";
 import { gsap } from "@/lib/gsap";
+import { SUPABASE_URL } from "@/lib/supabase-config";
 
 export interface KontoDict {
   title: string;
@@ -80,7 +81,7 @@ interface OfferRow {
 interface GarageCard { id: string; name: string; canton: string | null }
 interface Contact { role: string; name: string | null; email: string | null; phone: string | null }
 
-const PHOTO_BASE = `${import.meta.env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/offer-photos/`;
+const PHOTO_BASE = `${SUPABASE_URL}/storage/v1/object/public/offer-photos/`;
 
 /* ── small building blocks ── */
 

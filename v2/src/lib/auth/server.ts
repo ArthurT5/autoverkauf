@@ -3,12 +3,10 @@
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import type { AstroCookies } from "astro";
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from "@/lib/supabase-config";
 
 export function supabaseServer(request: Request, cookies: AstroCookies): SupabaseClient {
-  return createServerClient(
-    import.meta.env.PUBLIC_SUPABASE_URL,
-    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
-    {
+  return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       cookies: {
         getAll() {
           return parseCookieHeader(request.headers.get("cookie") ?? "").map((c) => ({
