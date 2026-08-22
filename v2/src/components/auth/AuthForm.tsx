@@ -57,11 +57,19 @@ export default function AuthForm({
     // ?as=dealer preselects the dealer side (used by dealer-page links).
     if (new URLSearchParams(location.search).get("as") === "dealer") setRole("dealer");
     // Already signed in → straight to the dashboard.
-    supabaseBrowser().auth.getUser().then(({ data }) => {
-      if (data.user) location.replace(redirectTo(
-        new URLSearchParams(location.search).get("as") === "dealer" ? "dealer" : "buyer",
-      ));
+    const dest = () => redirectTo(
+      new URLSearchParams(location.search).get("as") === "dealer" ? "dealer" : "buyer",
+    );
+    const sb = supabaseBrowser();
+    sb.auth.getUser().then(({ data }) => {
+      if (data.user) location.replace(dest());
     });
+    // OAuth return: ?code is exchanged async on load — forward when the
+    // session appears.
+    const { data: sub } = sb.auth.onAuthStateChange((_evt, session) => {
+      if (session) location.replace(dest());
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -118,9 +126,10 @@ export default function AuthForm({
 
   const google = async () => {
     setError(null);
+    const back = `${location.origin}${location.pathname}?redirect=${encodeURIComponent(redirectTo())}`;
     const { error: err } = await supabaseBrowser().auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${location.origin}${redirectTo()}` },
+      options: { redirectTo: back },
     });
     if (err) setError(dict.errGeneric);
   };
